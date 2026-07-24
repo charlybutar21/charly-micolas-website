@@ -1,0 +1,78 @@
+.contact {
+  margin: 0 auto;
+  padding: 100px 0;
+  max-width: 600px;
+  text-align: center;
+}
+
+.sectionTitle {
+  color: var(--accent);
+  font-family: var(--font-fira-code), monospace;
+  font-size: clamp(16px, 3vw, 20px);
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 20px 0;
+}
+
+.text {
+  font-size: 1.1rem;
+  color: var(--secondary);
+  line-height: 1.7;
+  margin-bottom: 50px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.primaryButton {
+  border-radius: 6px;
+  padding: 1.25rem 2.5rem;
+  font-size: 1.1rem;
+  font-family: var(--font-fira-code), monospace;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  box-shadow: 0 4px 14px 0 var(--accent-glow);
+}
+
+.primaryButton:hover {
+  background-color: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  transform: translateY(-2px);
+}
+
+.socials {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.socialLink {
+  color: var(--secondary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.socialLink:hover {
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-glow);
+  transform: translateY(-2px);
+}
