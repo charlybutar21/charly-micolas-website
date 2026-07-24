@@ -9,14 +9,14 @@ export default function Education() {
       </h3>
       <div className={styles.eduGrid}>
         {portfolioData.education.map((edu, idx) => (
-          <div key={idx} className={`glass-card ${styles.eduCard}`}>
+          <article key={idx} className={`glass-card ${styles.eduCard}`}>
             <h4 className={styles.degree}>{edu.degree}</h4>
             <h5 className={styles.institution}>{edu.institution}</h5>
             <div className={styles.meta}>
               <span className={`mono ${styles.date}`}>{edu.graduationDate}</span>
               <span className={styles.location}>{edu.location}</span>
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>

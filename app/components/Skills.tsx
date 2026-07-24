@@ -10,14 +10,14 @@ export default function Skills() {
       <div className={styles.content}>
         <div className={styles.categoryGrid}>
           {portfolioData.skills.map((skillGroup, index) => (
-            <div key={index} className={`glass-card ${styles.skillCategory}`}>
+            <article key={index} className={`glass-card ${styles.skillCategory}`}>
               <h4 className={styles.categoryTitle}>{skillGroup.category}</h4>
               <ul className={styles.skillList}>
                 {skillGroup.items.map((skill, sIdx) => (
                   <li key={sIdx} className={`mono ${styles.skillItem}`}>{skill}</li>
                 ))}
               </ul>
-            </div>
+            </article>
           ))}
         </div>
       </div>

@@ -9,7 +9,7 @@ export default function Experience() {
       </h3>
       <div className={styles.jobs}>
         {portfolioData.experience.map((job, idx) => (
-          <div key={idx} className={`glass-card ${styles.jobCard}`}>
+          <article key={idx} className={`glass-card ${styles.jobCard}`}>
             <div className={styles.jobHeader}>
               <h4 className={styles.role}>
                 {job.role} <span className={styles.company}>@ {job.company}</span>
@@ -26,7 +26,7 @@ export default function Experience() {
                 <span key={sIdx} className={styles.skillBadge}>{skill}</span>
               ))}
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>
