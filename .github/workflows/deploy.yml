@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline (cPanel FTP Deploy)
 
 on:
   push:
@@ -8,13 +8,9 @@ on:
     branches:
       - main
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
 jobs:
-  lint-and-build:
-    name: Lint and Build Test
+  build-and-deploy:
+    name: Build & Deploy to cPanel
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -32,70 +28,19 @@ jobs:
       - name: Run Linter
         run: npm run lint
 
-      - name: Test Build
+      - name: Build Static Site
+        # This will output static files to the /out directory
         run: npm run build
 
-  docker-publish:
-    name: Build & Push Docker Image
-    needs: lint-and-build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
+      - name: Deploy to cPanel via FTP
+        # Only deploy when pushing to main (not on pull requests)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
-
-  deploy:
-    name: Deploy to Production Server
-    needs: docker-publish
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            # 1. Login to GHCR on the server
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            
-            # 2. Pull the latest image
-            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
-            
-            # 3. Ensure the project directory exists and create docker-compose.yml on the fly (if not using git pull)
-            mkdir -p ~/portfolio && cd ~/portfolio
-            
-            # (Assuming you already have your docker-compose.yml and .env configured on the server)
-            # You can restart the container using compose:
-            docker compose pull
-            docker compose up -d
-            
-            # 4. Clean up unused images
-            docker image prune -af
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Path inside the repository to upload (Next.js static export folder)
+          local-dir: ./out/
+          # Path on the server where the files should go (usually public_html or the domain root)
+          server-dir: ./public_html/
