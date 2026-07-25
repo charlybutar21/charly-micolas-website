@@ -3,12 +3,12 @@ import { PortfolioData } from "../types";
 export const portfolioData: PortfolioData = {
   hero: {
     name: "Charly Micolas Butarbutar.",
-    role: "Senior Backend Engineer.",
+    role: "Software Engineer Backend.",
     tagline: "Architecting highly scalable, cloud-native microservices. I specialize in designing robust backend systems for SaaS, PropTech, and FinTech platforms, focusing on performance, reliability, and clean code."
   },
   about: {
     paragraphs: [
-      "Hello! I'm Charly, a results-driven Senior Backend Engineer with a deep passion for system architecture and solving complex engineering challenges. My journey into software engineering began during my Computer Science studies at the University of Indonesia, which laid a strong foundation in computational thinking.",
+      "Hello! I'm Charly, a results-driven Software Engineer Backend with a deep passion for system architecture and solving complex engineering challenges. My journey into software engineering began during my Computer Science studies at the Del Institute of Technology and University of Indonesia, which laid a strong foundation in computational thinking.",
       "With over 8 years of professional experience across diverse sectors—including SaaS supply chain, property technology, and peer-to-peer financial technology—I've developed a strong intuition for building systems that scale gracefully under pressure.",
       "Currently, my core focus lies in leading engineering initiatives, refactoring monolithic legacy systems into agile microservices, and elevating team standards through rigorous code reviews and mentorship. I am obsessed with continuous optimization and delivering measurable business impact through technology."
     ]
@@ -16,15 +16,15 @@ export const portfolioData: PortfolioData = {
   skills: [
     {
       category: "Languages & Core",
-      items: ["Java", "Golang", "TypeScript", "OOP", "Clean Architecture"]
+      items: ["Java", "Golang", "OOP", "Clean Architecture"]
     },
     {
       category: "Architecture & Frameworks",
-      items: ["Spring Boot", "Microservices", "RESTful APIs", "gRPC", "Event-Driven Design"]
+      items: ["Spring Boot", "Microservices", "RESTful APIs", "Event-Driven Design"]
     },
     {
       category: "Cloud & DevOps",
-      items: ["Docker", "Kubernetes", "AWS", "GCP", "CI/CD", "GitLab CI"]
+      items: ["Docker", "AWS", "GCP", "CI/CD", "GitLab CI"]
     },
     {
       category: "Databases & Brokers",
@@ -57,7 +57,7 @@ export const portfolioData: PortfolioData = {
       skills: ["Java", "Spring Boot", "PostgreSQL", "Microservices", "Apollo"]
     },
     {
-      company: "PT Advotics Technology Global",
+      company: "PT Advotics Technology Global (Advotics)",
       role: "Freelance Software Engineer",
       period: "Jun 2023 - Jan 2024",
       location: "Remote",
@@ -80,7 +80,7 @@ export const portfolioData: PortfolioData = {
       skills: ["Golang", "PostgreSQL", "Redis", "GCP", "Unit Testing"]
     },
     {
-      company: "PT Advotics Technology Global",
+      company: "PT Advotics Technology Global (Advotics)",
       role: "Software Engineer & Team Lead",
       period: "Sep 2017 - Aug 2021",
       location: "Remote",
@@ -118,7 +118,7 @@ export const portfolioData: PortfolioData = {
     }
   ],
   contact: {
-    email: "charlymicolasbutar@gmail.com",
+    email: "charlymicolas21@gmail.com",
     linkedin: "https://linkedin.com/in/charly-micolas",
     github: "https://github.com/charlybutar21"
   }
