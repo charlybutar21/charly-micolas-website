@@ -1,4 +1,4 @@
-# Charly Micolas - Senior Backend Engineer Portfolio
+# Charly Micolas - Software Engineer Backend Portfolio
 
 Welcome to the source code of my professional portfolio website! This project is built with **Next.js 15**, **TypeScript**, and **CSS Modules** to showcase a robust, scalable, and visually premium representation of my work as a Senior Backend Engineer.
 
