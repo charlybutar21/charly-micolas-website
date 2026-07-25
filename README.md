@@ -52,7 +52,7 @@ While the production deployment uses Static Export for Shared Hosting compatibil
 2. Open [http://localhost:3005](http://localhost:3005) (Mapped to port 3005 to avoid port collisions).
 
 ## 🔄 CI/CD Pipeline (GitHub Actions for cPanel Shared Hosting)
-
+[public](public)
 This project is configured to deploy seamlessly to standard Shared Hosting environments (like cPanel) where Docker is not supported. It uses a **Static HTML Export** strategy.
 
 Whenever code is pushed or merged into the `main` branch, the `.github/workflows/deploy.yml` pipeline executes the following stages:

@@ -14,7 +14,29 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   title: "Charly Micolas Butarbutar | Backend Software Engineer",
-  description: "Experienced Backend Software Engineer with over 8 years of experience in SaaS, PropTech, and FinTech.",
+  description: "Experienced Backend Software Engineer with over 8 years of experience in SaaS, PropTech, and FinTech. Portfolio of Charly Micolas.",
+  keywords: [
+    "Charly Micolas", 
+    "Charly Micolas Butarbutar", 
+    "Backend Engineer", 
+    "Software Engineer", 
+    "Tech Lead", 
+    "Jakarta", 
+    "Indonesia",
+    "Go",
+    "Node.js",
+    "PostgreSQL"
+  ],
+  authors: [{ name: "Charly Micolas Butarbutar", url: "http://charlymicolas.com" }],
+  creator: "Charly Micolas Butarbutar",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "http://charlymicolas.com",
+    title: "Charly Micolas Butarbutar | Backend Software Engineer",
+    description: "Portfolio of Charly Micolas Butarbutar, a Backend Software Engineer with over 8 years of experience in SaaS, PropTech, and FinTech.",
+    siteName: "Charly Micolas Portfolio",
+  },
 };
 
 export default function RootLayout({
