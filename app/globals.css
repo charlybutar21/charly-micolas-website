@@ -125,11 +125,13 @@ a:hover {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: 100px;
 }
 
 @media (max-width: 768px) {
   .container {
     padding: 1.5rem;
+    padding-top: 80px;
   }
 }
 

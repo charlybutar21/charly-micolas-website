@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Fira_Code } from "next/font/google";
+import Navbar from "./components/Navbar";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -52,6 +53,7 @@ export default function RootLayout({
           <div className="aurora-blob aurora-blob-2"></div>
           <div className="aurora-blob aurora-blob-3"></div>
         </div>
+        <Navbar />
         {children}
       </body>
     </html>
