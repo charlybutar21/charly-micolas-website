@@ -8,40 +8,52 @@ export const portfolioData: PortfolioData = {
   },
   about: {
     paragraphs: [
-      "Hello! I'm Charly, a results-driven Software Engineer Backend with a deep passion for system architecture and solving complex engineering challenges. My journey into software engineering began during my Computer Science studies at the Del Institute of Technology and University of Indonesia, which laid a strong foundation in computational thinking.",
-      "With over 8 years of professional experience across diverse sectors—including SaaS supply chain, property technology, and peer-to-peer financial technology—I've developed a strong intuition for building systems that scale gracefully under pressure.",
-      "Currently, my core focus lies in leading engineering initiatives, refactoring monolithic legacy systems into agile microservices, and elevating team standards through rigorous code reviews and mentorship. I am obsessed with continuous optimization and delivering measurable business impact through technology."
+      "Hello! I'm Charly, a Backend Software Engineer with over 8 years of experience building and maintaining software systems.",
+      "I started my software engineering journey while studying Computer Science at Del Institute of Technology and the University of Indonesia. Since then, I’ve worked across several industries, including SaaS, supply chain, property technology, and fintech.",
+      "My main experience is in backend development, system design, and building scalable services. I also have experience working with microservices, cloud platforms, and improving existing systems to make them more reliable and maintainable.",
+      "Currently, I’m also involved in leading engineering initiatives, reviewing code, mentoring team members, and working with the team to deliver reliable solutions that support business needs.",
+      "I enjoy learning new technologies, solving engineering problems, and continuously improving the way software is built."
     ]
   },
   skills: [
     {
       category: "Languages & Core",
-      items: ["Java", "Golang", "OOP", "Clean Architecture"]
+      items: ["Java", "Golang", "OOP", "Clean Code", "Design Patterns"]
     },
     {
       category: "Architecture & Frameworks",
-      items: ["Spring Boot", "Microservices", "RESTful APIs", "Event-Driven Design"]
+      items: ["Spring Boot", "Microservices", "RESTful APIs", "Event-Driven Design", "System Design"]
     },
     {
       category: "Cloud & DevOps",
-      items: ["Docker", "AWS", "GCP", "CI/CD", "GitLab CI"]
+      items: ["Docker", "AWS", "GCP", "CI/CD", "GitLab CI", "Maven"]
     },
     {
       category: "Databases & Brokers",
       items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Kafka", "RabbitMQ"]
-    }
+    },
+    {
+      category: "Engineering Practices",
+      items: ["Unit Testing", "Code Review", "Observability"]
+    },
+    {
+      category: "Project Management",
+      items: ["Planning", "Task Management", "Sprint Planning", "Team/Stakeholder Coordination"]
+    },
   ],
   experience: [
     {
-      company: "PT Progo Puncak Group (Pinjamin)",
+      company: "PT Progo Puncak Group - Pinjamin",
       role: "Senior Software Engineer",
       period: "June 2024 - Present",
-      location: "Jakarta Selatan",
+      location: "South Jakarta",
       description: [
-        "Spearheaded the development and continuous maintenance of critical internal systems for telemarketing, collection, and QC, resulting in heightened operational efficiency and system reliability.",
-        "Served as the primary technical anchor for high-severity issue resolution, ensuring seamless cross-functional collaboration with product teams to deliver rapid solutions.",
-        "Architected the refactoring of deeply entrenched legacy codebases, significantly reducing technical debt, optimizing query performance, and vastly improving long-term maintainability.",
-        "Orchestrated alignment between local and HQ engineering teams, driving consensus on architecture standards, delivery timelines, and engineering best practices."
+        "Lead development activities for internal systems supporting telemarketing, collection, QC, and management operations.",
+        "Break down requirements and development initiatives into clear tasks and priorities for the engineering team.",
+        "Coordinate with local and HQ engineering teams to align on technical solutions, priorities, and delivery timelines.",
+        "Support the team in technical issue resolution, code reviews, and development decisions to ensure quality and smooth delivery.",
+        "Improve existing systems by refactoring legacy code, reducing technical debt, and improving system performance and maintainability.",
+        "Maintain technical documentation and audit evidence to support internal and external compliance requirements."
       ],
       skills: ["Java", "Spring Boot", "Microservices", "MySQL", "Redis", "RabbitMQ", "Docker"]
     },
@@ -73,8 +85,8 @@ export const portfolioData: PortfolioData = {
       period: "Sep 2021 - May 2023",
       location: "Remote",
       description: [
-        "Took end-to-end ownership of highly visible features within the agent and lead backend services, mastering the full Software Development Life Cycle (SDLC) from system design to cloud deployment.",
-        "Drastically reduced system latency and technical debt through proactive bug resolution and strategic code refactoring.",
+        "Collaborated with the technical lead to assess technical requirements and break down tasks for upcoming sprints, ensuring alignment with business goals and timely delivery.",
+        "Took ownership of features end-to-end within agent and lead backend services handling design, development, testing, documentation, and deployment demonstrating strong command of the full software development lifecycle (SDLC).",
         "Mentored 3 junior engineers, elevating the overall engineering culture and code quality by establishing strict, structured code review protocols."
       ],
       skills: ["Golang", "PostgreSQL", "Redis", "GCP", "Unit Testing"]
