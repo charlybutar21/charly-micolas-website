@@ -14,8 +14,8 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Charly Micolas Butarbutar | Backend Software Engineer",
-  description: "Experienced Backend Software Engineer with over 8 years of experience in SaaS, PropTech, and FinTech. Portfolio of Charly Micolas.",
+  title: "Charly Micolas Butarbutar | Senior Software Engineer",
+  description: "Editorial portfolio of Charly Micolas Butarbutar, a backend-focused Senior Software Engineer specialising in technical leadership, service integration, and reliable delivery.",
   keywords: [
     "Charly Micolas", 
     "Charly Micolas Butarbutar", 
@@ -25,17 +25,18 @@ export const metadata: Metadata = {
     "Jakarta", 
     "Indonesia",
     "Go",
-    "Node.js",
+    "Java",
+    "Microservices",
     "PostgreSQL"
   ],
-  authors: [{ name: "Charly Micolas Butarbutar", url: "http://charlymicolas.com" }],
+  authors: [{ name: "Charly Micolas Butarbutar", url: "https://charlymicolas.com" }],
   creator: "Charly Micolas Butarbutar",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "http://charlymicolas.com",
-    title: "Charly Micolas Butarbutar | Backend Software Engineer",
-    description: "Portfolio of Charly Micolas Butarbutar, a Backend Software Engineer with over 8 years of experience in SaaS, PropTech, and FinTech.",
+    url: "https://charlymicolas.com",
+    title: "Charly Micolas Butarbutar | Senior Software Engineer",
+    description: "Editorial portfolio of Charly Micolas Butarbutar, a backend-focused Senior Software Engineer specialising in technical leadership, service integration, and reliable delivery.",
     siteName: "Charly Micolas Portfolio",
   },
 };
