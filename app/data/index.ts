@@ -68,7 +68,6 @@ export const portfolioData: PortfolioData = {
         'Docker Compose',
         'Maven',
         'Gradle',
-        'CI/CD',
       ],
     },
     {
