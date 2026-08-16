@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { expect, it } from 'vitest';
-import SkillIndex from '../app/components/SkillIndex';
+import SkillIndex from '../app/components/portfolio/SkillIndex';
 
 it('renders sampled CV skills with visual marks and text labels', () => {
   const markup = renderToStaticMarkup(<SkillIndex />);

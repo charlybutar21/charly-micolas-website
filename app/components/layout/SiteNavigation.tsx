@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { navigationGroups } from '../lib/navigation';
+import { navigationGroups } from '@/app/lib/navigation';
 import styles from './SiteNavigation.module.css';
 
 function isCurrentPath(pathname: string, href: string) {

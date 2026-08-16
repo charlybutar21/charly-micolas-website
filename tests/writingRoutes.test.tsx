@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { expect, it } from 'vitest';
 
-import WritingList from '../app/components/WritingList';
+import WritingList from '../app/components/portfolio/WritingList';
 
 it('links the placeholder personal post from the writing index', () => {
   const markup = renderToStaticMarkup(<WritingList />);

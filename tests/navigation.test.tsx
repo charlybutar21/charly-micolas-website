@@ -5,7 +5,7 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/technical-skills',
 }));
 
-import SiteNavigation from '../app/components/SiteNavigation';
+import SiteNavigation from '../app/components/layout/SiteNavigation';
 
 it('renders the six grouped routes and marks the current page', () => {
   const markup = renderToStaticMarkup(<SiteNavigation />);

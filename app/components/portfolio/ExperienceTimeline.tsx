@@ -1,4 +1,4 @@
-import { portfolioData } from '../data';
+import { portfolioData } from '@/app/data';
 import styles from './ExperienceTimeline.module.css';
 
 export default function ExperienceTimeline() {

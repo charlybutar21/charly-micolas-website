@@ -1,5 +1,5 @@
-import { portfolioData } from '../data';
-import { getSkillMark } from '../lib/skill-icons';
+import { portfolioData } from '@/app/data';
+import { getSkillMark } from '@/app/lib/skill-icons';
 import styles from './SkillIndex.module.css';
 
 function SkillMark({ skill }: { skill: string }) {

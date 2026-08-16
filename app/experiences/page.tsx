@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import ExperienceTimeline from '../components/ExperienceTimeline';
-import PageIntro from '../components/PageIntro';
+import ExperienceTimeline from '@/app/components/portfolio/ExperienceTimeline';
+import PageIntro from '@/app/components/shared/PageIntro';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {

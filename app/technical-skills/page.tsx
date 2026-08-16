@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import PageIntro from '../components/PageIntro';
-import SkillIndex from '../components/SkillIndex';
+import SkillIndex from '@/app/components/portfolio/SkillIndex';
+import PageIntro from '@/app/components/shared/PageIntro';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
