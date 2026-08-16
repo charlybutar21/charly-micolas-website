@@ -1,0 +1,23 @@
+import { renderToStaticMarkup } from 'react-dom/server';
+import { describe, expect, it } from 'vitest';
+import ContactLinks from '../app/components/ContactLinks';
+import Home from '../app/page';
+
+describe('editorial core routes', () => {
+  it('keeps the approved identity and introduction', () => {
+    const markup = renderToStaticMarkup(<Home />);
+
+    expect(markup).toContain('Charly Micolas Butarbutar');
+    expect(markup).toContain('Senior Software Engineer');
+  });
+
+  it('renders email and professional links without telephone output', () => {
+    const markup = renderToStaticMarkup(<ContactLinks />);
+
+    expect(markup).toContain('mailto:charlymicolasbutar@gmail.com');
+    expect(markup).toContain('linkedin.com/in/charly-micolas');
+    expect(markup).toContain('github.com/charlybutar21');
+    expect(markup).not.toContain('tel:');
+    expect(markup).not.toContain('813-1872');
+  });
+});
