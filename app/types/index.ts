@@ -19,6 +19,16 @@ export interface SkillCategory {
   items: string[];
 }
 
+export interface WritingPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  publishedOn: string;
+  readingTime: string;
+  status: 'Draft';
+  body: string[];
+}
+
 export interface PortfolioData {
   hero: {
     name: string;
@@ -32,9 +42,9 @@ export interface PortfolioData {
   skills: SkillCategory[];
   experience: ExperienceData[];
   education: EducationData[];
+  writing: WritingPost[];
   contact: {
     email: string;
-    phone: string;
     linkedin: string;
     github: string;
   };
