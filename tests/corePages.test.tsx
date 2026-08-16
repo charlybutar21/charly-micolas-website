@@ -17,6 +17,10 @@ describe('editorial core routes', () => {
     expect(markup).toContain('mailto:charlymicolasbutar@gmail.com');
     expect(markup).toContain('linkedin.com/in/charly-micolas');
     expect(markup).toContain('github.com/charlybutar21');
+    expect(markup).toContain(
+      'aria-label="Open Charly Micolas LinkedIn profile"',
+    );
+    expect(markup).toContain('aria-label="Open Charly Micolas GitHub profile"');
     expect(markup).not.toContain('tel:');
     expect(markup).not.toContain('813-1872');
   });

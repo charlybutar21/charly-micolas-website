@@ -8,6 +8,9 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Writing | Charly Micolas Butarbutar',
   description: 'Personal notes by Charly Micolas Butarbutar.',
+  alternates: {
+    canonical: '/writing',
+  },
 };
 
 export default function WritingPage() {
@@ -16,7 +19,7 @@ export default function WritingPage() {
       <PageIntro
         emphasis="in progress"
         note="Personal notes on the quiet practices behind useful, reliable software."
-        number="05"
+        eyebrow="Personal notes"
         title="Writing"
       />
       <WritingList />

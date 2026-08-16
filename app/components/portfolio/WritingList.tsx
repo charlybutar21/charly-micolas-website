@@ -12,7 +12,9 @@ export default function WritingList() {
           <p className={styles.number}>{String(index + 1).padStart(2, '0')}</p>
           <div className={styles.content}>
             <div className={styles.meta}>
-              <span>{post.status}</span>
+              <span>
+                {post.status === 'Draft' ? 'Draft note' : post.status}
+              </span>
               <span>{post.publishedOn}</span>
               <span>{post.readingTime}</span>
             </div>

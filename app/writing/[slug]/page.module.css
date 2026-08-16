@@ -1,6 +1,7 @@
 .article {
   max-width: 64rem;
-  padding: clamp(2rem, 8vw, 8rem) clamp(1.25rem, 9vw, 10rem) clamp(4rem, 10vw, 11rem);
+  padding: clamp(2rem, 8vw, 8rem) clamp(1.25rem, 9vw, 10rem)
+    clamp(4rem, 10vw, 11rem);
 }
 
 .header {

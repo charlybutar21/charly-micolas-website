@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'http://charlymicolas.com/sitemap.xml',
+    sitemap: 'https://charlymicolas.com/sitemap.xml',
   };
 }

@@ -1,30 +1,44 @@
 # Charly Micolas Butarbutar — Portfolio
 
-An editorial personal portfolio for Charly Micolas Butarbutar, a backend-focused Senior Software Engineer. The site presents an introduction, CV-backed profile and skills, career timeline, a small Writing area, and contact links without exposing a phone number.
+An editorial personal portfolio for a backend-focused Senior Software Engineer. It presents CV-backed experience, a visual technical toolkit, personal writing, and professional contact links without exposing a phone number.
 
-## Routes
-
-- `/` — short introduction
-- `/about` — profile, core competencies, and education
-- `/technical-skills` — visual technology and engineering-practice index
-- `/experiences` — six-role career timeline
-- `/writing` — personal-writing index with one placeholder draft
-- `/contact` — email, LinkedIn, and GitHub
-
-## Development
-
-This project uses Next.js 16, TypeScript, CSS Modules, and a static export configuration.
+## Quick start
 
 ```bash
 npm install
 npm run dev
-npm run test
+```
+
+Open [http://localhost:3000](http://localhost:3000). Before the first browser test on a new machine, install Chromium with:
+
+```bash
+npx playwright install chromium
+```
+
+## Documentation
+
+- [Architecture](docs/architecture.md) — project boundaries, rendering model, and route ownership.
+- [Content management](docs/content-management.md) — where and how to update profile, skills, experience, and writing.
+- [Development guide](docs/development.md) — quality commands, test layers, and deployment workflow.
+
+## Main routes
+
+- `/` — short introduction and career evidence
+- `/about` — profile, competencies, and education
+- `/technical-skills` — visual technology and engineering-practice index
+- `/experiences` — six-role career timeline
+- `/writing` — personal-writing index and static post routes
+- `/contact` — email, LinkedIn, and GitHub
+
+## Verification
+
+```bash
+npm run format:check
+npm run typecheck
 npm run lint
+npm run test
+npm run test:e2e
 npm run build
 ```
 
-The CV-derived content is maintained in `app/data/index.ts`. Add a new writing post there to have it appear in the Writing index, generate its static detail route, and enter the sitemap.
-
-## Deployment
-
-The GitHub Actions workflow validates lint and build output for pull requests, then deploys the static `out/` directory to cPanel via FTP after changes land on `main`. Configure `FTP_SERVER`, `FTP_USERNAME`, and `FTP_PASSWORD` as repository secrets before enabling deployment.
+GitHub Actions runs the same checks before deploying the static `out/` directory to cPanel via FTP on pushes to `main`.

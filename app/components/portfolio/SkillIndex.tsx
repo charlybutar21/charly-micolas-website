@@ -32,7 +32,11 @@ function SkillMark({ skill }: { skill: string }) {
   }
 
   return (
-    <span aria-label={`${skill} practice mark`} className={styles.practiceMark} role="img">
+    <span
+      aria-label={`${skill} practice mark`}
+      className={styles.practiceMark}
+      role="img"
+    >
       {mark.abbreviation}
     </span>
   );
@@ -41,12 +45,9 @@ function SkillMark({ skill }: { skill: string }) {
 export default function SkillIndex() {
   return (
     <div className={styles.index}>
-      {portfolioData.skills.map((group, index) => (
+      {portfolioData.skills.map((group) => (
         <section className={styles.group} key={group.category}>
-          <h2>
-            <span>{String(index + 1).padStart(2, '0')} /</span>
-            {group.category}
-          </h2>
+          <h2>{group.category}</h2>
           <ul>
             {group.items.map((skill) => (
               <li key={skill}>
@@ -58,8 +59,9 @@ export default function SkillIndex() {
         </section>
       ))}
       <p className={styles.legend}>
-        <strong>Brand mark</strong> identifies named technology. <strong>Practice mark</strong>{' '}
-        identifies a method or principle without an official product logo.
+        <strong>Brand mark</strong> identifies named technology.{' '}
+        <strong>Practice mark</strong> identifies a method or principle without
+        an official product logo.
       </p>
     </div>
   );

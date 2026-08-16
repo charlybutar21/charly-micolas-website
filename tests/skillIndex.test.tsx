@@ -22,4 +22,5 @@ it('renders sampled CV skills with visual marks and text labels', () => {
   expect(markup).toContain('aria-label="Java logo"');
   expect(markup).toContain('aria-label="Docker logo"');
   expect(markup).toContain('aria-label="System Design practice mark"');
+  expect(markup).not.toContain('>01 /<');
 });

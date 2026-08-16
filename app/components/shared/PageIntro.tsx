@@ -1,16 +1,21 @@
 import styles from './PageIntro.module.css';
 
 interface PageIntroProps {
-  number: string;
+  eyebrow: string;
   title: string;
   emphasis?: string;
   note: string;
 }
 
-export default function PageIntro({ number, title, emphasis, note }: PageIntroProps) {
+export default function PageIntro({
+  eyebrow,
+  title,
+  emphasis,
+  note,
+}: PageIntroProps) {
   return (
     <header className={styles.intro}>
-      <p className={styles.eyebrow}>{number} / Portfolio</p>
+      <p className={styles.eyebrow}>{eyebrow}</p>
       <div className={styles.content}>
         <h1>
           {title}

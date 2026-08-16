@@ -29,8 +29,7 @@
 }
 
 .groupLabel,
-.footer,
-.number {
+.footer {
   font-family: var(--font-fira-code), ui-monospace, monospace;
   font-size: 0.61rem;
   font-weight: 600;
@@ -52,7 +51,6 @@
 .links a {
   display: flex;
   align-items: baseline;
-  gap: 0.45rem;
   width: max-content;
   padding: 0.14rem 0;
   color: var(--ink);
@@ -64,11 +62,6 @@
 .links a[aria-current='page'] {
   color: var(--accent);
   font-style: italic;
-}
-
-.number {
-  color: var(--muted);
-  font-size: 0.52rem;
 }
 
 .footer {

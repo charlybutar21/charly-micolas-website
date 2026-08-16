@@ -10,10 +10,20 @@ export default function ContactLinks() {
         {email}
       </a>
       <div className={styles.socials}>
-        <a href={linkedin} rel="noreferrer" target="_blank">
+        <a
+          aria-label="Open Charly Micolas LinkedIn profile"
+          href={linkedin}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           LinkedIn ↗
         </a>
-        <a href={github} rel="noreferrer" target="_blank">
+        <a
+          aria-label="Open Charly Micolas GitHub profile"
+          href={github}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           GitHub ↗
         </a>
       </div>

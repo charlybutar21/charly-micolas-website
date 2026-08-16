@@ -95,12 +95,32 @@
   font-size: 0.78rem;
 }
 
-.details ul {
+.highlights,
+.more ul {
   display: grid;
   gap: 0.7rem;
   margin: 1.15rem 0 0;
   padding: 0;
   list-style: none;
+}
+
+.more {
+  margin-top: 1rem;
+}
+
+.more summary {
+  width: max-content;
+  cursor: pointer;
+  color: var(--accent);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.61rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.more summary::marker {
+  color: var(--muted);
 }
 
 .details li {

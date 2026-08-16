@@ -5,6 +5,11 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'About | Charly Micolas Butarbutar',
+  description:
+    'Backend engineering profile of Charly Micolas Butarbutar, including leadership, delivery, and system-design strengths.',
+  alternates: {
+    canonical: '/about',
+  },
 };
 
 export default function AboutPage() {
@@ -13,7 +18,7 @@ export default function AboutPage() {
       <PageIntro
         emphasis="the work"
         note="A backend-focused engineering profile shaped by delivery ownership, technical leadership, and thoughtful collaboration."
-        number="02"
+        eyebrow="Profile"
         title="About"
       />
       <section className={styles.profile}>

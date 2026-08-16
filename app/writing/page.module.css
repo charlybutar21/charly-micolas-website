@@ -1,3 +1,4 @@
 .page {
-  padding: clamp(2rem, 6vw, 6.5rem) clamp(1.25rem, 6vw, 7rem) clamp(4rem, 9vw, 10rem);
+  padding: clamp(2rem, 6vw, 6.5rem) clamp(1.25rem, 6vw, 7rem)
+    clamp(4rem, 9vw, 10rem);
 }

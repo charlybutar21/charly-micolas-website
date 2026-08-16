@@ -12,4 +12,6 @@ it('renders all six CV roles with the current role first', () => {
   expect(markup).toContain('Jun 2024 - Present');
   expect(markup).toContain('South Jakarta');
   expect(markup).toContain('Current role');
+  expect(markup.match(/<details/g) ?? []).toHaveLength(3);
+  expect(markup).toContain('More responsibilities');
 });

@@ -1,7 +1,6 @@
 export interface NavigationItem {
   label: string;
   href: string;
-  number: string;
 }
 
 export interface NavigationGroup {
@@ -13,23 +12,23 @@ export const navigationGroups = [
   {
     label: 'Start here',
     items: [
-      { label: 'Home', href: '/', number: '01' },
-      { label: 'About', href: '/about', number: '02' },
+      { label: 'Home', href: '/' },
+      { label: 'About', href: '/about' },
     ],
   },
   {
     label: 'Practice',
     items: [
-      { label: 'Technical Skills', href: '/technical-skills', number: '03' },
-      { label: 'Experiences', href: '/experiences', number: '04' },
+      { label: 'Technical Skills', href: '/technical-skills' },
+      { label: 'Experiences', href: '/experiences' },
     ],
   },
   {
     label: 'Notes',
-    items: [{ label: 'Writing', href: '/writing', number: '05' }],
+    items: [{ label: 'Writing', href: '/writing' }],
   },
   {
     label: 'Connect',
-    items: [{ label: 'Contact', href: '/contact', number: '06' }],
+    items: [{ label: 'Contact', href: '/contact' }],
   },
 ] as const satisfies readonly NavigationGroup[];

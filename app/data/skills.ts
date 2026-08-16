@@ -20,11 +20,27 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     category: 'Data & Messaging',
-    items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'RabbitMQ', 'Apache Kafka'],
+    items: [
+      'MySQL',
+      'PostgreSQL',
+      'MongoDB',
+      'Redis',
+      'RabbitMQ',
+      'Apache Kafka',
+    ],
   },
   {
     category: 'Development & DevOps',
-    items: ['Git', 'GitLab', 'GitHub', 'Docker', 'Docker Compose', 'Maven', 'Gradle', 'CI/CD'],
+    items: [
+      'Git',
+      'GitLab',
+      'GitHub',
+      'Docker',
+      'Docker Compose',
+      'Maven',
+      'Gradle',
+      'CI/CD',
+    ],
   },
   {
     category: 'Architecture & Engineering Practices',
@@ -43,5 +59,8 @@ export const skillCategories: SkillCategory[] = [
       'SDLC',
     ],
   },
-  { category: 'Project Management', items: ['Jira', 'Confluence', 'Agile', 'Scrum', 'Kanban'] },
+  {
+    category: 'Project Management',
+    items: ['Jira', 'Confluence', 'Agile', 'Scrum', 'Kanban'],
+  },
 ];

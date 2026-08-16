@@ -59,7 +59,8 @@ const reactIconBySkill: Record<string, { icon: IconType; color: string }> = {
 };
 
 function abbreviationFor(skill: string) {
-  const words = skill.match(/[A-Z][a-z]*|[A-Z]+(?![a-z])|\d+/g) ?? skill.split(/\s+/);
+  const words =
+    skill.match(/[A-Z][a-z]*|[A-Z]+(?![a-z])|\d+/g) ?? skill.split(/\s+/);
   return words
     .map((word) => word[0])
     .join('')

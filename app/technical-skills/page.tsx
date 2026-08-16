@@ -5,6 +5,11 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Technical Skills | Charly Micolas Butarbutar',
+  description:
+    'Technical toolkit of Charly Micolas Butarbutar across backend engineering, service integration, and software delivery.',
+  alternates: {
+    canonical: '/technical-skills',
+  },
 };
 
 export default function TechnicalSkillsPage() {
@@ -13,9 +18,13 @@ export default function TechnicalSkillsPage() {
       <PageIntro
         emphasis="skills"
         note="A visual index of the tools, platforms, and engineering practices used to build and sustain backend systems."
-        number="03"
+        eyebrow="Technical practice"
         title="Technical"
       />
+      <p className={styles.context}>
+        Professional toolkit used across backend delivery, service integration,
+        and engineering practice.
+      </p>
       <SkillIndex />
     </div>
   );

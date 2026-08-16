@@ -63,6 +63,38 @@
   text-transform: uppercase;
 }
 
+.evidence {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.65;
+}
+
+.evidence li::before {
+  margin-right: 0.45rem;
+  color: var(--accent);
+  content: '•';
+}
+
+.experienceLink {
+  display: inline-flex;
+  margin-top: 1.2rem;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.1rem;
+  color: var(--accent);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.61rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.experienceLink span {
+  margin-left: 0.35rem;
+}
+
 .footer {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -75,10 +107,6 @@
 
 .footer p {
   margin: 0;
-}
-
-.footer p:last-child {
-  text-align: right;
 }
 
 @media (max-width: 760px) {

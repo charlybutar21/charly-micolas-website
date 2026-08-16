@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 import { navigationGroups } from '@/app/lib/navigation';
 import styles from './SiteNavigation.module.css';
 
@@ -21,8 +22,10 @@ function NavigationList({ pathname }: { pathname: string }) {
 
               return (
                 <li key={item.href}>
-                  <Link aria-current={active ? 'page' : undefined} href={item.href}>
-                    <span className={styles.number}>{item.number}</span>
+                  <Link
+                    aria-current={active ? 'page' : undefined}
+                    href={item.href}
+                  >
                     {item.label}
                   </Link>
                 </li>
@@ -37,6 +40,7 @@ function NavigationList({ pathname }: { pathname: string }) {
 
 export default function SiteNavigation() {
   const pathname = usePathname() ?? '/';
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
@@ -50,16 +54,22 @@ export default function SiteNavigation() {
         <p className={styles.footer}>
           Jakarta, Indonesia
           <br />
-          Portfolio / 2026
+          Selected work
         </p>
       </nav>
 
-      <details className={styles.mobileNavigation}>
+      <details
+        className={styles.mobileNavigation}
+        onToggle={(event) => setMenuOpen(event.currentTarget.open)}
+      >
         <summary>
           <span>C.M.B.</span>
-          <span>Menu +</span>
+          <span>{menuOpen ? 'Close −' : 'Menu +'}</span>
         </summary>
-        <nav aria-label="Primary navigation mobile" className={styles.mobilePanel}>
+        <nav
+          aria-label="Primary navigation mobile"
+          className={styles.mobilePanel}
+        >
           <NavigationList pathname={pathname} />
         </nav>
       </details>

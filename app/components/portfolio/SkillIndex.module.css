@@ -23,16 +23,6 @@
   letter-spacing: -0.025em;
 }
 
-.group h2 span {
-  display: block;
-  margin-bottom: 0.3rem;
-  color: var(--muted);
-  font-family: var(--font-fira-code), ui-monospace, monospace;
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-}
-
 .group ul {
   display: flex;
   flex-wrap: wrap;

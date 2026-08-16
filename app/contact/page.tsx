@@ -5,6 +5,11 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Contact | Charly Micolas Butarbutar',
+  description:
+    'Contact Charly Micolas Butarbutar for engineering conversations, opportunities, and professional collaboration.',
+  alternates: {
+    canonical: '/contact',
+  },
 };
 
 export default function ContactPage() {
@@ -13,13 +18,13 @@ export default function ContactPage() {
       <PageIntro
         emphasis="a note"
         note="For engineering conversations, opportunities, or a thoughtful exchange about building dependable systems."
-        number="06"
+        eyebrow="Get in touch"
         title="Send"
       />
       <section className={styles.contact}>
         <p>
-          The easiest way to start is an email. You can also find me on the professional platforms
-          below.
+          The easiest way to start is an email. You can also find me on the
+          professional platforms below.
         </p>
         <ContactLinks />
       </section>
