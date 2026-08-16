@@ -5,7 +5,7 @@ export default function Education() {
   return (
     <section id="education" className={styles.education}>
       <h3 className={styles.sectionTitle}>
-        <span className="mono">04.</span> Education
+        <span className="mono">05.</span> Education
       </h3>
       <div className={styles.eduGrid}>
         {portfolioData.education.map((edu, idx) => (
