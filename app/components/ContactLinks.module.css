@@ -1,0 +1,33 @@
+.links {
+  display: grid;
+  gap: 1.5rem;
+  border-top: 1px solid var(--ink);
+  padding-top: 1rem;
+}
+
+.email {
+  width: max-content;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: var(--accent);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.65rem, 4vw, 3.2rem);
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.75rem;
+}
+
+.socials a {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.2rem;
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

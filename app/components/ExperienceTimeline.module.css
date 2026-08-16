@@ -1,0 +1,146 @@
+.timeline {
+  position: relative;
+  margin: 0;
+  padding: clamp(2.75rem, 6vw, 5rem) 0 0;
+  list-style: none;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 22%;
+  width: 1px;
+  background: var(--line);
+  content: '';
+}
+
+.entry {
+  position: relative;
+  padding: 0 0 clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.entry::before {
+  position: absolute;
+  z-index: 1;
+  top: 0.15rem;
+  left: calc(22% - 0.32rem);
+  width: 0.62rem;
+  height: 0.62rem;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  content: '';
+}
+
+.entry:first-child::before {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.entry article {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.28fr) 1fr;
+  gap: clamp(2rem, 6vw, 5.5rem);
+}
+
+.dateRail p,
+.dateRail span,
+.details header p {
+  margin: 0;
+}
+
+.dateRail {
+  padding-right: 0.5rem;
+  text-align: right;
+}
+
+.dateRail p,
+.dateRail span {
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.dateRail p {
+  color: var(--muted);
+}
+
+.dateRail span {
+  display: inline-block;
+  margin-top: 0.45rem;
+  color: var(--accent);
+}
+
+.details header {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.9rem;
+}
+
+.details h2 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.65rem, 3.2vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.details header p {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.details ul {
+  display: grid;
+  gap: 0.7rem;
+  margin: 1.15rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.details li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.details li::before {
+  position: absolute;
+  top: 0.58rem;
+  left: 0;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 50%;
+  background: var(--accent);
+  content: '';
+}
+
+@media (max-width: 760px) {
+  .timeline {
+    padding-left: 1.3rem;
+  }
+
+  .timeline::before {
+    left: 0.28rem;
+  }
+
+  .entry::before {
+    left: -0.02rem;
+  }
+
+  .entry article {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .dateRail {
+    padding: 0;
+    text-align: left;
+  }
+}

@@ -1,0 +1,9 @@
+.page {
+  padding: 0 clamp(1.5rem, 6vw, 6rem) 5rem;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 0 1.25rem 3rem;
+  }
+}
