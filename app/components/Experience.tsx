@@ -5,7 +5,7 @@ export default function Experience() {
   return (
     <section id="experience" className={styles.experience}>
       <h3 className={styles.sectionTitle}>
-        <span className="mono">03.</span> Where I&apos;ve Worked
+        <span className="mono">04.</span> Professional Experience
       </h3>
       <div className={styles.jobs}>
         {portfolioData.experience.map((job, idx) => (

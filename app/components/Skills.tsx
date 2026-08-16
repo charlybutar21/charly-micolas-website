@@ -5,7 +5,7 @@ export default function Skills() {
   return (
     <section id="skills" className={styles.skills}>
       <h3 className={styles.sectionTitle}>
-        <span className="mono">02.</span> Technical Architecture & Skills
+        <span className="mono">03.</span> Technical Skills
       </h3>
       <div className={styles.content}>
         <div className={styles.categoryGrid}>
