@@ -28,11 +28,13 @@ export interface PortfolioData {
   about: {
     paragraphs: string[];
   };
+  coreCompetencies: string[];
   skills: SkillCategory[];
   experience: ExperienceData[];
   education: EducationData[];
   contact: {
     email: string;
+    phone: string;
     linkedin: string;
     github: string;
   };
