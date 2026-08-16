@@ -38,7 +38,7 @@ export default function SiteNavigation() {
         <BrandMark className={styles.brandMark} />
       </Link>
       <div className={styles.linkViewport}>
-          <NavigationList pathname={pathname} />
+        <NavigationList pathname={pathname} />
       </div>
       <SocialProfileLinks placement="header" />
     </nav>

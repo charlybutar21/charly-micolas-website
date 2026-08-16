@@ -13,7 +13,7 @@ The site is intentionally content-led. Route pages compose presentational compon
 | `app/` | App Router routes, metadata, global styles, and sitemap/robots handlers. |
 | `app/components/layout/` | Persistent shell and responsive primary navigation. |
 | `app/components/portfolio/` | Domain-specific views: skills, experience timeline, and writing index. |
-| `app/components/shared/` | Reusable route-level building blocks, such as page intros and contact links. |
+| `app/components/shared/` | Reusable route-level building blocks, such as page intros, the brand mark, contact links, and social profiles. |
 | `app/data/` | Typed, CV-backed portfolio content grouped by domain. |
 | `app/types/` | The single portfolio content model. |
 | `app/lib/` | Small pure helpers, including navigation structure and skill-icon lookup. |
@@ -37,9 +37,11 @@ app/data/{profile,skills,experience,writing}.ts
 
 ## Rendering and interactivity
 
-Most components are Server Components. `SiteNavigation` is the only persistent Client Component because it needs the current pathname and menu-open state. Keep client boundaries narrow: put interactive behavior in a dedicated client component and leave route pages and data rendering on the server by default.
+Most components are Server Components. `SiteNavigation` is the only persistent Client Component because it reads the current pathname for the active-route state. Keep client boundaries narrow: put interactive behavior in a dedicated client component and leave route pages and data rendering on the server by default.
 
-The responsive menu uses native `<details>` and `<summary>`, which preserves keyboard behavior without a custom disclosure implementation. `SiteShell` also supplies the `#main-content` skip link target for keyboard users.
+`layout/SiteNavigation` owns the persistent sticky header and active-route state. It consumes the flat route list in `app/lib/navigation.ts`, renders the replaceable `shared/BrandMark` visual slot, and keeps primary links visible on small screens through a touch-scrollable link strip rather than a disclosure menu.
+
+`shared/SocialProfileLinks` owns the accessible, icon-only LinkedIn and GitHub links used by both header and Contact placements. `SiteShell` supplies the `#main-content` skip link target for keyboard users, while the global scroll padding prevents sticky navigation from obscuring that target.
 
 ## Metadata and deployment
 

@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 
 for (const route of [
   '/',
+  '/about',
   '/technical-skills',
   '/experiences',
   '/writing',
