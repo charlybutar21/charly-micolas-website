@@ -5,7 +5,7 @@ import ExperienceTimeline from '../app/components/ExperienceTimeline';
 it('renders all six CV roles with the current role first', () => {
   const markup = renderToStaticMarkup(<ExperienceTimeline />);
 
-  expect((markup.match(/<article/g) ?? [])).toHaveLength(6);
+  expect(markup.match(/<article/g) ?? []).toHaveLength(6);
   expect(markup.indexOf('PT Progo Puncak Group (Pinjamin)')).toBeLessThan(
     markup.indexOf('PT LightStream Analytics Indonesia'),
   );

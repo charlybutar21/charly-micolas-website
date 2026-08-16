@@ -28,6 +28,21 @@ jobs:
       - name: Run Linter
         run: npm run lint
 
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Check types
+        run: npm run typecheck
+
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser tests
+        run: npm run test:e2e
+
       - name: Build Static Site
         # This will output static files to the /out directory
         run: npm run build

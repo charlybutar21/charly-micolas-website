@@ -37,7 +37,9 @@ export default function AboutPage() {
             <p>{education.graduationDate}</p>
             <div>
               <h3>{education.degree}</h3>
-              <p>{education.institution} · {education.location}</p>
+              <p>
+                {education.institution} · {education.location}
+              </p>
             </div>
           </article>
         ))}

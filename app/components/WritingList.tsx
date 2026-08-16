@@ -21,7 +21,11 @@ export default function WritingList() {
             </h2>
             <p>{post.excerpt}</p>
           </div>
-          <Link aria-label={`Read ${post.title}`} className={styles.read} href={`/writing/${post.slug}`}>
+          <Link
+            aria-label={`Read ${post.title}`}
+            className={styles.read}
+            href={`/writing/${post.slug}`}
+          >
             Read note <span aria-hidden="true">↗</span>
           </Link>
         </article>

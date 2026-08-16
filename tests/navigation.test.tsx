@@ -10,14 +10,7 @@ import SiteNavigation from '../app/components/SiteNavigation';
 it('renders the six grouped routes and marks the current page', () => {
   const markup = renderToStaticMarkup(<SiteNavigation />);
 
-  for (const href of [
-    '/',
-    '/about',
-    '/technical-skills',
-    '/experiences',
-    '/writing',
-    '/contact',
-  ]) {
+  for (const href of ['/', '/about', '/technical-skills', '/experiences', '/writing', '/contact']) {
     expect(markup).toContain(`href="${href}"`);
   }
 

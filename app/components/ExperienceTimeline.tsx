@@ -14,7 +14,9 @@ export default function ExperienceTimeline() {
             <div className={styles.details}>
               <header>
                 <h2>{experience.role}</h2>
-                <p>{experience.company} · {experience.location}</p>
+                <p>
+                  {experience.company} · {experience.location}
+                </p>
               </header>
               <ul>
                 {experience.description.map((description) => (

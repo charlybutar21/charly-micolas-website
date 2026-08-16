@@ -14,8 +14,9 @@ export default function Home() {
           <span>Butarbutar</span>
         </h1>
         <p className={styles.introduction}>
-          <strong>{portfolioData.hero.role}</strong>
-          I help teams turn complex problems into reliable, human-centered software through engineering depth, clear decisions, and thoughtful collaboration.
+          <strong>{portfolioData.hero.role}</strong>I help teams turn complex problems into
+          reliable, human-centered software through engineering depth, clear decisions, and
+          thoughtful collaboration.
         </p>
       </div>
       <div className={styles.footer}>

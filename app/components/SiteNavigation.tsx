@@ -47,7 +47,11 @@ export default function SiteNavigation() {
         <div className={styles.navigationGroups}>
           <NavigationList pathname={pathname} />
         </div>
-        <p className={styles.footer}>Jakarta, Indonesia<br />Portfolio / 2026</p>
+        <p className={styles.footer}>
+          Jakarta, Indonesia
+          <br />
+          Portfolio / 2026
+        </p>
       </nav>
 
       <details className={styles.mobileNavigation}>

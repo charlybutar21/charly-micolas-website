@@ -21,7 +21,14 @@ function SkillMark({ skill }: { skill: string }) {
 
   if (mark.kind === 'react') {
     const Icon = mark.icon;
-    return <Icon aria-label={`${skill} logo`} className={styles.brandMark} color={mark.color} role="img" />;
+    return (
+      <Icon
+        aria-label={`${skill} logo`}
+        className={styles.brandMark}
+        color={mark.color}
+        role="img"
+      />
+    );
   }
 
   return (
@@ -51,7 +58,8 @@ export default function SkillIndex() {
         </section>
       ))}
       <p className={styles.legend}>
-        <strong>Brand mark</strong> identifies named technology. <strong>Practice mark</strong> identifies a method or principle without an official product logo.
+        <strong>Brand mark</strong> identifies named technology. <strong>Practice mark</strong>{' '}
+        identifies a method or principle without an official product logo.
       </p>
     </div>
   );
