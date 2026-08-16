@@ -1,0 +1,26 @@
+.mark {
+  display: block;
+  color: var(--accent);
+}
+
+.ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+
+.letter {
+  fill: currentColor;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.letterM {
+  font-size: 13px;
+}
+
+.letterC,
+.letterB {
+  font-style: italic;
+}

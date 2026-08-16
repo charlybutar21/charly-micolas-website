@@ -1,4 +1,5 @@
 :root {
+  --header-height: 4.5rem;
   --paper: #f4f0e7;
   --ink: #191816;
   --muted: #676158;
@@ -12,6 +13,7 @@
 
 html {
   background: var(--paper);
+  scroll-padding-top: calc(var(--header-height) + 1rem);
 }
 
 body {
