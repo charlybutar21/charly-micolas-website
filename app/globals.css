@@ -1,154 +1,55 @@
 :root {
-  /* Aurora Theme Colors - Deep Midnight Purple base */
-  --background: #0B0914;
-  --foreground: #e2e8f0;
-  --primary: #ffffff;
-  --secondary: #94a3b8;
-  
-  /* Aurora Accents */
-  --accent: #00E5FF; /* Teal */
-  --accent-glow: rgba(0, 229, 255, 0.4);
-  --accent-secondary: #FF00FF; /* Magenta */
-  
-  /* Glassmorphism Borders & Backgrounds */
-  --border: rgba(255, 255, 255, 0.05);
-  --glass-bg: rgba(18, 15, 33, 0.4);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #f8fafc;
-    --foreground: #0B0914;
-    --primary: #000000;
-    --secondary: #475569;
-    --accent: #00B3CC;
-    --accent-glow: rgba(0, 179, 204, 0.3);
-    --accent-secondary: #CC00CC;
-    --border: rgba(0, 0, 0, 0.08);
-    --glass-bg: rgba(255, 255, 255, 0.6);
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-jakarta), sans-serif;
-  line-height: 1.6;
-  scroll-behavior: smooth;
-  position: relative;
-}
-
-/* Aurora Background Animation */
-.aurora-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  overflow: hidden;
-  background-color: var(--background);
-}
-
-.aurora-blob {
-  position: absolute;
-  filter: blur(120px);
-  opacity: 0.5;
-  border-radius: 50%;
-  animation: aurora-float 20s infinite alternate ease-in-out;
-}
-
-.aurora-blob-1 {
-  top: -10%;
-  left: -10%;
-  width: 50vw;
-  height: 50vw;
-  background: radial-gradient(circle, rgba(0,229,255,0.4) 0%, rgba(0,229,255,0) 70%);
-  animation-delay: 0s;
-}
-
-.aurora-blob-2 {
-  bottom: -20%;
-  right: -10%;
-  width: 60vw;
-  height: 60vw;
-  background: radial-gradient(circle, rgba(255,0,255,0.3) 0%, rgba(255,0,255,0) 70%);
-  animation-delay: -5s;
-}
-
-.aurora-blob-3 {
-  top: 40%;
-  left: 30%;
-  width: 40vw;
-  height: 40vw;
-  background: radial-gradient(circle, rgba(138,43,226,0.3) 0%, rgba(138,43,226,0) 70%);
-  animation-delay: -10s;
-}
-
-@keyframes aurora-float {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(5%, 5%) scale(1.1); }
-  66% { transform: translate(-5%, 10%) scale(0.9); }
-  100% { transform: translate(0, -5%) scale(1); }
+  --paper: #f4f0e7;
+  --ink: #191816;
+  --muted: #78736c;
+  --line: #c9c2b6;
+  --accent: #b9492f;
 }
 
 * {
   box-sizing: border-box;
 }
 
-::selection {
-  background: var(--accent-glow);
-  color: var(--primary);
+html {
+  background: var(--paper);
+}
+
+body {
+  min-width: 20rem;
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-jakarta), Arial, sans-serif;
+  line-height: 1.55;
 }
 
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 a:hover {
   color: var(--accent);
-  text-shadow: 0 0 10px var(--accent-glow);
 }
 
-.mono {
-  font-family: var(--font-fira-code), monospace;
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem;
-  padding-top: 100px;
+::selection {
+  background: var(--accent);
+  color: var(--paper);
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 1.5rem;
-    padding-top: 80px;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
-}
-
-/* Base Glass Card Utility */
-.glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-}
-
-.glass-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(30, 25, 50, 0.6);
-  box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.6), 0 0 25px -5px var(--accent-glow);
 }
