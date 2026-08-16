@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { navigationGroups } from '@/app/lib/navigation';
+import { navigationItems } from '@/app/lib/navigation';
 import styles from './SiteNavigation.module.css';
 
 function isCurrentPath(pathname: string, href: string) {
@@ -12,29 +12,19 @@ function isCurrentPath(pathname: string, href: string) {
 
 function NavigationList({ pathname }: { pathname: string }) {
   return (
-    <>
-      {navigationGroups.map((group) => (
-        <section className={styles.group} key={group.label}>
-          <p className={styles.groupLabel}>{group.label}</p>
-          <ul className={styles.links}>
-            {group.items.map((item) => {
-              const active = isCurrentPath(pathname, item.href);
+    <ul className={styles.links}>
+      {navigationItems.map((item) => {
+        const active = isCurrentPath(pathname, item.href);
 
-              return (
-                <li key={item.href}>
-                  <Link
-                    aria-current={active ? 'page' : undefined}
-                    href={item.href}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      ))}
-    </>
+        return (
+          <li key={item.href}>
+            <Link aria-current={active ? 'page' : undefined} href={item.href}>
+              {item.label}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

@@ -7,7 +7,7 @@ vi.mock('next/navigation', () => ({
 
 import SiteNavigation from '../app/components/layout/SiteNavigation';
 
-it('renders the six grouped routes and marks the current page', () => {
+it('renders the six primary routes without navigation group labels', () => {
   const markup = renderToStaticMarkup(<SiteNavigation />);
 
   for (const href of [
@@ -21,9 +21,15 @@ it('renders the six grouped routes and marks the current page', () => {
     expect(markup).toContain(`href="${href}"`);
   }
 
-  for (const label of ['Start here', 'Practice', 'Notes', 'Connect']) {
-    expect(markup).toContain(label);
-  }
+  expect(markup).not.toContain('Start here');
+  expect(markup).not.toContain('Practice');
+  expect(markup).not.toContain('Notes');
+  expect(markup).not.toContain('Connect');
+
+  expect(markup.indexOf('Home')).toBeLessThan(markup.indexOf('About'));
+  expect(markup.indexOf('About')).toBeLessThan(
+    markup.indexOf('Technical Skills'),
+  );
 
   expect(markup).toContain('aria-current="page"');
   expect(markup).not.toContain('>01<');
