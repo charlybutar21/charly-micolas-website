@@ -21,6 +21,9 @@ describe('editorial core routes', () => {
       'aria-label="Open Charly Micolas LinkedIn profile"',
     );
     expect(markup).toContain('aria-label="Open Charly Micolas GitHub profile"');
+    expect(markup).not.toContain('>LinkedIn');
+    expect(markup).not.toContain('>GitHub');
+    expect(markup).toContain('<svg');
     expect(markup).not.toContain('tel:');
     expect(markup).not.toContain('813-1872');
   });

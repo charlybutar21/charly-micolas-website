@@ -1,0 +1,54 @@
+.profiles {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.profiles a {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.profiles a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.profiles svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.header a {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.header svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.contact {
+  gap: 0.6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profiles a {
+    transition: none;
+  }
+
+  .profiles a:hover {
+    transform: none;
+  }
+}
