@@ -40,7 +40,6 @@ export default function SiteNavigation() {
       <div className={styles.linkViewport}>
         <NavigationList pathname={pathname} />
       </div>
-      <SocialProfileLinks placement="header" />
     </nav>
   );
 }
