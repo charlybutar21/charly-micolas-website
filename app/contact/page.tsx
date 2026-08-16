@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import ContactLinks from '../components/ContactLinks';
-import PageIntro from '../components/PageIntro';
+import ContactLinks from '@/app/components/shared/ContactLinks';
+import PageIntro from '@/app/components/shared/PageIntro';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -17,7 +17,10 @@ export default function ContactPage() {
         title="Send"
       />
       <section className={styles.contact}>
-        <p>The easiest way to start is an email. You can also find me on the professional platforms below.</p>
+        <p>
+          The easiest way to start is an email. You can also find me on the professional platforms
+          below.
+        </p>
         <ContactLinks />
       </section>
     </div>

@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import ContactLinks from '../app/components/ContactLinks';
+import ContactLinks from '../app/components/shared/ContactLinks';
 import Home from '../app/page';
 
 describe('editorial core routes', () => {

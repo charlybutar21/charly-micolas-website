@@ -6,8 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write app tests package.json tsconfig.json eslint.config.mjs next.config.ts vitest.config.ts .github/workflows/deploy.yml prettier.config.mjs",
+    "format:check": "prettier --check app tests package.json tsconfig.json eslint.config.mjs next.config.ts vitest.config.ts .github/workflows/deploy.yml prettier.config.mjs",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:a11y": "playwright test --grep @a11y"
   },
   "dependencies": {
     "next": "16.2.11",
@@ -17,11 +22,14 @@
     "simple-icons": "^16.28.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.62.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.11",
+    "prettier": "^3.9.6",
     "typescript": "^5",
     "vitest": "^3.2.4"
   }

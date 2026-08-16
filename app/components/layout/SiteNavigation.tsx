@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { navigationGroups } from '../lib/navigation';
+import { navigationGroups } from '@/app/lib/navigation';
 import styles from './SiteNavigation.module.css';
 
 function isCurrentPath(pathname: string, href: string) {
@@ -47,7 +47,11 @@ export default function SiteNavigation() {
         <div className={styles.navigationGroups}>
           <NavigationList pathname={pathname} />
         </div>
-        <p className={styles.footer}>Jakarta, Indonesia<br />Portfolio / 2026</p>
+        <p className={styles.footer}>
+          Jakarta, Indonesia
+          <br />
+          Portfolio / 2026
+        </p>
       </nav>
 
       <details className={styles.mobileNavigation}>

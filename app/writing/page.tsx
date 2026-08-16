@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
-import PageIntro from '../components/PageIntro';
-import WritingList from '../components/WritingList';
+import WritingList from '@/app/components/portfolio/WritingList';
+import PageIntro from '@/app/components/shared/PageIntro';
 
 import styles from './page.module.css';
 

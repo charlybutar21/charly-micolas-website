@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import PageIntro from '../components/PageIntro';
-import { portfolioData } from '../data';
+import PageIntro from '@/app/components/shared/PageIntro';
+import { portfolioData } from '@/app/data';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -37,7 +37,9 @@ export default function AboutPage() {
             <p>{education.graduationDate}</p>
             <div>
               <h3>{education.degree}</h3>
-              <p>{education.institution} · {education.location}</p>
+              <p>
+                {education.institution} · {education.location}
+              </p>
             </div>
           </article>
         ))}

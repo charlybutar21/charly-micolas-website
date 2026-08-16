@@ -1,4 +1,4 @@
-import { portfolioData } from '../data';
+import { portfolioData } from '@/app/data';
 import styles from './ExperienceTimeline.module.css';
 
 export default function ExperienceTimeline() {
@@ -14,12 +14,16 @@ export default function ExperienceTimeline() {
             <div className={styles.details}>
               <header>
                 <h2>{experience.role}</h2>
-                <p>{experience.company} · {experience.location}</p>
+                <p>
+                  {experience.company} · {experience.location}
+                </p>
               </header>
               <ul>
-                {experience.description.map((description) => (
-                  <li key={description}>{description}</li>
-                ))}
+                {[...experience.highlights, ...experience.additionalResponsibilities].map(
+                  (responsibility) => (
+                    <li key={responsibility}>{responsibility}</li>
+                  ),
+                )}
               </ul>
             </div>
           </article>

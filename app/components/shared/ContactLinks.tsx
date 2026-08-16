@@ -1,4 +1,4 @@
-import { portfolioData } from '../data';
+import { portfolioData } from '@/app/data';
 import styles from './ContactLinks.module.css';
 
 export default function ContactLinks() {
@@ -10,8 +10,12 @@ export default function ContactLinks() {
         {email}
       </a>
       <div className={styles.socials}>
-        <a href={linkedin} rel="noreferrer" target="_blank">LinkedIn ↗</a>
-        <a href={github} rel="noreferrer" target="_blank">GitHub ↗</a>
+        <a href={linkedin} rel="noreferrer" target="_blank">
+          LinkedIn ↗
+        </a>
+        <a href={github} rel="noreferrer" target="_blank">
+          GitHub ↗
+        </a>
       </div>
     </div>
   );
