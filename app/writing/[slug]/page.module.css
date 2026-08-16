@@ -1,0 +1,68 @@
+.article {
+  max-width: 64rem;
+  padding: clamp(2rem, 8vw, 8rem) clamp(1.25rem, 9vw, 10rem) clamp(4rem, 10vw, 11rem);
+}
+
+.header {
+  padding-bottom: clamp(2.5rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow,
+.meta {
+  margin: 0;
+  font-family: var(--font-dm-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  color: var(--rust);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: clamp(2rem, 5vw, 4.5rem);
+  color: var(--muted);
+}
+
+.meta span + span::before {
+  margin-right: 0.7rem;
+  content: '·';
+}
+
+.article h1 {
+  max-width: 52rem;
+  margin: 1.1rem 0 0;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(3.4rem, 8vw, 7.5rem);
+  font-weight: 500;
+  line-height: 0.91;
+  letter-spacing: -0.07em;
+}
+
+.excerpt {
+  max-width: 42rem;
+  margin: clamp(1.5rem, 3vw, 2.75rem) 0 0;
+  color: var(--muted);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.55;
+}
+
+.body {
+  max-width: 42rem;
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+  line-height: 1.78;
+}
+
+.body p {
+  margin: 0;
+}
+
+.body p + p {
+  margin-top: 1.5rem;
+}
