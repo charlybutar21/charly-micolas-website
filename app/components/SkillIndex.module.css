@@ -1,0 +1,95 @@
+.index {
+  padding-top: clamp(2.75rem, 6vw, 5rem);
+}
+
+.group {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.25fr) 1fr;
+  gap: 1.5rem;
+  border-top: 1px solid var(--line);
+  padding: 1.1rem 0 1.75rem;
+}
+
+.group:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
+
+.group h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.12rem;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+.group h2 span {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--muted);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.group ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.group li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 7.75rem;
+  color: var(--ink);
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.brandMark,
+.practiceMark {
+  display: inline-grid;
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 auto;
+  place-items: center;
+}
+
+.practiceMark {
+  border: 1px dashed var(--muted);
+  border-radius: 50%;
+  color: var(--muted);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.43rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.legend {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+
+.legend strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .group {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .group li {
+    min-width: min(8rem, 42vw);
+  }
+}

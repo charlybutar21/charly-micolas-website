@@ -55,7 +55,7 @@ The desktop navigation is a persistent left editorial rail with its group labels
   - Development & DevOps
   - Architecture & Engineering Practices
   - Project Management
-- Each named technology with an available official/open icon is rendered as an accessible inline SVG sourced from the `simple-icons` package, paired with its textual name. The text remains visible so no capability is encoded by color or a logo alone.
+- Each named technology with an available official/open icon is rendered as an accessible inline SVG sourced from `simple-icons`; the Java mark uses the Font Awesome Java SVG supplied through `react-icons` because Simple Icons does not provide a Java mark. Every icon is paired with its textual name, so no capability is encoded by color or a logo alone.
 - Skills without a real product logo—such as System Design, Clean Code, SOLID Principles, Agile, Scrum, and Kanban—receive a consistent neutral practice mark/monogram instead of a made-up brand logo.
 - The presentation is a ruled editorial index with irregular, breathable wrapping, not generic chip pills or a dense card wall.
 - A mapping layer provides a safe fallback mark when a CV technology has no suitable Simple Icons entry.
