@@ -19,9 +19,11 @@ export default function ExperienceTimeline() {
                 </p>
               </header>
               <ul>
-                {experience.description.map((description) => (
-                  <li key={description}>{description}</li>
-                ))}
+                {[...experience.highlights, ...experience.additionalResponsibilities].map(
+                  (responsibility) => (
+                    <li key={responsibility}>{responsibility}</li>
+                  ),
+                )}
               </ul>
             </div>
           </article>

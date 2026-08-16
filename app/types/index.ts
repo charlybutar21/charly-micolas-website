@@ -1,51 +1,8 @@
-export interface ExperienceData {
-  company: string;
-  role: string;
-  period: string;
-  location: string;
-  description: string[];
-  skills: string[];
-}
-
-export interface EducationData {
-  institution: string;
-  degree: string;
-  location: string;
-  graduationDate: string;
-}
-
-export interface SkillCategory {
-  category: string;
-  items: string[];
-}
-
-export interface WritingPost {
-  slug: string;
-  title: string;
-  excerpt: string;
-  publishedOn: string;
-  readingTime: string;
-  status: 'Draft';
-  body: string[];
-}
-
-export interface PortfolioData {
-  hero: {
-    name: string;
-    role: string;
-    tagline: string;
-  };
-  about: {
-    paragraphs: string[];
-  };
-  coreCompetencies: string[];
-  skills: SkillCategory[];
-  experience: ExperienceData[];
-  education: EducationData[];
-  writing: WritingPost[];
-  contact: {
-    email: string;
-    linkedin: string;
-    github: string;
-  };
-}
+export type {
+  EducationData,
+  ExperienceData,
+  PortfolioData,
+  SkillCategory,
+  WritingPost,
+  WritingStatus,
+} from './portfolio';
