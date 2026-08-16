@@ -31,16 +31,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     category: 'Development & DevOps',
-    items: [
-      'Git',
-      'GitLab',
-      'GitHub',
-      'Docker',
-      'Docker Compose',
-      'Maven',
-      'Gradle',
-      'CI/CD',
-    ],
+    items: ['Git', 'GitLab', 'GitHub', 'Docker', 'Maven', 'Gradle'],
   },
   {
     category: 'Architecture & Engineering Practices',
