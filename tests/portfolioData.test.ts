@@ -2,18 +2,18 @@ import { describe, expect, it } from 'vitest';
 import { portfolioData } from '../app/data';
 
 describe('approved 2026 CV content', () => {
-  it('exposes the approved profile and contact channels', () => {
+  it('exposes the approved profile and public contact channels', () => {
     expect(portfolioData.hero).toMatchObject({
       name: 'Charly Micolas Butarbutar',
       role: 'Senior Software Engineer | Backend Engineering | Technical Leadership',
     });
     expect(portfolioData.hero.tagline).toContain('approximately 9 years');
-    expect(portfolioData.contact).toMatchObject({
+    expect(portfolioData.contact).toEqual({
       email: 'charlymicolasbutar@gmail.com',
-      phone: '+62 813-1872-8890',
       linkedin: 'https://linkedin.com/in/charly-micolas',
       github: 'https://github.com/charlybutar21',
     });
+    expect(portfolioData.contact).not.toHaveProperty('phone');
   });
 
   it('preserves the approved competencies, skills, and employment order', () => {

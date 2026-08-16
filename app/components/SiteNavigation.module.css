@@ -1,0 +1,126 @@
+.desktopNavigation {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--line);
+  padding: 1.75rem clamp(1.25rem, 3vw, 2.6rem);
+}
+
+.monogram {
+  color: var(--accent);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.08em;
+}
+
+.navigationGroups {
+  margin: auto 0;
+  padding: 3rem 0;
+}
+
+.group {
+  margin: 0 0 1.55rem;
+}
+
+.group:last-child {
+  margin-bottom: 0;
+}
+
+.groupLabel,
+.footer,
+.number {
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.61rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.groupLabel {
+  margin: 0 0 0.42rem;
+  color: var(--muted);
+}
+
+.links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  width: max-content;
+  padding: 0.14rem 0;
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  line-height: 1.35;
+}
+
+.links a[aria-current='page'] {
+  color: var(--accent);
+  font-style: italic;
+}
+
+.number {
+  color: var(--muted);
+  font-size: 0.52rem;
+}
+
+.footer {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.mobileNavigation {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .desktopNavigation {
+    display: none;
+  }
+
+  .mobileNavigation {
+    position: relative;
+    display: block;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobileNavigation summary {
+    display: flex;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.25rem;
+    color: var(--ink);
+    font-family: var(--font-fira-code), ui-monospace, monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .mobileNavigation summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobilePanel {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 1.25rem;
+    background: var(--paper);
+  }
+
+  .navigationGroups {
+    padding: 0;
+  }
+}

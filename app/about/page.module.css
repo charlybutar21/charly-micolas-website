@@ -1,0 +1,120 @@
+.page {
+  padding: 0 clamp(1.5rem, 6vw, 6rem) 5rem;
+}
+
+.profile {
+  max-width: 47rem;
+  padding: clamp(2.5rem, 6vw, 5rem) 0;
+}
+
+.profile p {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+  letter-spacing: -0.04em;
+  line-height: 1.25;
+}
+
+.index,
+.education {
+  border-top: 1px solid var(--ink);
+  padding: 1rem 0 2rem;
+}
+
+.index h2,
+.education h2 {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.index ol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.index li {
+  display: flex;
+  gap: 0.7rem;
+  border-top: 1px solid var(--line);
+  padding: 0.65rem 0.5rem 0.65rem 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+}
+
+.index li:nth-child(odd) {
+  border-right: 1px solid var(--line);
+  padding-right: 1rem;
+}
+
+.index li:nth-child(even) {
+  padding-left: 1rem;
+}
+
+.index li span {
+  color: var(--accent);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.58rem;
+  font-weight: 600;
+}
+
+.education article {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.2fr) 1fr;
+  gap: 1rem;
+  border-top: 1px solid var(--line);
+  padding: 1rem 0;
+}
+
+.education p,
+.education h3 {
+  margin: 0;
+}
+
+.education article > p {
+  color: var(--muted);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.64rem;
+}
+
+.education h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.education h3 + p {
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 0 1.25rem 3rem;
+  }
+
+  .index ol {
+    grid-template-columns: 1fr;
+  }
+
+  .index li:nth-child(odd) {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .index li:nth-child(even) {
+    padding-left: 0;
+  }
+
+  .education article {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
