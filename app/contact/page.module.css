@@ -1,19 +1,19 @@
 .page {
-  padding: 0 clamp(1.5rem, 6vw, 6rem) 5rem;
+  padding: 0 clamp(1.5rem, 6vw, 6rem) 4rem;
 }
 
 .contact {
   display: grid;
-  max-width: 52rem;
-  gap: 2.5rem;
-  padding: clamp(2.5rem, 6vw, 5rem) 0;
+  max-width: 44rem;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1.75rem, 3.5vw, 3rem) 0;
 }
 
 .contact > p {
-  max-width: 31rem;
+  max-width: 29rem;
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.3rem, 2.6vw, 2rem);
+  font-size: clamp(1.25rem, 2.15vw, 1.75rem);
   letter-spacing: -0.035em;
   line-height: 1.3;
 }

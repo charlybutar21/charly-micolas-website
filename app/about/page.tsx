@@ -21,34 +21,35 @@ export default function AboutPage() {
         eyebrow="Profile"
         title="About"
       />
-      <section className={styles.profile}>
-        <p>{portfolioData.about.paragraphs[0]}</p>
-      </section>
-      <section className={styles.index}>
-        <h2>Core competencies</h2>
-        <ol>
-          {portfolioData.coreCompetencies.map((competency, index) => (
-            <li key={competency}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              {competency}
-            </li>
-          ))}
-        </ol>
-      </section>
-      <section className={styles.education}>
-        <h2>Education</h2>
-        {portfolioData.education.map((education) => (
-          <article key={education.institution}>
-            <p>{education.graduationDate}</p>
-            <div>
-              <h3>{education.degree}</h3>
-              <p>
-                {education.institution} · {education.location}
-              </p>
-            </div>
-          </article>
-        ))}
-      </section>
+      <div className={styles.overview}>
+        <section className={styles.profile}>
+          <p>{portfolioData.about.paragraphs[0]}</p>
+        </section>
+        <div className={styles.supportingInfo}>
+          <section className={styles.index}>
+            <h2>Core competencies</h2>
+            <ul>
+              {portfolioData.coreCompetencies.map((competency) => (
+                <li key={competency}>{competency}</li>
+              ))}
+            </ul>
+          </section>
+          <section className={styles.education}>
+            <h2>Education</h2>
+            {portfolioData.education.map((education) => (
+              <article key={education.institution}>
+                <p>{education.graduationDate}</p>
+                <div>
+                  <h3>{education.degree}</h3>
+                  <p>
+                    {education.institution} · {education.location}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </section>
+        </div>
+      </div>
     </div>
   );
 }

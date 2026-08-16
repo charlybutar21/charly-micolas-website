@@ -1,29 +1,41 @@
 .page {
-  padding: 0 clamp(1.5rem, 6vw, 6rem) 5rem;
+  padding: 0 clamp(1.5rem, 6vw, 6rem) 4rem;
+}
+
+.overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  gap: clamp(2.5rem, 7vw, 8rem);
+  padding: clamp(2rem, 4vw, 3.5rem) 0 0;
 }
 
 .profile {
-  max-width: 47rem;
-  padding: clamp(2.5rem, 6vw, 5rem) 0;
+  max-width: 44rem;
 }
 
 .profile p {
   margin: 0;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.45rem, 3vw, 2.25rem);
-  letter-spacing: -0.04em;
-  line-height: 1.25;
+  font-size: clamp(1.35rem, 2.35vw, 2rem);
+  letter-spacing: -0.035em;
+  line-height: 1.3;
+}
+
+.supportingInfo {
+  display: grid;
+  align-content: start;
+  gap: 1.75rem;
 }
 
 .index,
 .education {
   border-top: 1px solid var(--ink);
-  padding: 1rem 0 2rem;
+  padding-top: 0.85rem;
 }
 
 .index h2,
 .education h2 {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem;
   color: var(--muted);
   font-family: var(--font-fira-code), ui-monospace, monospace;
   font-size: 0.64rem;
@@ -31,7 +43,7 @@
   text-transform: uppercase;
 }
 
-.index ol {
+.index ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
@@ -40,28 +52,20 @@
 }
 
 .index li {
-  display: flex;
-  gap: 0.7rem;
   border-top: 1px solid var(--line);
-  padding: 0.65rem 0.5rem 0.65rem 0;
+  padding: 0.6rem 0.75rem 0.6rem 0;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.1rem;
+  font-size: 0.98rem;
+  line-height: 1.25;
 }
 
 .index li:nth-child(odd) {
   border-right: 1px solid var(--line);
-  padding-right: 1rem;
+  padding-right: 0.75rem;
 }
 
 .index li:nth-child(even) {
-  padding-left: 1rem;
-}
-
-.index li span {
-  color: var(--accent);
-  font-family: var(--font-fira-code), ui-monospace, monospace;
-  font-size: 0.58rem;
-  font-weight: 600;
+  padding-left: 0.75rem;
 }
 
 .education article {
@@ -69,7 +73,7 @@
   grid-template-columns: minmax(7rem, 0.2fr) 1fr;
   gap: 1rem;
   border-top: 1px solid var(--line);
-  padding: 1rem 0;
+  padding: 0.8rem 0;
 }
 
 .education p,
@@ -100,7 +104,13 @@
     padding: 0 1.25rem 3rem;
   }
 
-  .index ol {
+  .overview {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-top: 1.75rem;
+  }
+
+  .index ul {
     grid-template-columns: 1fr;
   }
 

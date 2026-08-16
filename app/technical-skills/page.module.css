@@ -1,10 +1,10 @@
 .page {
-  padding: 0 clamp(1.5rem, 6vw, 6rem) 5rem;
+  padding: 0 clamp(1.5rem, 6vw, 6rem) 4rem;
 }
 
 .context {
-  max-width: 40rem;
-  margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+  max-width: 36rem;
+  margin: clamp(1.35rem, 2.5vw, 2.25rem) 0 0;
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.65;
