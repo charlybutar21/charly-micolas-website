@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navigationItems } from '@/app/lib/navigation';
 import BrandMark from '../shared/BrandMark';
-import SocialProfileLinks from '../shared/SocialProfileLinks';
 import styles from './SiteNavigation.module.css';
 
 function isCurrentPath(pathname: string, href: string) {

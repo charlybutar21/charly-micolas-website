@@ -33,8 +33,6 @@ it('renders the six primary routes without navigation group labels', () => {
 
   expect(markup).toContain('aria-label="Go to Home"');
   expect(markup).toContain('<svg');
-  expect(markup).toContain('Open Charly Micolas LinkedIn profile');
-  expect(markup).toContain('Open Charly Micolas GitHub profile');
   expect(markup).not.toContain('C.M.B.');
   expect(markup).not.toContain('Menu +');
   expect(markup).not.toContain('Primary navigation mobile');
