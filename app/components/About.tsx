@@ -3,9 +3,9 @@ import { portfolioData } from '../data';
 
 export default function About() {
   return (
-    <section id="about" className={styles.about}>
+    <section id="summary" className={styles.about}>
       <h3 className={styles.sectionTitle}>
-        <span className="mono">01.</span> About Me
+        <span className="mono">01.</span> Professional Summary
       </h3>
       <div className={`glass-card ${styles.contentWrapper}`}>
         <div className={styles.content}>

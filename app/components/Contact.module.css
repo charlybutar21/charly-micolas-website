@@ -71,6 +71,19 @@
   box-shadow: 0 10px 25px rgba(255, 0, 255, 0.4);
 }
 
+.secondaryButton {
+  color: var(--secondary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.secondaryButton:hover {
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
 .socials {
   display: flex;
   gap: 30px;
