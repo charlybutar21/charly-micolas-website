@@ -4,10 +4,10 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['tests/**/*.test.ts', 'tests/**/*.test.tsx'],
-  },
-  css: {
-    modules: {
-      classNameStrategy: 'non-scoped',
+    css: {
+      modules: {
+        classNameStrategy: 'non-scoped',
+      },
     },
   },
 });
