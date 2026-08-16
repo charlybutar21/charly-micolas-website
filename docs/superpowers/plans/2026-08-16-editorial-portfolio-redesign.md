@@ -521,4 +521,3 @@ Plan complete and saved to docs/superpowers/plans/2026-08-16-editorial-portfolio
 2. **Inline Execution** — execute tasks in this session using executing-plans, with checkpoints.
 
 Which approach?
-
