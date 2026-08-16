@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# Local design-companion session files
+/.superpowers/
+
 # production
 /build
 
