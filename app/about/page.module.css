@@ -2,39 +2,11 @@
   padding: 0 clamp(1.5rem, 6vw, 6rem) 4rem;
 }
 
-.header {
-  position: relative;
-  margin-bottom: clamp(3rem, 6vw, 5rem);
-  padding-top: clamp(2rem, 5vw, 4rem);
-}
-
-.title {
-  font-family: var(--font-fira-code), ui-monospace, monospace;
-  font-size: clamp(3rem, 8vw, 6rem);
-  color: #285e61;
-  margin: 0;
-  line-height: 1;
-  position: relative;
-  z-index: 2;
-}
-
-.titleShadow {
-  font-family: var(--font-fira-code), ui-monospace, monospace;
-  font-size: clamp(3rem, 8vw, 6rem);
-  color: rgba(40, 94, 97, 0.15);
-  margin: 0;
-  line-height: 1;
-  position: absolute;
-  top: clamp(2rem, 5vw, 4rem);
-  left: 0;
-  transform: translateY(60%);
-  z-index: 1;
-}
-
 .overview {
   display: grid;
   grid-template-columns: minmax(18rem, 1fr) minmax(0, 1.8fr);
   gap: clamp(2.5rem, 7vw, 6rem);
+  padding: clamp(2rem, 4vw, 3.5rem) 0 0;
 }
 
 .profileSidebar {

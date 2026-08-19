@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import FadeIn from '@/app/components/shared/FadeIn';
+import PageIntro from '@/app/components/shared/PageIntro';
 import { portfolioData } from '@/app/data';
 import styles from './page.module.css';
 
@@ -16,19 +17,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className={styles.page}>
-      <div className={styles.header}>
-        <FadeIn as="h1" className={styles.title}>
-          About
-        </FadeIn>
-        <FadeIn
-          as="div"
-          className={styles.titleShadow}
-          delay={0.1}
-          aria-hidden="true"
-        >
-          About
-        </FadeIn>
-      </div>
+      <PageIntro
+        emphasis="the work"
+        note="A backend-focused engineering profile shaped by delivery ownership, technical leadership, and thoughtful collaboration."
+        eyebrow="Profile"
+        title="About"
+      />
 
       <div className={styles.overview}>
         <section className={styles.profileSidebar}>
@@ -46,7 +40,8 @@ export default function AboutPage() {
           <FadeIn delay={0.3} className={styles.profileInfo}>
             <h2 className={styles.name}>{portfolioData.hero.name}</h2>
             <p className={styles.role}>
-              Senior Software Engineer | Backend Engineering | Technical Leadership
+              Senior Software Engineer | Backend Engineering | Technical
+              Leadership
             </p>
             <p className={styles.location}>South Jakarta, Indonesia</p>
           </FadeIn>
