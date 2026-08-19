@@ -6,8 +6,7 @@ export interface NavigationItem {
 export const navigationItems = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Technical Skills', href: '/technical-skills' },
-  { label: 'Experiences', href: '/experiences' },
+  { label: 'Experience', href: '/experiences' },
   { label: 'Writing', href: '/writing' },
   { label: 'Contact', href: '/contact' },
 ] as const satisfies readonly NavigationItem[];

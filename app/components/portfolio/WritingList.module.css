@@ -9,6 +9,14 @@
   align-items: start;
   padding: clamp(2rem, 5vw, 4.25rem) 0;
   border-bottom: 1px solid var(--line);
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.post:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
 }
 
 .number,
@@ -40,7 +48,7 @@
 }
 
 .content h2 a:hover {
-  color: var(--rust);
+  color: var(--accent);
 }
 
 .content > p {
@@ -63,12 +71,12 @@
 }
 
 .meta span:first-child {
-  color: var(--rust);
+  color: var(--accent);
 }
 
 .read {
   padding-top: 0.3rem;
-  color: var(--rust);
+  color: var(--accent);
   text-decoration: none;
   white-space: nowrap;
 }
