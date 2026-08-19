@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { portfolioData } from '@/app/data';
+import FadeIn from '@/app/components/shared/FadeIn';
 
 import styles from './WritingList.module.css';
 
@@ -8,7 +9,7 @@ export default function WritingList() {
   return (
     <section aria-label="Writing index" className={styles.list}>
       {portfolioData.writing.map((post, index) => (
-        <article className={styles.post} key={post.slug}>
+        <FadeIn delay={0.4 + index * 0.15} as="article" className={styles.post} key={post.slug}>
           <p className={styles.number}>{String(index + 1).padStart(2, '0')}</p>
           <div className={styles.content}>
             <div className={styles.meta}>
@@ -30,7 +31,7 @@ export default function WritingList() {
           >
             Read note <span aria-hidden="true">↗</span>
           </Link>
-        </article>
+        </FadeIn>
       ))}
     </section>
   );
