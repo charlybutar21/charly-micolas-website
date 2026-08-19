@@ -44,15 +44,14 @@
 }
 
 .role {
-  font-family: var(--font-fira-code), ui-monospace, monospace;
   font-size: 0.85rem;
-  color: #285e61;
+  color: var(--ink);
+  font-weight: 500;
   margin: 0;
   line-height: 1.4;
 }
 
 .location {
-  font-family: var(--font-fira-code), ui-monospace, monospace;
   font-size: 0.85rem;
   color: var(--muted);
   margin: 0;
@@ -66,11 +65,9 @@
 
 .bio p {
   margin: 0 0 1rem;
-  font-family: var(--font-fira-code), ui-monospace, monospace;
-  font-size: 0.95rem;
-  letter-spacing: 0;
-  line-height: 1.7;
-  color: var(--muted, #a0aec0);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink);
 }
 
 .bio p:last-child {

@@ -29,9 +29,6 @@ export default function Home() {
             <li>Fintech, PropTech, and SaaS</li>
             <li>Technical leadership and delivery ownership</li>
           </ul>
-          <Link className={styles.experienceLink} href="/experiences">
-            Explore experience <span aria-hidden="true">↗</span>
-          </Link>
         </FadeIn>
       </div>
 

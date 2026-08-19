@@ -3,14 +3,17 @@
 }
 
 .sections {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(4rem, 8vw, 7rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(20rem, 1fr);
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
 }
 
 .skillsSection {
-  border-top: 1px solid var(--ink);
-  padding-top: clamp(2rem, 5vw, 4rem);
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+  border-top: none;
+  padding-top: 0;
 }
 
 .sectionTitle {
@@ -20,6 +23,19 @@
   margin: 0 0 2rem;
   color: var(--ink);
   letter-spacing: -0.05em;
+}
+
+@media (max-width: 1024px) {
+  .sections {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .skillsSection {
+    position: static;
+    border-top: 1px solid var(--ink);
+    padding-top: 3rem;
+  }
 }
 
 @media (max-width: 760px) {
