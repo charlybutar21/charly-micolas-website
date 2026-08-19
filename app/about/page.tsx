@@ -46,9 +46,9 @@ export default function AboutPage() {
           <FadeIn delay={0.3} className={styles.profileInfo}>
             <h2 className={styles.name}>{portfolioData.hero.name}</h2>
             <p className={styles.role}>
-              Senior Backend Engineer · Technical Lead
+              Senior Software Engineer | Backend Engineering | Technical Leadership
             </p>
-            <p className={styles.location}>Batam, Riau Islands, Indonesia</p>
+            <p className={styles.location}>South Jakarta, Indonesia</p>
           </FadeIn>
         </section>
 
