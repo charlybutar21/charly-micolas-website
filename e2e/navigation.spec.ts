@@ -19,12 +19,13 @@ test('mobile navigation stays directly available without horizontal overflow', a
     ),
   ).toBe(true);
 
-  await navigation.getByRole('link', { name: 'Technical Skills' }).click();
+  await navigation.getByRole('link', { name: 'Experience' }).click();
 
-  await expect(page).toHaveURL('/technical-skills');
+  await expect(page).toHaveURL('/experiences');
   await expect(
     page.getByText(
-      'Professional toolkit used across backend delivery, service integration, and engineering practice.',
+      'A chronological record of roles and technical toolkit',
+      { exact: false },
     ),
   ).toBeVisible();
 });
