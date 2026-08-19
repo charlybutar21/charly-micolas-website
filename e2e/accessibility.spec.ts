@@ -14,6 +14,7 @@ for (const route of [
   }) => {
     await page.goto(route);
 
+    await page.waitForTimeout(1000); // wait for framer-motion animations to finish
     const results = await new AxeBuilder({ page }).analyze();
 
     expect(results.violations).toEqual([]);

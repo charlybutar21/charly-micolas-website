@@ -40,6 +40,7 @@ export default function AboutPage() {
               height={200}
               className={styles.profileImage}
               priority
+              unoptimized={true}
             />
           </FadeIn>
           <FadeIn delay={0.3} className={styles.profileInfo}>
