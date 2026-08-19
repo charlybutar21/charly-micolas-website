@@ -10,13 +10,7 @@ import SiteNavigation from '../app/components/layout/SiteNavigation';
 it('renders the primary routes without navigation group labels', () => {
   const markup = renderToStaticMarkup(<SiteNavigation />);
 
-  for (const href of [
-    '/',
-    '/about',
-    '/experiences',
-    '/writing',
-    '/contact',
-  ]) {
+  for (const href of ['/', '/about', '/experiences', '/writing', '/contact']) {
     expect(markup).toContain(`href="${href}"`);
   }
 

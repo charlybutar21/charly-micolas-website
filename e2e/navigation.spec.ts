@@ -23,10 +23,9 @@ test('mobile navigation stays directly available without horizontal overflow', a
 
   await expect(page).toHaveURL('/experiences');
   await expect(
-    page.getByText(
-      'A chronological record of roles and technical toolkit',
-      { exact: false },
-    ),
+    page.getByText('A chronological record of roles and technical toolkit', {
+      exact: false,
+    }),
   ).toBeVisible();
 });
 
