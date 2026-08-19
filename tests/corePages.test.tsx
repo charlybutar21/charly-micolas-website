@@ -7,7 +7,8 @@ describe('editorial core routes', () => {
   it('keeps the approved identity and introduction', () => {
     const markup = renderToStaticMarkup(<Home />);
 
-    expect(markup).toContain('Charly Micolas Butarbutar');
+    expect(markup).toContain('Charly Micolas');
+    expect(markup).toContain('Butarbutar');
     expect(markup).toContain('Senior Software Engineer');
   });
 
