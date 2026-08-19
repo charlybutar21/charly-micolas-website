@@ -11,7 +11,7 @@
 .title {
   font-family: var(--font-fira-code), ui-monospace, monospace;
   font-size: clamp(3rem, 8vw, 6rem);
-  color: #38b2ac;
+  color: #285e61;
   margin: 0;
   line-height: 1;
   position: relative;
@@ -21,7 +21,7 @@
 .titleShadow {
   font-family: var(--font-fira-code), ui-monospace, monospace;
   font-size: clamp(3rem, 8vw, 6rem);
-  color: rgba(56, 178, 172, 0.15);
+  color: rgba(40, 94, 97, 0.15);
   margin: 0;
   line-height: 1;
   position: absolute;
@@ -74,7 +74,7 @@
 .role {
   font-family: var(--font-fira-code), ui-monospace, monospace;
   font-size: 0.85rem;
-  color: #38b2ac;
+  color: #285e61;
   margin: 0;
   line-height: 1.4;
 }
