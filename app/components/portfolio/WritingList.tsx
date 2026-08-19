@@ -9,7 +9,12 @@ export default function WritingList() {
   return (
     <section aria-label="Writing index" className={styles.list}>
       {portfolioData.writing.map((post, index) => (
-        <FadeIn delay={0.4 + index * 0.15} as="article" className={styles.post} key={post.slug}>
+        <FadeIn
+          delay={0.4 + index * 0.15}
+          as="article"
+          className={styles.post}
+          key={post.slug}
+        >
           <p className={styles.number}>{String(index + 1).padStart(2, '0')}</p>
           <div className={styles.content}>
             <div className={styles.meta}>

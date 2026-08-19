@@ -10,7 +10,12 @@ interface FadeInProps {
   as?: 'div' | 'span' | 'h1' | 'h2' | 'h3' | 'p' | 'article' | 'section';
 }
 
-export default function FadeIn({ children, delay = 0, className, as = 'div' }: FadeInProps) {
+export default function FadeIn({
+  children,
+  delay = 0,
+  className,
+  as = 'div',
+}: FadeInProps) {
   const Component = motion[as] || motion.div;
 
   return (

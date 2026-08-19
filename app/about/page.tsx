@@ -17,8 +17,17 @@ export default function AboutPage() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <FadeIn as="h1" className={styles.title}>About</FadeIn>
-        <FadeIn as="div" className={styles.titleShadow} delay={0.1} aria-hidden="true">About</FadeIn>
+        <FadeIn as="h1" className={styles.title}>
+          About
+        </FadeIn>
+        <FadeIn
+          as="div"
+          className={styles.titleShadow}
+          delay={0.1}
+          aria-hidden="true"
+        >
+          About
+        </FadeIn>
       </div>
 
       <div className={styles.overview}>
@@ -35,7 +44,9 @@ export default function AboutPage() {
           </FadeIn>
           <FadeIn delay={0.3} className={styles.profileInfo}>
             <h2 className={styles.name}>{portfolioData.hero.name}</h2>
-            <p className={styles.role}>Senior Backend Engineer · Technical Lead</p>
+            <p className={styles.role}>
+              Senior Backend Engineer · Technical Lead
+            </p>
             <p className={styles.location}>Batam, Riau Islands, Indonesia</p>
           </FadeIn>
         </section>
