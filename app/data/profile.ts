@@ -44,7 +44,6 @@ export const profileData: Pick<
     },
   ],
   contact: {
-    email: 'charlymicolasbutar@gmail.com',
     linkedin: 'https://linkedin.com/in/charly-micolas',
     github: 'https://github.com/charlybutar21',
   },
