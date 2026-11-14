@@ -7,13 +7,13 @@ it('includes every public editorial route in the sitemap', () => {
 
   expect(urls).toEqual(
     expect.arrayContaining([
-      'https://charlymicolas.com/',
-      'https://charlymicolas.com/about',
-      'https://charlymicolas.com/technical-skills',
-      'https://charlymicolas.com/experiences',
-      'https://charlymicolas.com/writing',
-      'https://charlymicolas.com/writing/the-quiet-work-behind-reliable-software',
-      'https://charlymicolas.com/contact',
+      'https://www.charlymicolas.com/',
+      'https://www.charlymicolas.com/about',
+      'https://www.charlymicolas.com/technical-skills',
+      'https://www.charlymicolas.com/experiences',
+      'https://www.charlymicolas.com/writing',
+      'https://www.charlymicolas.com/writing/the-quiet-work-behind-reliable-software',
+      'https://www.charlymicolas.com/contact',
     ]),
   );
 });

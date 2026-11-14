@@ -8,18 +8,18 @@ The site is intentionally content-led. Route pages compose presentational compon
 
 ## Directory map
 
-| Path | Responsibility |
-| --- | --- |
-| `app/` | App Router routes, metadata, global styles, and sitemap/robots handlers. |
-| `app/components/layout/` | Persistent shell and responsive primary navigation. |
-| `app/components/portfolio/` | Domain-specific views: skills, experience timeline, and writing index. |
-| `app/components/shared/` | Reusable route-level building blocks, such as page intros, the brand mark, contact links, and social profiles. |
-| `app/data/` | Typed, CV-backed portfolio content grouped by domain. |
-| `app/types/` | The single portfolio content model. |
-| `app/lib/` | Small pure helpers, including navigation structure and skill-icon lookup. |
-| `tests/` | Fast Vitest tests for data, routes, metadata, and rendered markup. |
-| `e2e/` | Playwright checks for responsive navigation and Axe accessibility scans. |
-| `docs/` | Maintainer documentation and approved design/implementation records. |
+| Path                        | Responsibility                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `app/`                      | App Router routes, metadata, global styles, and sitemap/robots handlers.                                       |
+| `app/components/layout/`    | Persistent shell and responsive primary navigation.                                                            |
+| `app/components/portfolio/` | Domain-specific views: skills, experience timeline, and writing index.                                         |
+| `app/components/shared/`    | Reusable route-level building blocks, such as page intros, the brand mark, contact links, and social profiles. |
+| `app/data/`                 | Typed, CV-backed portfolio content grouped by domain.                                                          |
+| `app/types/`                | The single portfolio content model.                                                                            |
+| `app/lib/`                  | Small pure helpers, including navigation structure and skill-icon lookup.                                      |
+| `tests/`                    | Fast Vitest tests for data, routes, metadata, and rendered markup.                                             |
+| `e2e/`                      | Playwright checks for responsive navigation and Axe accessibility scans.                                       |
+| `docs/`                     | Maintainer documentation and approved design/implementation records.                                           |
 
 ## Content flow
 
@@ -47,4 +47,4 @@ Most components are Server Components. `SiteNavigation` is the only persistent C
 
 The root layout defines `metadataBase`, site-level description, social metadata, and the home canonical URL. Each public route owns its description and canonical URL. The Writing post route derives metadata from its typed post data.
 
-`app/sitemap.ts` includes all route paths and every writing slug. `app/robots.ts` points crawlers to the HTTPS sitemap. The CI workflow runs formatting, type checking, linting, unit tests, Playwright, and the static build before FTP deployment.
+`app/sitemap.ts` includes all route paths and every writing slug. `app/robots.ts` points crawlers to the HTTPS sitemap. The CI workflow runs formatting, type checking, linting, unit tests, Playwright, and the static build. Cloudflare Pages independently builds and publishes `out/` through its GitHub integration. The canonical production origin is `https://www.charlymicolas.com`; see [deployment](deployment.md).

@@ -41,4 +41,4 @@ npm run test:e2e
 npm run build
 ```
 
-GitHub Actions runs the same checks before deploying the static `out/` directory to cPanel via FTP on pushes to `main`.
+GitHub Actions runs these quality checks on pull requests and pushes to `main`. Cloudflare Pages deploys the static `out/` directory through its GitHub integration: pushes to `main` update production, and pull requests get preview deployments. See the [deployment guide](docs/deployment.md) for configuration and domain setup.

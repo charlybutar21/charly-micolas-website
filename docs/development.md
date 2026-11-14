@@ -19,16 +19,16 @@ npx playwright install chromium
 
 ## Quality commands
 
-| Command | Purpose |
-| --- | --- |
-| `npm run format` | Apply the project Prettier rules to source and test files. |
-| `npm run format:check` | Verify formatting without changing files. |
-| `npm run typecheck` | Run TypeScript without emitting output. |
-| `npm run lint` | Run ESLint across the application. |
-| `npm run test` | Run fast Vitest checks. |
-| `npm run test:e2e` | Run Playwright navigation and responsive browser checks. |
-| `npm run test:a11y` | Run only Playwright tests marked `@a11y` with Axe. |
-| `npm run build` | Produce and validate the static `out/` deployment. |
+| Command                | Purpose                                                    |
+| ---------------------- | ---------------------------------------------------------- |
+| `npm run format`       | Apply the project Prettier rules to source and test files. |
+| `npm run format:check` | Verify formatting without changing files.                  |
+| `npm run typecheck`    | Run TypeScript without emitting output.                    |
+| `npm run lint`         | Run ESLint across the application.                         |
+| `npm run test`         | Run fast Vitest checks.                                    |
+| `npm run test:e2e`     | Run Playwright navigation and responsive browser checks.   |
+| `npm run test:a11y`    | Run only Playwright tests marked `@a11y` with Axe.         |
+| `npm run build`        | Produce and validate the static `out/` deployment.         |
 
 `playwright.config.ts` starts and stops a local Next.js development server automatically for browser tests. It uses the app’s own Next.js binary rather than a shell wrapper so that the lifecycle is reliable on Windows and CI.
 
@@ -45,6 +45,6 @@ Use the smallest appropriate layer when adding behavior. A pure data or componen
 
 ## CI and deployment
 
-`.github/workflows/deploy.yml` runs on pull requests and pushes to `main`. It installs dependencies with `npm ci`, runs all quality gates, installs Chromium on Ubuntu, and builds the static site. FTP deployment runs only for pushes to `main` and requires `FTP_SERVER`, `FTP_USERNAME`, and `FTP_PASSWORD` repository secrets.
+`.github/workflows/deploy.yml` runs on pull requests and pushes to `main`. It installs dependencies with `npm ci`, runs all quality gates, installs Chromium on Ubuntu, and builds the static site. Cloudflare Pages independently deploys through its GitHub integration, with `main` as the production branch. No FTP credentials or Cloudflare API tokens are needed in GitHub Actions. See [deployment](deployment.md) for the build settings, domain setup, and rollback procedure.
 
 Do not commit generated directories such as `.next/`, `out/`, `node_modules/`, Playwright reports, or TypeScript build-info files.

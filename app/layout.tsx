@@ -14,7 +14,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://charlymicolas.com'),
+  metadataBase: new URL('https://www.charlymicolas.com'),
   title: 'Charly Micolas Butarbutar | Senior Software Engineer',
   description:
     'Editorial portfolio of Charly Micolas Butarbutar, a backend-focused Senior Software Engineer specialising in technical leadership, service integration, and reliable delivery.',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     'PostgreSQL',
   ],
   authors: [
-    { name: 'Charly Micolas Butarbutar', url: 'https://charlymicolas.com' },
+    { name: 'Charly Micolas Butarbutar', url: 'https://www.charlymicolas.com' },
   ],
   creator: 'Charly Micolas Butarbutar',
   alternates: {
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://charlymicolas.com',
+    url: 'https://www.charlymicolas.com',
     title: 'Charly Micolas Butarbutar | Senior Software Engineer',
     description:
       'Editorial portfolio of Charly Micolas Butarbutar, a backend-focused Senior Software Engineer specialising in technical leadership, service integration, and reliable delivery.',
