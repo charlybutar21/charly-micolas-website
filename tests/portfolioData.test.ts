@@ -36,7 +36,6 @@ describe('approved 2026 CV content', () => {
       'Frameworks & Libraries',
       'Data & Messaging',
       'Development & DevOps',
-      'Architecture & Engineering Practices',
       'Project Management',
     ]);
     expect(portfolioData.experience).toHaveLength(6);

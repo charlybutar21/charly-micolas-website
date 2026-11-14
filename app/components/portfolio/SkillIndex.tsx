@@ -58,11 +58,6 @@ export default function SkillIndex() {
           </ul>
         </section>
       ))}
-      <p className={styles.legend}>
-        <strong>Brand mark</strong> identifies named technology.{' '}
-        <strong>Practice mark</strong> identifies a method or principle without
-        an official product logo.
-      </p>
     </div>
   );
 }

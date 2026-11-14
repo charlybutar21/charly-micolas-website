@@ -1,7 +1,7 @@
 .timeline {
   position: relative;
   margin: 0;
-  padding: clamp(2.75rem, 6vw, 5rem) 0 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0 0;
   list-style: none;
 }
 
@@ -17,7 +17,7 @@
 
 .entry {
   position: relative;
-  padding: 0 0 clamp(2.5rem, 5vw, 4.5rem);
+  padding: 0 0 clamp(2rem, 4vw, 3rem);
 }
 
 .entry::before {
@@ -95,32 +95,12 @@
   font-size: 0.78rem;
 }
 
-.highlights,
-.more ul {
+.highlights {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.55rem;
   margin: 1.15rem 0 0;
   padding: 0;
   list-style: none;
-}
-
-.more {
-  margin-top: 1rem;
-}
-
-.more summary {
-  width: max-content;
-  cursor: pointer;
-  color: var(--accent);
-  font-family: var(--font-fira-code), ui-monospace, monospace;
-  font-size: 0.61rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.more summary::marker {
-  color: var(--muted);
 }
 
 .details li {

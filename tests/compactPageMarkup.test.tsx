@@ -7,7 +7,7 @@ it('keeps the About narrative and supporting credentials in a compact overview',
   const markup = renderToStaticMarkup(<AboutPage />);
 
   expect(markup).toContain('class="overview"');
-  expect(markup).toContain('Core competencies');
+  expect(markup).not.toContain('Core competencies');
   expect(markup).toContain('Education');
 });
 
