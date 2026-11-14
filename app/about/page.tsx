@@ -19,7 +19,7 @@ export default function AboutPage() {
     <div className={styles.page}>
       <PageIntro
         emphasis="the work"
-        note="A backend-focused engineering profile shaped by delivery ownership, technical leadership, and thoughtful collaboration."
+        note="Backend engineering, technical leadership, and dependable delivery."
         eyebrow="Profile"
         title="About"
       />
@@ -49,10 +49,6 @@ export default function AboutPage() {
 
         <div className={styles.supportingInfo}>
           <section className={styles.bio}>
-            <p>
-              I’m Charly Micolas Butarbutar, also known as Charly Butarbutar or
-              Charly Micolas.
-            </p>
             {portfolioData.about.paragraphs.map((paragraph, idx) => (
               <FadeIn delay={0.4 + idx * 0.1} key={idx} as="p">
                 {paragraph}

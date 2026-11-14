@@ -54,8 +54,8 @@ export default function Home() {
         </FadeIn>
         <FadeIn delay={0.2} className={styles.introduction}>
           <strong>{portfolioData.hero.role}</strong>I help teams turn complex
-          problems into reliable, human-centered software through engineering
-          depth, clear decisions, and thoughtful collaboration.
+          problems into reliable software with clear decisions and thoughtful
+          collaboration.
           <ul className={styles.evidence}>
             <li>Nearly a decade in backend engineering</li>
             <li>Fintech, PropTech, and SaaS</li>
@@ -69,9 +69,8 @@ export default function Home() {
           <h2>About</h2>
           <p>
             I’m Charly Micolas Butarbutar, also known as Charly Butarbutar or
-            Charly Micolas. Welcome to my personal portfolio.
+            Charly Micolas.
           </p>
-          <p>{portfolioData.about.paragraphs[0]}</p>
           <Link href="/about" className={styles.textLink}>
             Read full profile
           </Link>
@@ -88,11 +87,6 @@ export default function Home() {
             View all experiences
           </Link>
         </FadeIn>
-      </div>
-
-      <div className={styles.footer}>
-        <p>A personal journal of work, craft, and continuing learning.</p>
-        <p>Built around systems, craft, and people.</p>
       </div>
     </section>
   );
