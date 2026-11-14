@@ -4,7 +4,7 @@ import { portfolioData } from './data';
 
 export const dynamic = 'force-static';
 
-const baseUrl = 'https://charlymicolas.com';
+const baseUrl = 'https://www.charlymicolas.com';
 const siteLastModified = new Date('2026-08-16T00:00:00.000Z');
 
 export default function sitemap(): MetadataRoute.Sitemap {

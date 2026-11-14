@@ -17,7 +17,7 @@ import { metadata as writingMetadata } from '../app/writing/page';
 
 it('publishes canonical, share, and crawler metadata for each public route', async () => {
   expect(rootMetadata.metadataBase).toEqual(
-    new URL('https://charlymicolas.com'),
+    new URL('https://www.charlymicolas.com'),
   );
   expect(rootMetadata.alternates?.canonical).toBe('/');
   expect(rootMetadata.twitter).toMatchObject({ card: 'summary' });
@@ -41,7 +41,7 @@ it('publishes canonical, share, and crawler metadata for each public route', asy
   expect(postMetadata.alternates?.canonical).toBe(
     '/writing/the-quiet-work-behind-reliable-software',
   );
-  expect(robots().sitemap).toBe('https://charlymicolas.com/sitemap.xml');
+  expect(robots().sitemap).toBe('https://www.charlymicolas.com/sitemap.xml');
 });
 
 it('uses a stable last-modified date instead of the runtime build date', () => {

@@ -1,4 +1,4 @@
-name: CI/CD Pipeline (cPanel FTP Deploy)
+name: Website quality checks
 
 on:
   push:
@@ -8,22 +8,30 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   build-and-deploy:
-    name: Build & Deploy to cPanel
+    name: Validate static website
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
           cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
+
+      - name: Audit dependencies
+        run: npm run audit
 
       - name: Run Linter
         run: npm run lint
@@ -47,15 +55,5 @@ jobs:
         # This will output static files to the /out directory
         run: npm run build
 
-      - name: Deploy to cPanel via FTP
-        # Only deploy when pushing to main (not on pull requests)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          # Path inside the repository to upload (Next.js static export folder)
-          local-dir: ./out/
-          # Path on the server where the files should go (usually public_html or the domain root)
-          server-dir: ./public_html/
+      # Cloudflare Pages builds and deploys through its GitHub integration.
+      # main is production; pull requests receive preview deployments.
