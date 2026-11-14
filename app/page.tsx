@@ -15,6 +15,38 @@ export default function Home() {
         </FadeIn>
       </div>
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'WebSite',
+                '@id': 'https://www.charlymicolas.com/#website',
+                url: 'https://www.charlymicolas.com/',
+                name: 'Charly Micolas Butarbutar',
+                alternateName: ['Charly Butarbutar', 'Charly Micolas'],
+                publisher: { '@id': 'https://www.charlymicolas.com/#person' },
+              },
+              {
+                '@type': 'Person',
+                '@id': 'https://www.charlymicolas.com/#person',
+                name: 'Charly Micolas Butarbutar',
+                alternateName: ['Charly Butarbutar', 'Charly Micolas'],
+                url: 'https://www.charlymicolas.com/',
+                image: 'https://www.charlymicolas.com/images/charly.png',
+                jobTitle: 'Senior Software Engineer',
+                sameAs: [
+                  'https://linkedin.com/in/charly-micolas',
+                  'https://github.com/charlybutar21',
+                ],
+              },
+            ],
+          }).replace(/</g, '\\u003c'),
+        }}
+      />
+
       <div className={styles.hero}>
         <FadeIn as="h1" aria-label={portfolioData.hero.name}>
           Charly Micolas
@@ -35,6 +67,10 @@ export default function Home() {
       <div className={styles.quickOverview}>
         <FadeIn delay={0.3} className={styles.overviewSection}>
           <h2>About</h2>
+          <p>
+            I’m Charly Micolas Butarbutar, also known as Charly Butarbutar or
+            Charly Micolas. Welcome to my personal portfolio.
+          </p>
           <p>{portfolioData.about.paragraphs[0]}</p>
           <Link href="/about" className={styles.textLink}>
             Read full profile

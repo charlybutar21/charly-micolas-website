@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.charlymicolas.com'),
   title: 'Charly Micolas Butarbutar | Senior Software Engineer',
   description:
-    'Editorial portfolio of Charly Micolas Butarbutar, a backend-focused Senior Software Engineer specialising in technical leadership, service integration, and reliable delivery.',
+    'Personal portfolio of Charly Micolas Butarbutar, also known as Charly Butarbutar or Charly Micolas. Senior Software Engineer focused on backend systems and technical leadership.',
   keywords: [
     'Charly Micolas',
     'Charly Micolas Butarbutar',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: 'Charly Micolas Butarbutar | Senior Software Engineer',
     description:
       'Editorial portfolio of Charly Micolas Butarbutar, a backend-focused Senior Software Engineer specialising in technical leadership, service integration, and reliable delivery.',
-    siteName: 'Charly Micolas Portfolio',
+    siteName: 'Charly Micolas Butarbutar',
   },
   twitter: {
     card: 'summary',
