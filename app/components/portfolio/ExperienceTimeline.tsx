@@ -22,22 +22,13 @@ export default function ExperienceTimeline() {
                 </p>
               </header>
               <ul className={styles.highlights}>
-                {experience.highlights.map((responsibility) => (
+                {[
+                  ...experience.highlights,
+                  ...experience.additionalResponsibilities,
+                ].map((responsibility) => (
                   <li key={responsibility}>{responsibility}</li>
                 ))}
               </ul>
-              {experience.additionalResponsibilities.length > 0 ? (
-                <details className={styles.more}>
-                  <summary>More responsibilities</summary>
-                  <ul>
-                    {experience.additionalResponsibilities.map(
-                      (responsibility) => (
-                        <li key={responsibility}>{responsibility}</li>
-                      ),
-                    )}
-                  </ul>
-                </details>
-              ) : null}
             </div>
           </article>
         </li>

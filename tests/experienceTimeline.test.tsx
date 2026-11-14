@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { expect, it } from 'vitest';
+import { portfolioData } from '../app/data';
 import ExperienceTimeline from '../app/components/portfolio/ExperienceTimeline';
 
 it('renders all six CV roles with the current role first', () => {
@@ -12,6 +13,16 @@ it('renders all six CV roles with the current role first', () => {
   expect(markup).toContain('Jun 2024 - Present');
   expect(markup).toContain('South Jakarta');
   expect(markup).toContain('Current role');
-  expect(markup.match(/<details/g) ?? []).toHaveLength(3);
-  expect(markup).toContain('More responsibilities');
+  expect(markup).not.toContain('<details');
+  for (const role of portfolioData.experience) {
+    for (const responsibility of [
+      ...role.highlights,
+      ...role.additionalResponsibilities,
+    ]) {
+      expect(markup).toContain(
+        renderToStaticMarkup(<span>{responsibility}</span>).slice(6, -7),
+      );
+    }
+  }
+  expect(markup).not.toContain('More responsibilities');
 });

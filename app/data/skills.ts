@@ -34,23 +34,6 @@ export const skillCategories: SkillCategory[] = [
     items: ['Git', 'GitLab', 'GitHub', 'Docker', 'Maven', 'Gradle'],
   },
   {
-    category: 'Architecture & Engineering Practices',
-    items: [
-      'System Design',
-      'Microservices',
-      'REST API Design',
-      'Event-Driven Architecture',
-      'Database Design',
-      'OOP',
-      'SOLID Principles',
-      'Clean Code',
-      'Code Review',
-      'Refactoring',
-      'Root Cause Analysis',
-      'SDLC',
-    ],
-  },
-  {
     category: 'Project Management',
     items: ['Jira', 'Confluence', 'Agile', 'Scrum', 'Kanban'],
   },

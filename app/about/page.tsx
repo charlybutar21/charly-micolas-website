@@ -60,15 +60,6 @@ export default function AboutPage() {
             ))}
           </section>
 
-          <FadeIn delay={0.5} className={styles.index}>
-            <h2>Core competencies</h2>
-            <ul>
-              {portfolioData.coreCompetencies.map((competency) => (
-                <li key={competency}>{competency}</li>
-              ))}
-            </ul>
-          </FadeIn>
-
           <FadeIn delay={0.6} className={styles.education}>
             <h2>Education</h2>
             {portfolioData.education.map((education) => (

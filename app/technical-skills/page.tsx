@@ -21,10 +21,6 @@ export default function TechnicalSkillsPage() {
         eyebrow="Technical practice"
         title="Technical"
       />
-      <p className={styles.context}>
-        Professional toolkit used across backend delivery, service integration,
-        and engineering practice.
-      </p>
       <SkillIndex />
     </div>
   );

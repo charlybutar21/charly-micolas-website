@@ -7,6 +7,6 @@ it('explains how the technical skill groups are used in practice', () => {
   const markup = renderToStaticMarkup(<TechnicalSkillsPage />);
 
   expect(markup).toContain(
-    'Professional toolkit used across backend delivery, service integration, and engineering practice.',
+    'A visual index of the tools, platforms, and engineering practices used to build and sustain backend systems.',
   );
 });
