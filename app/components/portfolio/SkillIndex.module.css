@@ -1,6 +1,6 @@
 .index {
   display: grid;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
 }
 
 .group {
@@ -9,7 +9,7 @@
   gap: 0.75rem 1.25rem;
   align-items: baseline;
   border-bottom: 1px solid var(--line);
-  padding: 1rem 0;
+  padding: 0.75rem 0;
 }
 
 .group:first-child {
@@ -63,8 +63,10 @@
   font-weight: 700;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 760px) {
   .group {
     grid-template-columns: 1fr;
+    padding: 0.6rem 0;
+    gap: 0.5rem;
   }
 }

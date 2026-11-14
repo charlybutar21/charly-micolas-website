@@ -12,7 +12,7 @@ export const profileData: Pick<
   },
   about: {
     paragraphs: [
-      'Backend-focused Senior Software Engineer combining approximately 9 years of technical experience with delivery ownership and cross-functional coordination. Experienced in Java, Golang, REST APIs, microservices, databases, and service integration across Fintech P2P, Property Technology, and SaaS supply chain. Brings hands-on backend depth to architecture discussions, requirement clarification, engineering review, blocker resolution, and reliable delivery.',
+      'I build backend systems with Java and Go, with approximately 9 years of experience across Fintech, PropTech, and SaaS. My work spans APIs, microservices, databases, and integrations, alongside technical leadership, engineering reviews, and delivery ownership.',
     ],
   },
   coreCompetencies: [
