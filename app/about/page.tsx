@@ -49,6 +49,10 @@ export default function AboutPage() {
 
         <div className={styles.supportingInfo}>
           <section className={styles.bio}>
+            <p>
+              I’m Charly Micolas Butarbutar, also known as Charly Butarbutar or
+              Charly Micolas.
+            </p>
             {portfolioData.about.paragraphs.map((paragraph, idx) => (
               <FadeIn delay={0.4 + idx * 0.1} key={idx} as="p">
                 {paragraph}
