@@ -2,7 +2,7 @@
 
 ## Setup
 
-Use Node.js 22 to match the CI workflow.
+Use Node.js 22 to match the CI workflow. The development server binds to `127.0.0.1` so it is not exposed to the local network by default.
 
 ```bash
 npm install
@@ -45,6 +45,8 @@ Use the smallest appropriate layer when adding behavior. A pure data or componen
 
 ## CI and deployment
 
-`.github/workflows/deploy.yml` runs on pull requests and pushes to `main`. It installs dependencies with `npm ci`, runs all quality gates, installs Chromium on Ubuntu, and builds the static site. Cloudflare Pages independently deploys through its GitHub integration, with `main` as the production branch. No FTP credentials or Cloudflare API tokens are needed in GitHub Actions. See [deployment](deployment.md) for the build settings, domain setup, and rollback procedure.
+The scoped npm override for `@typescript-eslint/typescript-estree` uses `minimatch` 11.0.1 to address [GHSA-g3hv-75wg-m249](https://github.com/isaacs/minimatch/security/advisories/GHSA-g3hv-75wg-m249). The current upstream parser still requests the affected 10.x range. Remove this override when the parser adopts a patched version; validate linting and rerun `npm run audit` when changing it.
+
+`.github/workflows/deploy.yml` runs on pull requests and pushes to `main`. It installs dependencies with `npm ci`, runs `npm run audit` and all quality gates, installs Chromium on Ubuntu, and builds the static site. The protected `main` branch requires successful checks before a pull request can merge. Cloudflare Pages deploys through its GitHub integration, with `main` as the production branch. No FTP credentials or Cloudflare API tokens are needed in GitHub Actions. See [deployment](deployment.md) for the build settings, domain setup, and rollback procedure.
 
 Do not commit generated directories such as `.next/`, `out/`, `node_modules/`, Playwright reports, or TypeScript build-info files.

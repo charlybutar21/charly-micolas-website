@@ -17,7 +17,17 @@ Connect `charlybutar21/charly-micolas-website` using the Cloudflare Pages GitHub
 
 Enable automatic production deployments and preview deployments. Every push or merge to `main` publishes production after a successful Pages build. Other branches and pull requests produce previews. Local changes must be committed and pushed before deployment occurs.
 
-GitHub Actions runs formatting, type checking, linting, unit tests, browser tests, and a production build independently. Pages does not wait for that workflow; review its checks before merging a pull request. A failed Pages build leaves the previous successful deployment serving traffic.
+GitHub Actions runs the dependency audit, formatting, type checking, linting, unit tests, browser tests, and a production build. Protect `main` before enabling automatic production deployments: require a pull request and the successful `Validate static website` check from GitHub Actions (app ID `15368`), require the branch to be up to date, enforce the rules for administrators, and disallow force pushes and deletion. No independent approving reviewer is required for this single-maintainer repository.
+
+Pages does not itself wait for GitHub Actions. The protected-branch gate prevents an unchecked change from entering `main`; Pages then publishes the merged change. A failed Pages build leaves the previous successful deployment serving traffic. Do not remove this branch protection or deploy an unchecked branch as production.
+
+## Security
+
+`public/_headers` is copied into `out/` and interpreted by Cloudflare Pages. It prevents framing and MIME sniffing, limits referrer information, disables camera/microphone/geolocation, and blocks objects and form submissions. The CSP deliberately does not restrict scripts or styles: Next.js static exports contain inline hydration scripts and animations use inline styles. This is baseline hardening, not a complete XSS-prevention policy.
+
+Development binds to loopback (`127.0.0.1`). `npm run audit` checks both application and development dependencies and fails CI for moderate or higher advisory severity. Update affected dependencies and rerun the checks instead of bypassing the gate. GitHub Actions dependencies are pinned to verified commit SHAs, and checkout does not persist Git credentials.
+
+After deployment, verify the actual response headers and HTTPS certificate on the Pages preview and the custom domain. Require HTTPS before enabling HSTS; do not apply `includeSubDomains` until all subdomains support HTTPS. Keep Cloudflare/GitHub access limited to this project and retain account MFA.
 
 ## Domain setup
 

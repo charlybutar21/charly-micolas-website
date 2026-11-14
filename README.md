@@ -36,9 +36,10 @@ npx playwright install chromium
 npm run format:check
 npm run typecheck
 npm run lint
+npm run audit
 npm run test
 npm run test:e2e
 npm run build
 ```
 
-GitHub Actions runs these quality checks on pull requests and pushes to `main`. Cloudflare Pages deploys the static `out/` directory through its GitHub integration: pushes to `main` update production, and pull requests get preview deployments. See the [deployment guide](docs/deployment.md) for configuration and domain setup.
+GitHub Actions runs these quality checks on pull requests and pushes to `main`. The protected `main` branch requires a pull request and successful checks before merging. Cloudflare Pages deploys the static `out/` directory through its GitHub integration: merges to `main` update production, and pull requests get preview deployments. See the [deployment guide](docs/deployment.md) for configuration and domain setup.
