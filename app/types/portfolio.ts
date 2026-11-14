@@ -46,7 +46,6 @@ export interface PortfolioData {
   education: EducationData[];
   writing: WritingPost[];
   contact: {
-    email: string;
     linkedin: string;
     github: string;
   };

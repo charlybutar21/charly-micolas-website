@@ -9,7 +9,6 @@ describe('approved 2026 CV content', () => {
     });
     expect(portfolioData.hero.tagline).toContain('approximately 9 years');
     expect(portfolioData.contact).toEqual({
-      email: 'charlymicolasbutar@gmail.com',
       linkedin: 'https://linkedin.com/in/charly-micolas',
       github: 'https://github.com/charlybutar21',
     });

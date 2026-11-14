@@ -12,10 +12,11 @@ describe('editorial core routes', () => {
     expect(markup).toContain('Senior Software Engineer');
   });
 
-  it('renders email and professional links without telephone output', () => {
+  it('renders professional links without email or telephone output', () => {
     const markup = renderToStaticMarkup(<ContactLinks />);
 
-    expect(markup).toContain('mailto:charlymicolasbutar@gmail.com');
+    expect(markup).not.toContain('mailto:');
+    expect(markup).not.toContain('charlymicolasbutar@gmail.com');
     expect(markup).toContain('linkedin.com/in/charly-micolas');
     expect(markup).toContain('github.com/charlybutar21');
     expect(markup).toContain(

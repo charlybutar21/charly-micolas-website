@@ -22,10 +22,7 @@ export default function ContactPage() {
         title="Send"
       />
       <section className={styles.contact}>
-        <p>
-          The easiest way to start is an email. You can also find me on the
-          professional platforms below.
-        </p>
+        <p>Connect with me on LinkedIn or explore my work on GitHub.</p>
         <ContactLinks />
       </section>
     </div>

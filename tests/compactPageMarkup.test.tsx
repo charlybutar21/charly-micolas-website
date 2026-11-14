@@ -14,7 +14,8 @@ it('keeps the About narrative and supporting credentials in a compact overview',
 it('keeps the contact call to action and icon-only social destinations together', () => {
   const markup = renderToStaticMarkup(<ContactPage />);
 
-  expect(markup).toContain('mailto:charlymicolasbutar@gmail.com');
+  expect(markup).not.toContain('mailto:');
+  expect(markup).not.toContain('charlymicolasbutar@gmail.com');
   expect(markup).toContain('Open Charly Micolas LinkedIn profile');
   expect(markup).toContain('Open Charly Micolas GitHub profile');
 });
