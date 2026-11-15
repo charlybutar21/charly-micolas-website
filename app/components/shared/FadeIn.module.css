@@ -1,0 +1,19 @@
+.reveal {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: arrive 450ms cubic-bezier(0.22, 1, 0.36, 1)
+      var(--reveal-delay, 0s) backwards;
+  }
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

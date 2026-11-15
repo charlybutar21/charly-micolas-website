@@ -11,6 +11,20 @@ test('mobile navigation stays directly available without horizontal overflow', a
   });
 
   await expect(navigation).toBeVisible();
+  for (const label of [
+    'Home',
+    'About',
+    'Experience',
+    'Skills',
+    'Writing',
+    'Contact',
+  ]) {
+    const link = navigation.getByRole('link', { name: label, exact: true });
+    await expect(link).toBeInViewport();
+    const bounds = await link.boundingBox();
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(390);
+    expect(bounds!.height).toBeGreaterThanOrEqual(44);
+  }
   await expect(page.getByText('Menu +', { exact: true })).toHaveCount(0);
   await expect(page.getByText('Start here', { exact: true })).toHaveCount(0);
   expect(
