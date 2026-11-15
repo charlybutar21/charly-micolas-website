@@ -130,8 +130,11 @@ export default function Home() {
           <p>
             Java, Go, Spring Boot, PostgreSQL, Redis, Apache Kafka, and Docker.
           </p>
-          <Link href="/technical-skills" className={styles.textLink}>
-            Browse technical skills <span aria-hidden="true">→</span>
+          <Link
+            href="/experiences#technical-toolkit"
+            className={styles.textLink}
+          >
+            Browse technical toolkit <span aria-hidden="true">→</span>
           </Link>
         </FadeIn>
       </div>

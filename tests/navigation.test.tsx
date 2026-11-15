@@ -13,6 +13,7 @@ it('renders the primary routes without navigation group labels', () => {
   for (const href of ['/', '/about', '/experiences', '/writing', '/contact']) {
     expect(markup).toContain(`href="${href}"`);
   }
+  expect(markup).not.toContain('/technical-skills');
 
   expect(markup).not.toContain('Start here');
   expect(markup).not.toContain('Practice');

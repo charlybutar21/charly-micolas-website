@@ -55,13 +55,7 @@ export default function ContactPage() {
             </li>
             <li>
               <Link href="/experiences">
-                <span>Experience Timeline</span>
-                <span aria-hidden="true">→</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/technical-skills">
-                <span>Technical Toolkit</span>
+                <span>Experience &amp; Toolkit</span>
                 <span aria-hidden="true">→</span>
               </Link>
             </li>

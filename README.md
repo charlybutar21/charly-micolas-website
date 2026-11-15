@@ -25,10 +25,9 @@ npx playwright install chromium
 
 - `/` — short introduction and career evidence
 - `/about` — profile, competencies, and education
-- `/technical-skills` — visual technology and engineering-practice index
-- `/experiences` — six-role career timeline
+- `/experiences` — six-role career timeline and technical toolkit
 - `/writing` — personal-writing index and static post routes
-- `/contact` — email, LinkedIn, and GitHub
+- `/contact` — LinkedIn and GitHub
 
 ## Verification
 

@@ -11,14 +11,7 @@ test('mobile navigation stays directly available without horizontal overflow', a
   });
 
   await expect(navigation).toBeVisible();
-  for (const label of [
-    'Home',
-    'About',
-    'Experience',
-    'Skills',
-    'Writing',
-    'Contact',
-  ]) {
+  for (const label of ['Home', 'About', 'Experience', 'Writing', 'Contact']) {
     const link = navigation.getByRole('link', { name: label, exact: true });
     await expect(link).toBeInViewport();
     const bounds = await link.boundingBox();

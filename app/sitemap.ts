@@ -8,14 +8,7 @@ const baseUrl = 'https://www.charlymicolas.com';
 const siteLastModified = new Date('2026-08-16T00:00:00.000Z');
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    '/',
-    '/about',
-    '/technical-skills',
-    '/experiences',
-    '/writing',
-    '/contact',
-  ];
+  const routes = ['/', '/about', '/experiences', '/writing', '/contact'];
 
   return [
     ...routes.map((route, index) => ({
