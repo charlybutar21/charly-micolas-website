@@ -8,7 +8,7 @@ export const experienceEntries: ExperienceData[] = [
     location: 'South Jakarta',
     highlights: [
       'Supported ISO 27001, OJK, and FDC audit activities by addressing technical findings, preparing evidence, and delivering improvements that strengthened security and regulatory compliance.',
-      'Lead cross-functional delivery involving 6 engineers, 2 QA engineers, 1 product manager, and 1 UI designer, translating business requirements into technical solutions and actionable engineering tasks.',
+      'Lead cross-functional delivery team, translating business requirements into technical solutions and actionable engineering tasks.',
     ],
     additionalResponsibilities: [
       'Design, develop, and maintain backend systems supporting lending, collection, AML, and internal operations, including the Internal Management Dashboard, Collection System, and Pinjamin website.',
