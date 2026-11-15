@@ -14,6 +14,7 @@ it('renders the primary routes without navigation group labels', () => {
     expect(markup).toContain(`href="${href}"`);
   }
   expect(markup).not.toContain('/technical-skills');
+  expect(markup).not.toContain('/stock');
 
   expect(markup).not.toContain('Start here');
   expect(markup).not.toContain('Practice');
