@@ -1,6 +1,4 @@
 .links {
   display: grid;
   gap: 1.5rem;
-  border-top: 1px solid var(--ink);
-  padding-top: 1rem;
 }

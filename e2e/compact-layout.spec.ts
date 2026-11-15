@@ -28,3 +28,23 @@ for (const viewport of [
     });
   }
 }
+
+test('short desktop pages distribute spare space above and below content', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  for (const route of ['/', '/about', '/writing', '/contact']) {
+    await page.goto(route);
+    await page.evaluate(() => document.fonts.ready);
+    const spacing = await page.locator('main').evaluate((main) => {
+      const container = main.getBoundingClientRect();
+      const content = main.firstElementChild!.getBoundingClientRect();
+      return {
+        top: content.top - container.top,
+        bottom: container.bottom - content.bottom,
+      };
+    });
+    expect(spacing.top).toBeGreaterThan(16);
+    expect(Math.abs(spacing.top - spacing.bottom)).toBeLessThan(2);
+  }
+});

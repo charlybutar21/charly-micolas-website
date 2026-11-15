@@ -3,7 +3,18 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100svh - var(--header-height));
   min-width: 0;
+  max-width: 90rem;
+  margin-inline: auto;
+}
+
+.content > * {
+  flex-shrink: 0;
+  width: 100%;
 }
 
 .skipLink {

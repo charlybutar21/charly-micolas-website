@@ -11,7 +11,7 @@ it('keeps the About narrative and supporting credentials in a compact overview',
   expect(markup).toContain('Education');
 });
 
-it('keeps the contact call to action and icon-only social destinations together', () => {
+it('keeps the contact call to action and labelled social destinations together', () => {
   const markup = renderToStaticMarkup(<ContactPage />);
 
   expect(markup).not.toContain('mailto:');
