@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
+      disallow: ['/stock', '/stock/'],
     },
     sitemap: 'https://www.charlymicolas.com/sitemap.xml',
   };
