@@ -26,11 +26,32 @@ export interface WritingHighlight {
   detail: string;
 }
 
+export interface WritingAnalogy {
+  title: string;
+  text: string;
+}
+
+export interface WritingPracticalExample {
+  title: string;
+  description?: string;
+  steps?: string[];
+  code?: string;
+}
+
+export interface WritingComparisonTable {
+  caption: string;
+  headers: string[];
+  rows: string[][];
+}
+
 export interface WritingSection {
   id: string;
   eyebrow?: string;
   title: string;
   paragraphs: string[];
+  analogy?: WritingAnalogy;
+  example?: WritingPracticalExample;
+  table?: WritingComparisonTable;
   highlights?: WritingHighlight[];
   callout?: string;
 }
@@ -39,6 +60,7 @@ export interface WritingExternalResource {
   label: string;
   url: string;
   note?: string;
+  highlights?: string[];
 }
 
 export interface WritingPost {

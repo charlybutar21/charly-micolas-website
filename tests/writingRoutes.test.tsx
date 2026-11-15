@@ -14,7 +14,7 @@ it('links the published system design guide from the writing index', () => {
   expect(markup).toContain('Published');
 });
 
-it('renders structured chapters and source repository link on the article page', async () => {
+it('renders beginner analogies, practical examples, tables, and source repository link on the article page', async () => {
   const markup = renderToStaticMarkup(
     await WritingPostPage({
       params: Promise.resolve({
@@ -26,8 +26,10 @@ it('renders structured chapters and source repository link on the article page',
   expect(markup).toContain('Personal notes');
   expect(markup).not.toContain('05 / Writing');
   expect(markup).toContain('In this guide');
+  expect(markup).toContain('Beginner Analogy: The Restaurant Kitchen');
   expect(markup).toContain(
-    'How a request travels from a user device to your server',
+    'Step-by-Step Practical Pattern: Cache-Aside (Lazy Loading)',
   );
   expect(markup).toContain('https://github.com/charlybutar21/system-design');
+  expect(markup).toContain('Open github.com/charlybutar21/system-design');
 });

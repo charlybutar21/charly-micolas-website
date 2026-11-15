@@ -5,7 +5,7 @@
 }
 
 .article {
-  max-width: 48rem;
+  max-width: 50rem;
 }
 
 .backLink {
@@ -38,6 +38,7 @@
 .meta,
 .tocTitle,
 .sectionEyebrow,
+.analogyTitle,
 .resourceEyebrow {
   margin: 0;
   font-family: var(--font-fira-code), ui-monospace, monospace;
@@ -49,6 +50,7 @@
 .eyebrow,
 .tocTitle,
 .sectionEyebrow,
+.analogyTitle,
 .resourceEyebrow {
   color: var(--accent);
   font-weight: 600;
@@ -99,7 +101,7 @@
 
 .toc {
   margin-top: 2.25rem;
-  padding: 1.25rem 1.5rem;
+  padding: 1.35rem 1.5rem;
   background: var(--paper-elevated);
   border: 1px solid var(--line);
   border-radius: 2px;
@@ -107,9 +109,9 @@
 
 .tocList {
   margin: 0.85rem 0 0;
-  padding-left: 1.25rem;
+  padding-left: 1.35rem;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.5rem;
   font-size: 0.95rem;
   line-height: 1.5;
 }
@@ -131,27 +133,27 @@
 .sections {
   margin-top: 2.75rem;
   display: grid;
-  gap: 3rem;
+  gap: 3.25rem;
 }
 
 .section {
-  padding-top: 2.25rem;
+  padding-top: 2.5rem;
   border-top: 1px solid var(--line);
 }
 
 .section h2 {
   margin: 0.55rem 0 0;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.02em;
 }
 
 .sectionParagraphs {
-  margin-top: 1.1rem;
+  margin-top: 1.15rem;
   font-size: 1.02rem;
-  line-height: 1.76;
+  line-height: 1.78;
 }
 
 .sectionParagraphs p {
@@ -160,6 +162,124 @@
 
 .sectionParagraphs p + p {
   margin-top: 1.15rem;
+}
+
+.analogyBox {
+  margin-top: 1.4rem;
+  padding: 1.15rem 1.35rem;
+  background: var(--paper-elevated);
+  border-left: 3px solid var(--ink);
+  border-radius: 2px;
+}
+
+.analogyText {
+  margin: 0.45rem 0 0;
+  color: var(--ink);
+  font-size: 0.96rem;
+  line-height: 1.68;
+}
+
+.exampleBox {
+  margin-top: 1.5rem;
+  padding: 1.35rem 1.45rem;
+  background: var(--paper-elevated);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.exampleTitle {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.exampleDescription {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.exampleSteps {
+  margin: 0.85rem 0 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+  line-height: 1.68;
+}
+
+.codeBlock {
+  margin: 1rem 0 0;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 2px;
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.tableWrapper {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+
+.comparisonTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  font-size: 0.91rem;
+  line-height: 1.55;
+}
+
+.comparisonTable caption {
+  padding: 0.8rem 1rem;
+  background: var(--paper-elevated);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.comparisonTable th,
+.comparisonTable td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.comparisonTable th {
+  background: var(--paper-elevated);
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.comparisonTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.comparisonTable td:first-child {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.comparisonTable td + td {
+  color: var(--muted);
 }
 
 .highlights {
@@ -192,7 +312,7 @@
 }
 
 .callout {
-  margin-top: 1.25rem;
+  margin-top: 1.35rem;
   padding: 0.95rem 1.2rem;
   background: var(--accent-soft);
   border-left: 3px solid var(--accent);
@@ -205,29 +325,65 @@
 }
 
 .resourceCard {
-  margin-top: 3rem;
-  padding: 1.4rem 1.5rem;
+  margin-top: 3.5rem;
+  padding: 1.6rem 1.75rem;
   background: var(--paper-elevated);
   border: 1px solid var(--ink);
   border-radius: 2px;
+}
+
+.resourceHeading {
+  margin: 0.5rem 0 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 .resourceLink {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  margin-top: 0.5rem;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
-  line-height: 1.25;
   text-decoration: none;
 }
 
 .resourceNote {
-  margin: 0.55rem 0 0;
+  margin: 0.75rem 0 0;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.resourceHighlights {
+  margin: 0.85rem 0 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.45rem;
+  color: var(--ink);
+  font-size: 0.93rem;
   line-height: 1.6;
+}
+
+.resourceButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  padding: 0.65rem 1.1rem;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 2px;
+  font-family: var(--font-fira-code), ui-monospace, monospace;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background-color 160ms ease;
+}
+
+.resourceButton:hover {
+  background: var(--accent);
+  color: var(--paper);
 }
 
 @media (max-width: 760px) {
@@ -249,6 +405,7 @@
   }
 
   .toc,
+  .exampleBox,
   .resourceCard {
     padding: 1.1rem 1.15rem;
   }
