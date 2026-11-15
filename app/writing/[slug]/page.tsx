@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { portfolioData } from '../../data';
@@ -41,23 +42,29 @@ export default async function WritingPostPage({
   }
 
   return (
-    <article className={styles.article}>
-      <header className={styles.header}>
-        <p className={styles.eyebrow}>Personal notes</p>
-        <p className={styles.meta}>
-          <span>{post.status === 'Draft' ? 'Draft note' : post.status}</span>
-          <span>{post.publishedOn}</span>
-          <span>{post.readingTime}</span>
-        </p>
-        <h1>{post.title}</h1>
-        <p className={styles.excerpt}>{post.excerpt}</p>
-      </header>
+    <div className={styles.page}>
+      <article className={styles.article}>
+        <Link href="/writing" className={styles.backLink}>
+          <span aria-hidden="true">←</span> Back to writing
+        </Link>
 
-      <div className={styles.body}>
-        {post.body.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
-      </div>
-    </article>
+        <header className={styles.header}>
+          <p className={styles.eyebrow}>Personal notes</p>
+          <p className={styles.meta}>
+            <span>{post.status === 'Draft' ? 'Draft note' : post.status}</span>
+            <span>{post.publishedOn}</span>
+            <span>{post.readingTime}</span>
+          </p>
+          <h1>{post.title}</h1>
+          <p className={styles.excerpt}>{post.excerpt}</p>
+        </header>
+
+        <div className={styles.body}>
+          {post.body.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
+      </article>
+    </div>
   );
 }

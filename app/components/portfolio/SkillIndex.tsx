@@ -42,9 +42,15 @@ function SkillMark({ skill }: { skill: string }) {
   );
 }
 
-export default function SkillIndex() {
+interface SkillIndexProps {
+  compact?: boolean;
+}
+
+export default function SkillIndex({ compact = false }: SkillIndexProps) {
   return (
-    <div className={styles.index}>
+    <div
+      className={compact ? `${styles.index} ${styles.compact}` : styles.index}
+    >
       {portfolioData.skills.map((group) => (
         <section className={styles.group} key={group.category}>
           <h2>{group.category}</h2>

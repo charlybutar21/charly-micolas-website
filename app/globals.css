@@ -1,10 +1,14 @@
 :root {
   --header-height: 4.5rem;
+  --container-max: 72rem;
+  --page-gutter: clamp(1.25rem, 4vw, 3rem);
   --paper: #f4f0e7;
+  --paper-elevated: #ece6da;
   --ink: #191816;
-  --muted: #676158;
-  --line: #c9c2b6;
-  --accent: #b9492f;
+  --muted: #5c564e;
+  --line: #d4cdc0;
+  --accent: #a13b22;
+  --accent-soft: rgba(161, 59, 34, 0.08);
 }
 
 * {
@@ -24,6 +28,7 @@ body {
   color: var(--ink);
   font-family: var(--font-jakarta), Arial, sans-serif;
   line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
