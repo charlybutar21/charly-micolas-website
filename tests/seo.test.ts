@@ -11,7 +11,6 @@ import { metadata as experiencesMetadata } from '../app/experiences/page';
 import { metadata as rootMetadata } from '../app/layout';
 import robots from '../app/robots';
 import sitemap from '../app/sitemap';
-import { metadata as skillsMetadata } from '../app/technical-skills/page';
 import { generateMetadata } from '../app/writing/[slug]/page';
 import { metadata as writingMetadata } from '../app/writing/page';
 
@@ -24,7 +23,6 @@ it('publishes canonical, share, and crawler metadata for each public route', asy
 
   for (const [metadata, canonical] of [
     [aboutMetadata, '/about'],
-    [skillsMetadata, '/technical-skills'],
     [experiencesMetadata, '/experiences'],
     [writingMetadata, '/writing'],
     [contactMetadata, '/contact'],

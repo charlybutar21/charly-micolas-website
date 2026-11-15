@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import ExperienceTimeline from '@/app/components/portfolio/ExperienceTimeline';
 import SkillIndex from '@/app/components/portfolio/SkillIndex';
 import PageIntro from '@/app/components/shared/PageIntro';
@@ -27,9 +26,6 @@ export default function ExperiencesPage() {
         <a href="#technical-toolkit">
           Jump to Technical Toolkit <span aria-hidden="true">↓</span>
         </a>
-        <Link href="/technical-skills">
-          Full skills page <span aria-hidden="true">→</span>
-        </Link>
       </div>
       <div className={styles.sections}>
         <section aria-label="Career timeline">
@@ -38,9 +34,6 @@ export default function ExperiencesPage() {
         <section className={styles.skillsSection} id="technical-toolkit">
           <div className={styles.skillsHeader}>
             <h2 className={styles.sectionTitle}>Technical Toolkit</h2>
-            <Link href="/technical-skills" className={styles.skillsMore}>
-              Full view <span aria-hidden="true">→</span>
-            </Link>
           </div>
           <SkillIndex compact />
         </section>

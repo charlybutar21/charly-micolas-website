@@ -51,10 +51,10 @@ export default function AboutPage() {
 
           <FadeIn delay={0.12} className={styles.quickLinks}>
             <Link href="/experiences" className={styles.quickLink}>
-              Experience timeline <span aria-hidden="true">→</span>
+              Experience &amp; skills <span aria-hidden="true">→</span>
             </Link>
-            <Link href="/technical-skills" className={styles.quickLink}>
-              Technical skills <span aria-hidden="true">→</span>
+            <Link href="/writing" className={styles.quickLink}>
+              Writing &amp; guides <span aria-hidden="true">→</span>
             </Link>
             <Link href="/contact" className={styles.quickLink}>
               Get in touch <span aria-hidden="true">→</span>

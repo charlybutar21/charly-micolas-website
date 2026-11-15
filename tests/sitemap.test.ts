@@ -9,11 +9,11 @@ it('includes every public editorial route in the sitemap', () => {
     expect.arrayContaining([
       'https://www.charlymicolas.com/',
       'https://www.charlymicolas.com/about',
-      'https://www.charlymicolas.com/technical-skills',
       'https://www.charlymicolas.com/experiences',
       'https://www.charlymicolas.com/writing',
       'https://www.charlymicolas.com/writing/a-practical-guide-to-system-design',
       'https://www.charlymicolas.com/contact',
     ]),
   );
+  expect(urls).not.toContain('https://www.charlymicolas.com/technical-skills');
 });

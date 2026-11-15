@@ -43,16 +43,6 @@
   letter-spacing: -0.02em;
 }
 
-.skillsMore {
-  color: var(--accent);
-  font-family: var(--font-fira-code), ui-monospace, monospace;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
 @media (max-width: 1024px) {
   .mobileJump {
     display: flex;

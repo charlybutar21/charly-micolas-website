@@ -5,13 +5,7 @@ for (const viewport of [
   { width: 390, height: 844 },
   { width: 360, height: 800 },
 ]) {
-  for (const route of [
-    '/',
-    '/about',
-    '/writing',
-    '/contact',
-    '/technical-skills',
-  ]) {
+  for (const route of ['/', '/about', '/writing', '/contact']) {
     test(`page remains readable at ${viewport.width}x${viewport.height}: ${route}`, async ({
       page,
     }) => {
