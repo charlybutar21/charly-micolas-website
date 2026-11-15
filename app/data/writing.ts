@@ -5,14 +5,13 @@ export const writingPosts: WritingPost[] = [
     slug: 'a-practical-guide-to-system-design',
     title: 'A practical guide to system design',
     excerpt:
-      'A step-by-step, beginner-friendly handbook on core system design concepts—explained with everyday analogies, practical production examples, and clear architectural trade-offs.',
+      'A step-by-step, beginner-friendly handbook on core system design concepts, explained with everyday analogies, practical production examples, and clear architectural trade-offs.',
     publishedOn: '15 Nov 2026',
     readingTime: '18 min read',
     status: 'Published',
     body: [
       'When you first learn to code, your main goal is to make features work on your laptop: a user clicks a button, your backend saves a row in the database, and the screen updates. That works fine when you have 10 users. Everything changes when 100,000 users click that button at the exact same second during a flash sale.',
-      'System design is the art and engineering of building software that stays fast, accurate, and online as traffic, data, and engineering teams grow. You do not need to memorize buzzwords to be good at system design—you only need to understand a handful of core building blocks and the trade-offs behind each one.',
-      'This guide walks through the most important concepts in system design using simple English, everyday analogies, and practical examples you can immediately apply in real backend projects or system design interviews.',
+      'System design is the art and engineering of building software that stays fast, accurate, and online as traffic, data, and engineering teams grow. You do not need to memorize buzzwords to be good at system design, you only need to understand a handful of core building blocks and the trade-offs behind each one.',
     ],
     sections: [
       {
@@ -23,7 +22,7 @@ export const writingPosts: WritingPost[] = [
         paragraphs: [
           'System design is the process of defining the architecture, components, APIs, and data flow of an application so it can meet both business goals (like "never lose a payment") and technical goals (like "respond in under 200 milliseconds").',
           'Imagine launching a new online store. On Day 1, your web app and database live together on a single $10/month server. As your store becomes popular, that single server runs out of CPU and RAM. You now have two ways to scale:',
-          '1. Vertical Scaling (Scale Up): Upgrade that single server into a bigger machine with more CPU cores and more RAM. It is the simplest fix because you do not change your code, but every machine has a hardware limit—and if that one server crashes, your entire business goes offline.',
+          '1. Vertical Scaling (Scale Up): Upgrade that single server into a bigger machine with more CPU cores and more RAM. It is the simplest fix because you do not change your code, but every machine has a hardware limit and if that one server crashes, your entire business goes offline.',
           '2. Horizontal Scaling (Scale Out): Instead of buying one giant supercomputer, you run 5, 10, or 50 normal servers side by side. If one server dies, the other servers smoothly take over its traffic.',
         ],
         analogy: {
@@ -33,7 +32,7 @@ export const writingPosts: WritingPost[] = [
         example: {
           title: 'Practical Rule: Keep Your Backend Servers Stateless',
           description:
-            'For horizontal scaling to work, your backend servers must be stateless—meaning no server stores a user’s login session only in its own local RAM.',
+            'For horizontal scaling to work, your backend servers must be stateless, meaning no server stores a user’s login session only in its own local RAM.',
           steps: [
             'Bad practice (Stateful): User A logs in on Server 1, which saves their session in Server 1’s local memory. If the next request from User A lands on Server 2, Server 2 does not recognize them and forces them to log in again.',
             'Good practice (Stateless): Server 1 and Server 2 keep zero session data in local RAM. Instead, session tokens are stored in a shared Redis cache or verified via stateless JWT/HttpOnly cookies.',
@@ -49,13 +48,13 @@ export const writingPosts: WritingPost[] = [
         title:
           'How a Request Reaches Your Server: DNS, TCP vs. UDP & Load Balancers',
         paragraphs: [
-          'What actually happens in the 100 milliseconds after a user types your website address into their browser? First, the browser asks DNS (Domain Name System)—the phonebook of the internet—to translate a domain name like charlymicolas.com into a server IP address like 104.21.45.12.',
+          'What actually happens in the 100 milliseconds after a user types your website address into their browser? First, the browser asks DNS (Domain Name System), the phonebook of the internet to translate a domain name like charlymicolas.com into a server IP address like 104.21.45.12.',
           'Next, the device opens a connection over Layer 4 (Transport Layer) using either TCP or UDP. TCP is careful and reliable: it performs a 3-way handshake, guarantees every packet arrives in order, and automatically resends lost packets. UDP is built for pure speed: it fires packets immediately without handshakes or retries.',
           'Finally, the request arrives at your Load Balancer (or Reverse Proxy like NGINX / Cloudflare), which sits in front of your backend servers like a traffic controller and forwards the request to a healthy server.',
         ],
         analogy: {
           title: 'Beginner Analogy: Registered Mail vs. Live Walkie-Talkie',
-          text: 'TCP is like sending an official contract via registered courier: every page is numbered, and if Page 3 gets lost, the receiver asks you to resend Page 3 before reading further. UDP is like talking on a live video call: if one frame of video glitches for 0.1 seconds, you do not want the call to freeze and replay what happened 2 seconds ago—you just want the live video to keep moving.',
+          text: 'TCP is like sending an official contract via registered courier: every page is numbered, and if Page 3 gets lost, the receiver asks you to resend Page 3 before reading further. UDP is like talking on a live video call: if one frame of video glitches for 0.1 seconds, you do not want the call to freeze and replay what happened 2 seconds ago, you just want the live video to keep moving.',
         },
         table: {
           caption: 'Practical Comparison: Choosing Between TCP and UDP',
@@ -64,7 +63,7 @@ export const writingPosts: WritingPost[] = [
             [
               'Connection Setup',
               'Requires 3-way handshake before sending data',
-              'Connectionless—sends data immediately',
+              'Connectionless, sends data immediately',
             ],
             [
               'Delivery & Order',
@@ -87,7 +86,7 @@ export const writingPosts: WritingPost[] = [
           {
             label: 'Layer 4 vs. Layer 7 Load Balancers',
             detail:
-              'A Layer 4 Load Balancer only looks at the IP address and port (TCP/UDP)—making it blazingly fast. A Layer 7 Load Balancer opens the HTTP request so it can route traffic intelligently based on the URL path (e.g., sending /api/payments to the Payment Service and /images to the Media Service).',
+              'A Layer 4 Load Balancer only looks at the IP address and port (TCP/UDP), making it blazingly fast. A Layer 7 Load Balancer opens the HTTP request so it can route traffic intelligently based on the URL path (e.g., sending /api/payments to the Payment Service and /images to the Media Service).',
           },
           {
             label: 'Load Balancing Algorithms & Health Checks',
@@ -101,7 +100,7 @@ export const writingPosts: WritingPost[] = [
         eyebrow: '03 · Speed & Low Latency',
         title: 'Caching (Redis) & CDNs: Making Slow Systems 1,000x Faster',
         paragraphs: [
-          'The slowest part of almost every web request is reading from a database disk. Reading data from RAM (in-memory storage like Redis or Memcached) takes about 100 nanoseconds, while reading from an SSD database takes around 100 microseconds—meaning RAM is roughly 1,000 times faster than disk.',
+          'The slowest part of almost every web request is reading from a database disk. Reading data from RAM (in-memory storage like Redis or Memcached) takes about 100 nanoseconds, while reading from an SSD database takes around 100 microseconds, meaning RAM is roughly 1,000 times faster than disk.',
           'A Cache stores the results of expensive database queries or frequent calculations in RAM so you do not hit your database for the same data over and over again. Meanwhile, a CDN (Content Delivery Network like Cloudflare or AWS CloudFront) caches static files (images, CSS, JS, videos) on edge servers located in cities around the world, physically close to your users.',
         ],
         analogy: {
@@ -131,7 +130,7 @@ async function getProduct(productId: string) {
 }`,
         },
         callout:
-          'Architect Takeaway: Follow the 80/20 Pareto Rule—80% of your read traffic usually accesses only 20% of your data (like today’s top products or trending posts). Caching just that 20% in Redis can reduce database load by 80%.',
+          'Architect Takeaway: Follow the 80/20 Pareto Rule, 80% of your read traffic usually accesses only 20% of your data (like today’s top products or trending posts). Caching just that 20% in Redis can reduce database load by 80%.',
       },
       {
         id: 'databases-sql-nosql-indexing-n-plus-one',
@@ -177,9 +176,9 @@ async function getProduct(productId: string) {
         example: {
           title: 'Two Practical Database Traps Every Engineer Must Master',
           description:
-            'Before buying a bigger database server, check for missing indexes and the N+1 Query Problem—the two most common causes of slow production APIs:',
+            'Before buying a bigger database server, check for missing indexes and the N+1 Query Problem, the two most common causes of slow production APIs:',
           steps: [
-            '1. Missing Database Index (Full Table Scan): Without an index on users(email), running WHERE email = "charly@example.com" forces the database to check all 10 million rows one by one. Adding a B-Tree Index is like adding an alphabetical index at the back of a textbook—the database jumps straight to the exact row in O(log N) time. Trade-off: Indexes make SELECTs much faster, but slightly slow down INSERT/UPDATE because the index tree must also be updated.',
+            '1. Missing Database Index (Full Table Scan): Without an index on users(email), running WHERE email = "charly@example.com" forces the database to check all 10 million rows one by one. Adding a B-Tree Index is like adding an alphabetical index at the back of a textbook, the database jumps straight to the exact row in O(log N) time. Trade-off: Indexes make SELECTs much faster, but slightly slow down INSERT/UPDATE because the index tree must also be updated.',
             '2. The N+1 Query Problem: Suppose you fetch 50 blog posts (1 query), and then inside a for-loop you run a query to fetch the author of each post (50 more queries). That is 51 round-trips to the database for a single page! Fix it by using a SQL JOIN or batching with WHERE author_id IN (...) so the database does all the work in 1 or 2 queries.',
           ],
           code: `-- ❌ BAD: N+1 Query Problem (1 query + 50 queries inside a loop = 51 queries)
@@ -203,7 +202,7 @@ LIMIT 50;`,
         paragraphs: [
           'What happens when you have optimized your queries and added indexes, but your single PostgreSQL server is still overwhelmed by millions of users? You scale your database layer in two stages: first Replication (for read-heavy traffic), and later Sharding (when write volume or storage outgrows one machine).',
           'In Master-Slave (Primary-Replica) Replication, all write operations (INSERT, UPDATE, DELETE) go to one Primary node. The Primary then copies those changes to multiple Read Replicas, which handle all the heavy SELECT queries. If the Primary crashes, a Read Replica is promoted to become the new Primary.',
-          'In Database Sharding (Horizontal Partitioning), you split one giant 500-million-row table into smaller pieces (shards) stored across separate database servers—for example, Shard 1 holds users with IDs 1–10M, Shard 2 holds 10M–20M, or rows are distributed evenly using Consistent Hashing.',
+          'In Database Sharding (Horizontal Partitioning), you split one giant 500-million-row table into smaller pieces (shards) stored across separate database servers, for example, Shard 1 holds users with IDs 1–10M, Shard 2 holds 10M–20M, or rows are distributed evenly using Consistent Hashing.',
         ],
         analogy: {
           title:
@@ -231,7 +230,7 @@ LIMIT 50;`,
         title:
           'Message Queues, Pub/Sub & Decoupling Slow Work from User Requests',
         paragraphs: [
-          'One of the biggest mistakes in backend development is doing slow work while the user is waiting for an HTTP response. If a user clicks "Checkout" and your server synchronously charges their card, generates a PDF invoice, sends a confirmation email, and notifies the warehouse before returning HTTP 200, the user stares at a spinning loader for 8 seconds—and if the email server is down, the whole checkout fails!',
+          'One of the biggest mistakes in backend development is doing slow work while the user is waiting for an HTTP response. If a user clicks "Checkout" and your server synchronously charges their card, generates a PDF invoice, sends a confirmation email, and notifies the warehouse before returning HTTP 200, the user stares at a spinning loader for 8 seconds, and if the email server is down, the whole checkout fails!',
           'Instead, modern systems keep the main HTTP request fast (validate order + save to DB in 50ms) and push everything else into the background using asynchronous messaging.',
           'There are two core messaging patterns you must know: a Message Queue (Point-to-Point, like RabbitMQ or AWS SQS), where one job is picked up by exactly one worker, and Publish-Subscribe / Event Streaming (like Apache Kafka or Google Pub/Sub), where one event is broadcast to many independent services at the same time.',
         ],
@@ -258,7 +257,7 @@ LIMIT 50;`,
           {
             label: 'Monolith vs. Modular Monolith vs. Microservices',
             detail:
-              'Do not start a brand-new project with 15 microservices—you will drown in network latency, distributed debugging, and deployment complexity. Start with a Clean Modular Monolith (well-separated domain modules in one deployable unit) and extract only the specific services that need independent scaling.',
+              'Do not start a brand-new project with 15 microservices, you will drown in network latency, distributed debugging, and deployment complexity. Start with a Clean Modular Monolith (well-separated domain modules in one deployable unit) and extract only the specific services that need independent scaling.',
           },
         ],
       },
@@ -341,7 +340,7 @@ Content-Type: application/json
           steps: [
             '1. Geohashing (2D to 1D String): Geohashing divides the world map into a grid and encodes any (Latitude, Longitude) pair into a short string like "qqguw4". Two people standing on the same street share the same 6-character prefix ("qqguw4")!',
             '2. Instant Prefix Lookup: Finding all drivers within ~1 km turns into a simple, lightning-fast indexed lookup in Redis (GEORADIUS / GEOSEARCH) or SQL (WHERE geohash LIKE "qqguw4%").',
-            '3. Quadtrees for Dense Cities: In memory, a Quadtree dynamically splits crowded areas (like downtown Jakarta at rush hour) into smaller 4-quadrant boxes while keeping empty oceans and forests as large single boxes—saving massive amounts of memory.',
+            '3. Quadtrees for Dense Cities: In memory, a Quadtree dynamically splits crowded areas (like downtown Jakarta at rush hour) into smaller 4-quadrant boxes while keeping empty oceans and forests as large single boxes, saving massive amounts of memory.',
           ],
         },
       },
@@ -358,7 +357,7 @@ Content-Type: application/json
             'The 7-Step Playbook (With a Quick URL Shortener / Bitly Example)',
           steps: [
             'Step 1 — Clarify Requirements (3–5 min): Ask what features are in scope (Functional: shorten a long URL into a 7-character code and redirect) and what scale/quality is required (Non-Functional: 100:1 read-to-write ratio, <20ms redirect latency, 99.99% uptime).',
-            'Step 2 — Back-of-the-Envelope Estimation (5 min): Use the 100,000 seconds/day shortcut! If users create 100 million URLs/month, that is ~40 writes/sec. With a 100:1 read ratio, that is 4,000 redirects/sec—meaning we definitely need Redis caching for hot links.',
+            'Step 2 — Back-of-the-Envelope Estimation (5 min): Use the 100,000 seconds/day shortcut! If users create 100 million URLs/month, that is ~40 writes/sec. With a 100:1 read ratio, that is 4,000 redirects/sec, meaning we definitely need Redis caching for hot links.',
             'Step 3 — Data Model & Storage (5 min): Define small, clear tables (e.g., urls(id, short_code VARCHAR(7) UNIQUE INDEX, original_url, created_at, expires_at)) and pick PostgreSQL or DynamoDB.',
             'Step 4 — API Contracts (5 min): Write clean endpoints: POST /api/v1/urls (takes longUrl, returns shortUrl) and GET /{shortCode} (returns HTTP 301/302 redirect to Location: originalUrl).',
             'Step 5 — High-Level Architecture (10 min): Draw the end-to-end flow: Client → CDN/Cloudflare → Load Balancer → Stateless URL Service → Redis Cache (80/20 rule) → Database + Read Replicas.',
