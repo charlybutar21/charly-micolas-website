@@ -95,6 +95,72 @@ export default async function WritingPostPage({
                     ))}
                   </div>
 
+                  {section.analogy ? (
+                    <aside
+                      aria-label={section.analogy.title}
+                      className={styles.analogyBox}
+                    >
+                      <p className={styles.analogyTitle}>
+                        {section.analogy.title}
+                      </p>
+                      <p className={styles.analogyText}>
+                        {section.analogy.text}
+                      </p>
+                    </aside>
+                  ) : null}
+
+                  {section.example ? (
+                    <div className={styles.exampleBox}>
+                      <h3 className={styles.exampleTitle}>
+                        {section.example.title}
+                      </h3>
+                      {section.example.description ? (
+                        <p className={styles.exampleDescription}>
+                          {section.example.description}
+                        </p>
+                      ) : null}
+                      {section.example.steps &&
+                      section.example.steps.length > 0 ? (
+                        <ul className={styles.exampleSteps}>
+                          {section.example.steps.map((step) => (
+                            <li key={step}>{step}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                      {section.example.code ? (
+                        <pre className={styles.codeBlock}>
+                          <code>{section.example.code}</code>
+                        </pre>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  {section.table ? (
+                    <div className={styles.tableWrapper}>
+                      <table className={styles.comparisonTable}>
+                        <caption>{section.table.caption}</caption>
+                        <thead>
+                          <tr>
+                            {section.table.headers.map((header) => (
+                              <th key={header} scope="col">
+                                {header}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.table.rows.map((row) => (
+                            <tr key={row[0]}>
+                              {row.map((cell, cellIndex) => (
+                                <td key={`${row[0]}-${cellIndex}`}>{cell}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : null}
+
                   {section.highlights && section.highlights.length > 0 ? (
                     <dl className={styles.highlights}>
                       {section.highlights.map((item) => (
@@ -120,20 +186,42 @@ export default async function WritingPostPage({
         {post.externalResource ? (
           <footer className={styles.resourceCard}>
             <div>
-              <p className={styles.resourceEyebrow}>Source &amp; deep dive</p>
-              <a
-                className={styles.resourceLink}
-                href={post.externalResource.url}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {post.externalResource.label} <span aria-hidden="true">↗</span>
-              </a>
+              <p className={styles.resourceEyebrow}>
+                Full Open-Source Repository &amp; Deep Dive
+              </p>
+              <h2 className={styles.resourceHeading}>
+                <a
+                  className={styles.resourceLink}
+                  href={post.externalResource.url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {post.externalResource.label}{' '}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </h2>
               {post.externalResource.note ? (
                 <p className={styles.resourceNote}>
                   {post.externalResource.note}
                 </p>
               ) : null}
+              {post.externalResource.highlights &&
+              post.externalResource.highlights.length > 0 ? (
+                <ul className={styles.resourceHighlights}>
+                  {post.externalResource.highlights.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <a
+                className={styles.resourceButton}
+                href={post.externalResource.url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Open github.com/charlybutar21/system-design{' '}
+                <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </footer>
         ) : null}
