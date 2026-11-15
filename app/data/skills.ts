@@ -20,14 +20,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     category: 'Data & Messaging',
-    items: [
-      'MySQL',
-      'PostgreSQL',
-      'MongoDB',
-      'Redis',
-      'RabbitMQ',
-      'Apache Kafka',
-    ],
+    items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Apache Kafka'],
   },
   {
     category: 'Development & DevOps',
