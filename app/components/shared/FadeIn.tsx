@@ -1,12 +1,9 @@
-'use client';
+import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
+import styles from './FadeIn.module.css';
 
-import { motion } from 'framer-motion';
-import type { ReactNode } from 'react';
-
-interface FadeInProps {
+interface FadeInProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   delay?: number;
-  className?: string;
   as?: 'div' | 'span' | 'h1' | 'h2' | 'h3' | 'p' | 'article' | 'section';
 }
 
@@ -14,22 +11,20 @@ export default function FadeIn({
   children,
   delay = 0,
   className,
-  as = 'div',
+  as: Component = 'div',
+  style,
+  ...props
 }: FadeInProps) {
-  const Component = motion[as] || motion.div;
-  const clampedDelay = Math.min(delay, 0.2);
-
   return (
     <Component
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-12px' }}
-      transition={{
-        duration: 0.35,
-        delay: clampedDelay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className={className}
+      {...props}
+      className={[styles.reveal, className].filter(Boolean).join(' ')}
+      style={
+        {
+          ...style,
+          '--reveal-delay': `${Math.max(0, Math.min(delay, 0.2))}s`,
+        } as CSSProperties
+      }
     >
       {children}
     </Component>

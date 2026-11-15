@@ -9,7 +9,7 @@
   gap: 0.75rem 1.5rem;
   align-items: start;
   border-bottom: 1px solid var(--line);
-  padding: 0.9rem 0;
+  padding: 1.3rem 0;
 }
 
 .group:first-child {
@@ -45,8 +45,8 @@
   gap: 0.38rem;
   min-width: 0;
   padding: 0.24rem 0.58rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  border: 1px solid transparent;
+  border-radius: 6px;
   background: rgba(236, 230, 218, 0.55);
   color: var(--ink);
   font-size: 0.8rem;
@@ -120,7 +120,7 @@
   .group {
     grid-template-columns: 1fr;
     gap: 0.45rem;
-    padding: 0.55rem 0;
+    padding: 1rem 0;
   }
 
   .group h2 {
@@ -134,6 +134,6 @@
 
   .group li {
     padding: 0.16rem 0.46rem;
-    font-size: 0.72rem;
+    font-size: 0.82rem;
   }
 }

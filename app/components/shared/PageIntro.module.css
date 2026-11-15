@@ -1,82 +1,60 @@
 .intro {
-  border-bottom: 1px solid var(--ink);
-  padding: clamp(1.25rem, 2.5vh, 1.85rem) 0 1.25rem;
+  padding: clamp(2rem, 4vh, 3rem) 0 2rem;
 }
-
 .eyebrow {
-  margin: 0 0 0.6rem;
+  margin: 0 0 1rem;
   color: var(--muted);
-  font-family: var(--font-fira-code), ui-monospace, monospace;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: var(--font-fira-code), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
 }
-
 .content {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(15rem, 22rem);
-  gap: 1.5rem 2.5rem;
+  gap: 1.5rem 3rem;
   align-items: end;
 }
-
 .content h1 {
   max-width: 48rem;
   margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(2.65rem, 4.6vw, 4.15rem);
+  font-family: Georgia, serif;
+  font-size: clamp(3rem, 5vw, 4.6rem);
   font-weight: 400;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
 }
-
 .content em {
   display: block;
-  margin-top: 0.08em;
-  margin-left: clamp(1.25rem, 4.5vw, 3.5rem);
+  margin-left: 0.6em;
   color: var(--accent);
   font-style: italic;
 }
-
 .note {
   margin: 0;
-  border-top: 1px solid var(--ink);
-  padding-top: 0.7rem;
+  padding: 0 0 0.2rem 1rem;
+  border-left: 2px solid var(--line);
   color: var(--muted);
   font-size: 0.9rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
-
 @media (max-width: 760px) {
   .intro {
-    padding: 0.9rem 0;
+    padding: 2rem 0 1.7rem;
   }
-
-  .eyebrow {
-    margin-bottom: 0.4rem;
-    font-size: 0.64rem;
-  }
-
   .content {
     grid-template-columns: 1fr;
-    gap: 0.6rem;
+    gap: 1.25rem;
   }
-
   .content h1 {
-    font-size: clamp(2.2rem, 10vw, 3.1rem);
+    font-size: clamp(2.8rem, 10vw, 4rem);
   }
-
   .content em {
     display: inline;
-    margin-top: 0;
-    margin-left: 0.22em;
+    margin-left: 0.15em;
   }
-
   .note {
-    max-width: 30rem;
-    border-top: 0;
-    padding-top: 0;
-    font-size: 0.84rem;
-    line-height: 1.5;
+    border: 0;
+    padding: 0;
+    max-width: 34rem;
   }
 }

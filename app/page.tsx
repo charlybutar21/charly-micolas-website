@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import FadeIn from '@/app/components/shared/FadeIn';
 import { portfolioData } from './data';
 import styles from './page.module.css';
@@ -49,6 +50,7 @@ export default function Home() {
 
       <div className={styles.hero}>
         <div className={styles.headline}>
+          <p className={styles.greeting}>Hello, I’m Charly.</p>
           <FadeIn as="h1" aria-label={portfolioData.hero.name}>
             Charly Micolas
             <span>Butarbutar</span>
@@ -64,6 +66,22 @@ export default function Home() {
         </div>
 
         <FadeIn delay={0.12} className={styles.introduction}>
+          <div className={styles.portraitNote}>
+            <Image
+              src="/images/charly.png"
+              alt="Charly Micolas Butarbutar"
+              width={112}
+              height={128}
+              className={styles.portrait}
+              priority
+              unoptimized
+            />
+            <p>
+              Based in South Jakarta.
+              <br />
+              <span>Building with people, for people.</span>
+            </p>
+          </div>
           <strong>{portfolioData.hero.role}</strong>
           <p className={styles.lead}>
             I help teams turn complex problems into reliable software with clear
@@ -80,6 +98,7 @@ export default function Home() {
       <div className={styles.quickOverview}>
         <FadeIn delay={0.14} className={styles.overviewSection}>
           <h2>About</h2>
+          <h3>A person behind the systems.</h3>
           <p>
             I’m Charly Micolas Butarbutar (Charly Butarbutar / Charly Micolas),
             a backend engineer building Java &amp; Go systems in South Jakarta.
@@ -103,6 +122,11 @@ export default function Home() {
 
         <FadeIn delay={0.18} className={styles.overviewSection}>
           <h2>Technical Toolkit</h2>
+          <h3>
+            Java &amp; Go.
+            <br />
+            <em>And the bigger picture.</em>
+          </h3>
           <p>
             Java, Go, Spring Boot, PostgreSQL, Redis, Apache Kafka, and Docker.
           </p>

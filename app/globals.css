@@ -60,3 +60,9 @@ a:hover {
     animation-iteration-count: 1 !important;
   }
 }
+
+@media (max-width: 760px) {
+  :root {
+    --header-height: 6rem;
+  }
+}
