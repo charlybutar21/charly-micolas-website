@@ -13,10 +13,16 @@ for (const viewport of [
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto(route);
       await page.evaluate(() => document.fonts.ready);
-      // Editorial pages may scroll vertically; content must not be clipped horizontally.
       await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
       const main = page.locator('main');
       await expect(main).toHaveCSS('overflow-y', 'visible');
+      if (route === '/' || route === '/about') {
+        await expect
+          .poll(() =>
+            page.evaluate(() => document.documentElement.scrollHeight),
+          )
+          .toBeLessThanOrEqual(viewport.height);
+      }
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth),
       ).toBeLessThanOrEqual(viewport.width);
