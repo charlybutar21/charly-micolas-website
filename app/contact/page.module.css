@@ -4,9 +4,9 @@
 
 .contact {
   display: grid;
-  max-width: 44rem;
+  max-width: 56rem;
   gap: 1.25rem;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0;
 }
 
 .contact > p {
