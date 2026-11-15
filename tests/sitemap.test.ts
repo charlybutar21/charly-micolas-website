@@ -12,7 +12,7 @@ it('includes every public editorial route in the sitemap', () => {
       'https://www.charlymicolas.com/technical-skills',
       'https://www.charlymicolas.com/experiences',
       'https://www.charlymicolas.com/writing',
-      'https://www.charlymicolas.com/writing/the-quiet-work-behind-reliable-software',
+      'https://www.charlymicolas.com/writing/a-practical-guide-to-system-design',
       'https://www.charlymicolas.com/contact',
     ]),
   );

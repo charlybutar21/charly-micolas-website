@@ -17,8 +17,8 @@ export default function WritingPage() {
   return (
     <div className={styles.page}>
       <PageIntro
-        emphasis="in progress"
-        note="Personal notes on the quiet practices behind useful, reliable software."
+        emphasis="& guides"
+        note="Practical guides and personal notes on system design, backend architecture, and reliable software."
         eyebrow="Personal notes"
         title="Writing"
       />

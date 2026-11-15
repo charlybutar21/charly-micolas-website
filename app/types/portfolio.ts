@@ -21,6 +21,26 @@ export interface SkillCategory {
 
 export type WritingStatus = 'Draft' | 'Published';
 
+export interface WritingHighlight {
+  label: string;
+  detail: string;
+}
+
+export interface WritingSection {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  paragraphs: string[];
+  highlights?: WritingHighlight[];
+  callout?: string;
+}
+
+export interface WritingExternalResource {
+  label: string;
+  url: string;
+  note?: string;
+}
+
 export interface WritingPost {
   slug: string;
   title: string;
@@ -29,6 +49,8 @@ export interface WritingPost {
   readingTime: string;
   status: WritingStatus;
   body: string[];
+  sections?: WritingSection[];
+  externalResource?: WritingExternalResource;
 }
 
 export interface PortfolioData {

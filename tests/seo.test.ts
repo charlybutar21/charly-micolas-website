@@ -35,11 +35,11 @@ it('publishes canonical, share, and crawler metadata for each public route', asy
 
   const postMetadata = await generateMetadata({
     params: Promise.resolve({
-      slug: 'the-quiet-work-behind-reliable-software',
+      slug: 'a-practical-guide-to-system-design',
     }),
   });
   expect(postMetadata.alternates?.canonical).toBe(
-    '/writing/the-quiet-work-behind-reliable-software',
+    '/writing/a-practical-guide-to-system-design',
   );
   expect(robots().sitemap).toBe('https://www.charlymicolas.com/sitemap.xml');
 });
