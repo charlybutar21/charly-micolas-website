@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import FadeIn from '@/app/components/shared/FadeIn';
 import PageIntro from '@/app/components/shared/PageIntro';
 import { portfolioData } from '@/app/data';
@@ -26,37 +27,51 @@ export default function AboutPage() {
 
       <div className={styles.overview}>
         <section className={styles.profileSidebar}>
-          <FadeIn delay={0.2} className={styles.imageWrapper}>
-            <Image
-              src="/images/charly.png"
-              alt="Charly Micolas Butarbutar"
-              width={200}
-              height={200}
-              className={styles.profileImage}
-              priority
-              unoptimized={true}
-            />
-          </FadeIn>
-          <FadeIn delay={0.3} className={styles.profileInfo}>
-            <h2 className={styles.name}>{portfolioData.hero.name}</h2>
-            <p className={styles.role}>
-              Senior Software Engineer | Backend Engineering | Technical
-              Leadership
-            </p>
-            <p className={styles.location}>South Jakarta, Indonesia</p>
+          <div className={styles.profileCard}>
+            <FadeIn delay={0.05} className={styles.imageWrapper}>
+              <Image
+                src="/images/charly.png"
+                alt="Charly Micolas Butarbutar"
+                width={200}
+                height={200}
+                className={styles.profileImage}
+                priority
+                unoptimized={true}
+              />
+            </FadeIn>
+            <FadeIn delay={0.08} className={styles.profileInfo}>
+              <h2 className={styles.name}>{portfolioData.hero.name}</h2>
+              <p className={styles.role}>
+                Senior Software Engineer | Backend Engineering | Technical
+                Leadership
+              </p>
+              <p className={styles.location}>South Jakarta, Indonesia</p>
+            </FadeIn>
+          </div>
+
+          <FadeIn delay={0.12} className={styles.quickLinks}>
+            <Link href="/experiences" className={styles.quickLink}>
+              Experience timeline <span aria-hidden="true">→</span>
+            </Link>
+            <Link href="/technical-skills" className={styles.quickLink}>
+              Technical skills <span aria-hidden="true">→</span>
+            </Link>
+            <Link href="/contact" className={styles.quickLink}>
+              Get in touch <span aria-hidden="true">→</span>
+            </Link>
           </FadeIn>
         </section>
 
         <div className={styles.supportingInfo}>
           <section className={styles.bio}>
             {portfolioData.about.paragraphs.map((paragraph, idx) => (
-              <FadeIn delay={0.4 + idx * 0.1} key={idx} as="p">
+              <FadeIn delay={0.1 + idx * 0.05} key={idx} as="p">
                 {paragraph}
               </FadeIn>
             ))}
           </section>
 
-          <FadeIn delay={0.6} className={styles.education}>
+          <FadeIn delay={0.15} className={styles.education}>
             <h2>Education</h2>
             {portfolioData.education.map((education) => (
               <article key={education.institution}>

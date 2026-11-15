@@ -7,10 +7,10 @@ export default function Home() {
   return (
     <section className={styles.home}>
       <div className={styles.meta}>
-        <FadeIn delay={0.1} as="span">
+        <FadeIn delay={0.05} as="span">
           Independent portfolio
         </FadeIn>
-        <FadeIn delay={0.1} as="span">
+        <FadeIn delay={0.05} as="span">
           Software engineering · systems · people
         </FadeIn>
       </div>
@@ -48,14 +48,27 @@ export default function Home() {
       />
 
       <div className={styles.hero}>
-        <FadeIn as="h1" aria-label={portfolioData.hero.name}>
-          Charly Micolas
-          <span>Butarbutar</span>
-        </FadeIn>
-        <FadeIn delay={0.2} className={styles.introduction}>
-          <strong>{portfolioData.hero.role}</strong>I help teams turn complex
-          problems into reliable software with clear decisions and thoughtful
-          collaboration.
+        <div className={styles.headline}>
+          <FadeIn as="h1" aria-label={portfolioData.hero.name}>
+            Charly Micolas
+            <span>Butarbutar</span>
+          </FadeIn>
+          <FadeIn delay={0.08} className={styles.heroActions}>
+            <Link href="/experiences" className={styles.primaryAction}>
+              Explore experience <span aria-hidden="true">→</span>
+            </Link>
+            <Link href="/contact" className={styles.secondaryAction}>
+              Get in touch
+            </Link>
+          </FadeIn>
+        </div>
+
+        <FadeIn delay={0.12} className={styles.introduction}>
+          <strong>{portfolioData.hero.role}</strong>
+          <p className={styles.lead}>
+            I help teams turn complex problems into reliable software with clear
+            decisions and thoughtful collaboration.
+          </p>
           <ul className={styles.evidence}>
             <li>Nearly a decade in backend engineering</li>
             <li>Fintech, PropTech, and SaaS</li>
@@ -65,18 +78,18 @@ export default function Home() {
       </div>
 
       <div className={styles.quickOverview}>
-        <FadeIn delay={0.3} className={styles.overviewSection}>
+        <FadeIn delay={0.14} className={styles.overviewSection}>
           <h2>About</h2>
           <p>
-            I’m Charly Micolas Butarbutar, also known as Charly Butarbutar or
-            Charly Micolas.
+            I’m Charly Micolas Butarbutar (Charly Butarbutar / Charly Micolas),
+            a backend engineer building Java &amp; Go systems in South Jakarta.
           </p>
           <Link href="/about" className={styles.textLink}>
-            Read full profile
+            Read full profile <span aria-hidden="true">→</span>
           </Link>
         </FadeIn>
 
-        <FadeIn delay={0.4} className={styles.overviewSection}>
+        <FadeIn delay={0.16} className={styles.overviewSection}>
           <h2>Latest Role</h2>
           <h3>{portfolioData.experience[0].role}</h3>
           <p>
@@ -84,7 +97,17 @@ export default function Home() {
             {portfolioData.experience[0].period}
           </p>
           <Link href="/experiences" className={styles.textLink}>
-            View all experiences
+            View all experiences <span aria-hidden="true">→</span>
+          </Link>
+        </FadeIn>
+
+        <FadeIn delay={0.18} className={styles.overviewSection}>
+          <h2>Technical Toolkit</h2>
+          <p>
+            Java, Go, Spring Boot, PostgreSQL, Redis, Apache Kafka, and Docker.
+          </p>
+          <Link href="/technical-skills" className={styles.textLink}>
+            Browse technical skills <span aria-hidden="true">→</span>
           </Link>
         </FadeIn>
       </div>

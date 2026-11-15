@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navigationItems } from '@/app/lib/navigation';
 import BrandMark from '../shared/BrandMark';
+import SocialProfileLinks from '../shared/SocialProfileLinks';
 import styles from './SiteNavigation.module.css';
 
 function isCurrentPath(pathname: string, href: string) {
@@ -33,11 +34,16 @@ export default function SiteNavigation() {
 
   return (
     <nav aria-label="Primary navigation" className={styles.navigation}>
-      <Link aria-label="Go to Home" className={styles.brandLink} href="/">
-        <BrandMark className={styles.brandMark} />
-      </Link>
-      <div className={styles.linkViewport}>
-        <NavigationList pathname={pathname} />
+      <div className={styles.inner}>
+        <Link aria-label="Go to Home" className={styles.brandLink} href="/">
+          <BrandMark className={styles.brandMark} />
+        </Link>
+        <div className={styles.linkViewport}>
+          <NavigationList pathname={pathname} />
+        </div>
+        <div className={styles.actions}>
+          <SocialProfileLinks placement="header" />
+        </div>
       </div>
     </nav>
   );

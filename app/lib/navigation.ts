@@ -7,6 +7,7 @@ export const navigationItems = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Experience', href: '/experiences' },
+  { label: 'Skills', href: '/technical-skills' },
   { label: 'Writing', href: '/writing' },
   { label: 'Contact', href: '/contact' },
 ] as const satisfies readonly NavigationItem[];
