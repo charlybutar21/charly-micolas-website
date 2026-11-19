@@ -1,4 +1,4 @@
-import { initialStockbitFees } from '@/app/data/stocks';
+import { initialStockbitFees } from '../data/stocks';
 import { localDate } from './stock-calculator';
 import type { StockHolding, StockbitFeeConfig } from '@/app/types/stock';
 

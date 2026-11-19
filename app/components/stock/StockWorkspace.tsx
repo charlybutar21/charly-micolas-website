@@ -23,7 +23,14 @@ import PortfolioSummaryBar from './PortfolioSummaryBar';
 import StockFormModal from './StockFormModal';
 import StockImportPanel from './StockImportPanel';
 
-export default function StockWorkspace() {
+import type { StockServer } from '@/app/lib/stock-server';
+export default function StockWorkspace({
+  server,
+  initial,
+}: {
+  server?: StockServer;
+  initial?: StoredPortfolioState;
+}) {
   const [holdings, setHoldings] = useState<StockHolding[]>([]);
   const [fees, setFees] = useState<StockbitFeeConfig>(initialStockbitFees);
   const [selectedId, setSelectedId] = useState('');
@@ -45,13 +52,15 @@ export default function StockWorkspace() {
 
   useEffect(() => {
     let active = true;
-    loadPortfolioStateFromDb()
+    (initial ? Promise.resolve(initial) : loadPortfolioStateFromDb())
       .then((data) => {
         if (!active) return;
         setHoldings(data.holdings);
         setFees(data.feeConfig);
         setSelectedId(data.holdings[0]?.id ?? '');
-        setStorageStatus('Data tersimpan di browser ini');
+        setStorageStatus(
+          server ? 'Database terhubung' : 'Data tersimpan di browser ini',
+        );
       })
       .catch((error) => {
         if (active)
@@ -67,7 +76,7 @@ export default function StockWorkspace() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [server, initial]);
 
   const persist = (
     next: StockHolding[],
@@ -88,19 +97,26 @@ export default function StockWorkspace() {
     const id = ++revision.current;
     queue.current = queue.current
       .catch(() => {})
-      .then(() => savePortfolioStateToDb(next, nextFees))
+      .then(() =>
+        server
+          ? server.save(next, nextFees)
+          : savePortfolioStateToDb(next, nextFees),
+      )
       .then(() => {
         if (id === revision.current) {
-          setStorageStatus('Tersimpan di browser ini');
+          setStorageStatus(
+            server ? 'Tersimpan di database' : 'Tersimpan di browser ini',
+          );
           setSaveFailed(false);
           setNotice(message);
         }
       })
-      .catch(() => {
+      .catch((err) => {
         if (id === revision.current) {
           setStorageStatus(
             'Belum tersimpan. Unduh backup sebelum menutup halaman.',
           );
+          if (server && err instanceof Error) setStorageStatus(err.message);
           setSaveFailed(true);
           setNotice(
             'Perubahan hanya ada pada sesi ini. Unduh backup atau coba simpan lagi.',
@@ -173,7 +189,7 @@ export default function StockWorkspace() {
   return (
     <div className={styles.workspace}>
       <div className={styles.workspaceStatus}>
-        <span>● Hanya di perangkat ini</span>
+        <span>{server ? 'Database pribadi' : 'Hanya di perangkat ini'}</span>
         <span role="status">{storageStatus}</span>
       </div>
       <PortfolioSummaryBar
@@ -190,8 +206,7 @@ export default function StockWorkspace() {
             <div className={styles.toolbarInfo}>
               <h2 className={styles.sectionHeading}>Saham yang saya miliki</h2>
               <p className={styles.sectionSubnote}>
-                Harga diisi manual. Backup berkala untuk mencegah kehilangan
-                data browser.
+                Masukkan harga terakhir dari sekuritas Anda.
               </p>
             </div>
             <div className={styles.toolbarActions}>
@@ -301,8 +316,9 @@ export default function StockWorkspace() {
                 Masukkan saham pertama
               </button>
               <p className={styles.sectionSubnote}>
-                Data Anda tidak diunggah ke server dan tidak dibagikan kepada
-                pengunjung lain.
+                {server
+                  ? 'Posisi disimpan di database pribadi Anda.'
+                  : 'Posisi disimpan di browser ini.'}
               </p>
             </section>
           ) : (
@@ -511,10 +527,9 @@ export default function StockWorkspace() {
               dan pembelian berikutnya.
             </p>
             <p>
-              Data tersimpan pada browser dan perangkat ini. Membersihkan data
-              situs dapat menghapus portofolio. Untuk pindah perangkat, unduh
-              backup lalu impor file tersebut. Hindari mengedit dari beberapa
-              tab bersamaan.
+              {server
+                ? 'Untuk membuka posisi dari perangkat lain, hubungkan kembali dengan kunci pemilik. Unduh backup sebelum memuat ulang jika penyimpanan gagal.'
+                : 'Untuk pindah perangkat, unduh dan impor backup atau salin portofolio ke database.'}
             </p>
             <p>
               Halaman tidak tercantum di menu atau sitemap dan meminta mesin

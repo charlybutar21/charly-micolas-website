@@ -1,6 +1,6 @@
 # Panduan portofolio saham
 
-Buka `/stock` langsung pada perangkat tempat portofolio disimpan. Untuk pindah perangkat, pilih **Unduh backup**, buka **Impor / tempel tabel** pada perangkat tujuan, lalu pilih file JSON. Periksa pratinjau sebelum menerapkan perubahan. Simpan backup sebelum menghapus data browser.
+Buka `/stock` lalu pilih **Hubungkan database** untuk mengakses portofolio dari HP dan laptop. Ikuti [panduan database](stock-database.md) untuk aktivasi dan migrasi data lama. Di mode lokal, gunakan **Unduh backup** dan **Impor / tempel tabel** untuk memindahkan posisi antarperangkat.
 
 ## Memasukkan posisi
 

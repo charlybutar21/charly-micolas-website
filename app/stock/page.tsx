@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import PageIntro from '@/app/components/shared/PageIntro';
-import StockWorkspace from '@/app/components/stock/StockWorkspace';
+import StockDatabase from '@/app/components/stock/StockDatabase';
 import StockErrorBoundary from '@/app/components/stock/StockErrorBoundary';
 import styles from './page.module.css';
 
@@ -30,7 +30,7 @@ export default function StockPage() {
       />
 
       <StockErrorBoundary>
-        <StockWorkspace />
+        <StockDatabase />
       </StockErrorBoundary>
     </div>
   );

@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 
 async function importExample(page: Page) {
   await page.goto('/stock');
+  await page.getByRole('button', { name: 'Buka portofolio lokal' }).click();
   await page.getByRole('button', { name: 'Impor / tempel tabel' }).click();
   await page
     .getByLabel('Tabel saham', { exact: true })
@@ -18,10 +19,52 @@ async function importExample(page: Page) {
   ).toBeVisible();
 }
 
+test('copies browser holdings to an empty database and opens them in a fresh browser', async ({
+  page,
+  browser,
+  baseURL,
+}) => {
+  let revision = 0;
+  let portfolio: unknown = null;
+  async function connect(client: Page) {
+    await client.route('**/api/stock', async (route) => {
+      const request = route.request();
+      expect(request.headers().authorization).toBe('Bearer test-owner-key');
+      if (request.method() === 'PUT') {
+        expect(request.headers()['if-match']).toBe(String(revision));
+        portfolio = request.postDataJSON();
+        revision++;
+      }
+      await route.fulfill({ json: { revision, portfolio } });
+    });
+    await client.getByLabel('Kunci pemilik').fill('test-owner-key');
+    await client.getByRole('button', { name: 'Hubungkan database' }).click();
+    await expect(
+      client.getByText('Database terhubung', { exact: true }),
+    ).toBeVisible();
+    await expect(
+      client.getByRole('article', { name: 'Posisi BBCA' }),
+    ).toContainText('10 lot');
+  }
+  await importExample(page);
+  await page.getByLabel(/Salin posisi browser/).check();
+  await connect(page);
+  const second = await browser.newContext({ baseURL });
+  try {
+    const client = await second.newPage();
+    await client.goto('/stock');
+    await connect(client);
+    expect(revision).toBe(1);
+  } finally {
+    await second.close();
+  }
+});
+
 test('simple entry has four required position inputs, fee convention and survives reload', async ({
   page,
 }) => {
   await page.goto('/stock');
+  await page.getByRole('button', { name: 'Buka portofolio lokal' }).click();
   await expect(
     page.getByRole('heading', { name: 'Belum ada saham tersimpan' }),
   ).toBeVisible();
@@ -209,6 +252,7 @@ test('aborted database transaction never displays saved success and can retry', 
     };
   });
   await page.goto('/stock');
+  await page.getByRole('button', { name: 'Buka portofolio lokal' }).click();
   await page.getByRole('button', { name: 'Impor / tempel tabel' }).click();
   await page
     .getByLabel('Tabel saham', { exact: true })
@@ -231,6 +275,7 @@ test('reads legacy data from the original IndexedDB key without reseeding', asyn
   page,
 }) => {
   await page.goto('/stock');
+  await page.getByRole('button', { name: 'Buka portofolio lokal' }).click();
   await expect(
     page.getByRole('button', { name: 'Masukkan saham pertama' }),
   ).toBeVisible();
