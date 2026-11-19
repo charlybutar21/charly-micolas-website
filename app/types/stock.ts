@@ -10,6 +10,12 @@ export interface FundamentalMetrics {
   historicalMeanPer: number;
   historicalMeanPbv: number;
   expectedDividendYieldPct: number;
+  method?: 'per' | 'pbv' | 'dividend' | 'manual';
+  manualFairValue?: number;
+  targetMosPct?: number;
+  reportPeriod?: string;
+  source?: string;
+  reviewedAt?: string;
 }
 
 export interface StockHolding {
@@ -23,6 +29,9 @@ export interface StockHolding {
   targetPrice?: number;
   notes: string;
   updatedAt: string;
+  priceUpdatedAt?: string;
+  maxWeightPct?: number;
+  stopPrice?: number;
   fundamentals: FundamentalMetrics;
 }
 
@@ -85,16 +94,19 @@ export interface AvgDownSimulationResult {
   validationMessage?: string;
 }
 
-export type ValuationStatus = 'undervalued' | 'fair' | 'overvalued';
+export type ValuationStatus =
+  'undervalued' | 'fair' | 'overvalued' | 'unavailable';
 
 export interface FairValueResult {
   pbvFairValue: number | null;
   perFairValue: number | null;
   grahamNumber: number | null;
   dividendFairValue: number | null;
-  compositeFairValue: number;
-  marginOfSafetyPct: number;
-  upsidePct: number;
+  compositeFairValue: number | null;
+  marginOfSafetyPct: number | null;
+  upsidePct: number | null;
+  buyBelowPrice: number | null;
+  targetMosPct: number;
   status: ValuationStatus;
   recommendation: string;
 }

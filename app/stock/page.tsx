@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import PageIntro from '@/app/components/shared/PageIntro';
 import StockWorkspace from '@/app/components/stock/StockWorkspace';
+import StockErrorBoundary from '@/app/components/stock/StockErrorBoundary';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'Private Stock Workspace | Charly Micolas Butarbutar',
+  title: 'Stock Workspace | Charly Micolas Butarbutar',
   description:
-    'Unlisted personal equity portfolio tracker, Stockbit average down simulator, and intrinsic fair value calculator.',
+    'Catat portofolio saham IDX, hitung estimasi nilai wajar dan Margin of Safety, serta simulasikan average down.',
   robots: {
     index: false,
     follow: false,
@@ -23,13 +24,14 @@ export default function StockPage() {
   return (
     <div className={styles.page}>
       <PageIntro
-        eyebrow="Unlisted Workspace · IDX Equity"
-        title="Portfolio &"
-        emphasis="Valuation"
-        note="Private equity allocation tracker, Stockbit transaction cost & average down simulator, and multi-model intrinsic fair value analyzer."
+        eyebrow="STOCK WORKSPACE / IDX · IDR"
+        title="Portofolio saham"
+        note="Catat posisi Anda, bandingkan harga terakhir dengan estimasi nilai wajar, dan hitung kebutuhan dana sebelum menambah lot."
       />
 
-      <StockWorkspace />
+      <StockErrorBoundary>
+        <StockWorkspace />
+      </StockErrorBoundary>
     </div>
   );
 }

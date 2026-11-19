@@ -75,7 +75,8 @@ export function calculateHoldingMetrics(
     unrealizedPnLPct,
     breakEvenSellPrice,
     weightPct,
-    isOverConcentrated: weightPct > SAFE_CONCENTRATION_LIMIT_PCT,
+    isOverConcentrated:
+      weightPct > (holding.maxWeightPct ?? SAFE_CONCENTRATION_LIMIT_PCT),
   };
 }
 
@@ -128,6 +129,27 @@ export function simulateAvgDownByLots(
   input: AvgDownByLotInput,
 ): AvgDownSimulationResult {
   const feeConfig = input.feeConfig ?? DEFAULT_STOCKBIT_FEES;
+  const valid =
+    [
+      input.existingLots,
+      input.existingAvgPrice,
+      input.newBuyPrice,
+      input.additionalLots,
+      feeConfig.buyFeePct,
+      feeConfig.sellFeePct,
+    ].every(Number.isFinite) &&
+    Number.isInteger(input.existingLots) &&
+    input.existingLots > 0 &&
+    Number.isInteger(input.additionalLots) &&
+    input.additionalLots > 0 &&
+    input.additionalLots <= 10_000_000 &&
+    input.existingLots + input.additionalLots <= 10_000_000 &&
+    input.existingAvgPrice > 0 &&
+    input.newBuyPrice > 0 &&
+    feeConfig.buyFeePct >= 0 &&
+    feeConfig.buyFeePct <= 10 &&
+    feeConfig.sellFeePct >= 0 &&
+    feeConfig.sellFeePct <= 10;
   const existingLots = Math.max(0, Math.floor(input.existingLots));
   const existingAvgPrice = Math.max(0, input.existingAvgPrice);
   const newBuyPrice = Math.max(0, input.newBuyPrice);
@@ -181,7 +203,10 @@ export function simulateAvgDownByLots(
     breakEvenSellPrice,
     recoveryNeededBeforePct,
     recoveryNeededAfterPct,
-    isFeasible: newTotalLots > 0 && newBuyPrice > 0,
+    isFeasible: valid,
+    validationMessage: valid
+      ? undefined
+      : 'Isi posisi, harga, dan lot tambahan yang valid. Lot tambahan harus bilangan bulat minimal 1; biaya 0–10%.',
   };
 }
 
@@ -279,40 +304,50 @@ export function calculateFairValue(
       ? fundamentals.dps / (fundamentals.expectedDividendYieldPct / 100)
       : null;
 
-  const activeModels = [
-    pbvFairValue,
-    perFairValue,
-    grahamNumber,
-    dividendFairValue,
-  ].filter((value): value is number => value !== null && value > 0);
-
+  // A selected method owns the estimate. Averaging unrelated models hides assumptions.
+  const candidate = {
+    per: perFairValue,
+    pbv: pbvFairValue,
+    dividend: dividendFairValue,
+    manual: fundamentals.manualFairValue ?? null,
+  }[fundamentals.method ?? 'per'];
   const compositeFairValue =
-    activeModels.length > 0
-      ? activeModels.reduce((sum, val) => sum + val, 0) / activeModels.length
-      : 0;
-
-  const marginOfSafetyPct =
-    compositeFairValue > 0
-      ? ((compositeFairValue - currentPrice) / compositeFairValue) * 100
-      : 0;
-
-  const upsidePct =
-    currentPrice > 0
-      ? ((compositeFairValue - currentPrice) / currentPrice) * 100
-      : 0;
-
-  let status: ValuationStatus = 'fair';
+    candidate !== null && Number.isFinite(candidate) && candidate > 0
+      ? candidate
+      : null;
+  const targetMosPct = Number.isFinite(fundamentals.targetMosPct)
+    ? Math.min(90, Math.max(0, fundamentals.targetMosPct!))
+    : 20;
+  const priced =
+    Number.isFinite(currentPrice) &&
+    currentPrice > 0 &&
+    compositeFairValue !== null;
+  const marginOfSafetyPct = priced
+    ? (1 - currentPrice / compositeFairValue) * 100
+    : null;
+  const upsidePct = priced
+    ? (compositeFairValue / currentPrice - 1) * 100
+    : null;
+  const buyBelowPrice =
+    compositeFairValue === null
+      ? null
+      : compositeFairValue * (1 - targetMosPct / 100);
+  let status: ValuationStatus = 'unavailable';
   let recommendation =
-    'Harga berada di rentang wajar (Fairly Valued). Cicil bertahap hanya jika bobot portofolio masih di bawah batas alokasi.';
-
-  if (marginOfSafetyPct >= 20) {
-    status = 'undervalued';
+    'Lengkapi input metode yang dipilih. Data yang belum tersedia tidak dianggap sebagai harga wajar nol.';
+  if (marginOfSafetyPct !== null) {
+    status =
+      marginOfSafetyPct < 0
+        ? 'overvalued'
+        : currentPrice <= buyBelowPrice!
+          ? 'undervalued'
+          : 'fair';
     recommendation =
-      'Undervalued dengan Margin of Safety ≥ 20%. Zona ideal untuk akumulasi atau Average Down secara terukur.';
-  } else if (marginOfSafetyPct < -10) {
-    status = 'overvalued';
-    recommendation =
-      'Harga pasar berada di atas nilai wajar fundamental (Overvalued). Hindari Average Down agresif dan tunggu koreksi ke area Margin of Safety.';
+      status === 'undervalued'
+        ? 'Target MOS terpenuhi menurut asumsi Anda. Periksa kembali laporan, tesis investasi, dan batas alokasi sebelum memutuskan.'
+        : status === 'overvalued'
+          ? 'Harga berada di atas estimasi nilai wajar dari metode yang dipilih.'
+          : 'Harga di bawah estimasi nilai wajar, tetapi belum memenuhi target MOS Anda.';
   }
 
   return {
@@ -325,7 +360,61 @@ export function calculateFairValue(
     upsidePct,
     status,
     recommendation,
+    buyBelowPrice,
+    targetMosPct,
   };
+}
+
+export function simulateAvgDownByBudget(
+  input: Omit<AvgDownByLotInput, 'additionalLots'> & { budget: number },
+): AvgDownSimulationResult {
+  const fees = input.feeConfig ?? DEFAULT_STOCKBIT_FEES;
+  const cost = (count: number) => {
+    const gross = count * SHARES_PER_LOT * input.newBuyPrice;
+    return gross + gross * (fees.buyFeePct / 100);
+  };
+  const lotCost = cost(1);
+  let lots =
+    Number.isFinite(input.budget) && input.budget > 0 && lotCost > 0
+      ? Math.floor(input.budget / lotCost)
+      : 0;
+  // Never exceed the entered cash budget because of floating point round-off.
+  if (
+    lotCost > 0 &&
+    Number.isFinite(input.budget) &&
+    cost(lots + 1) <= input.budget
+  )
+    lots += 1;
+  if (lots > 0 && cost(lots) > input.budget) lots -= 1;
+  const result = simulateAvgDownByLots({ ...input, additionalLots: lots });
+  return lots < 1
+    ? {
+        ...result,
+        isFeasible: false,
+        validationMessage:
+          'Anggaran belum cukup untuk 1 lot termasuk fee beli.',
+      }
+    : result;
+}
+
+export function localDate(date = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Jakarta',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+}
+
+export function isPriceStale(
+  date: string | undefined,
+  today = localDate(),
+): boolean {
+  return (
+    !date ||
+    !Number.isFinite(Date.parse(date)) ||
+    Date.parse(today) - Date.parse(date) > 3 * 86_400_000
+  );
 }
 
 export function formatIdr(amount: number): string {

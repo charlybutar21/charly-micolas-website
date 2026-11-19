@@ -78,7 +78,7 @@ export default function PortfolioSummaryBar({
           }`}
         >
           {formatPct(summary.totalUnrealizedPnLPct)} setelah estimasi biaya
-          Stockbit
+          jual; belum termasuk dividen
         </p>
       </article>
 
@@ -90,7 +90,7 @@ export default function PortfolioSummaryBar({
         <p className={styles.summaryMeta}>
           {summary.topConcentrationPct > 25
             ? 'Perhatian: Ada posisi > 25% portofolio'
-            : 'Distribusi bobot portofolio terdiversifikasi'}
+            : 'Bobot berdasarkan nilai pasar saham'}
         </p>
       </article>
     </section>

@@ -2,6 +2,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import robots from '../app/robots';
 import StockPage, { metadata as stockMetadata } from '../app/stock/page';
+import sitemap from '../app/sitemap';
+import { navigationItems } from '../app/lib/navigation';
 
 describe('unlisted /stock route', () => {
   it('enforces noindex/nofollow metadata and robots disallow for /stock', () => {
@@ -17,18 +19,16 @@ describe('unlisted /stock route', () => {
     expect(rules.disallow).toContain('/stock');
   });
 
-  it('renders portfolio holdings, Stockbit average down simulator, and fair value calculator', () => {
+  it('prerenders no personal positions and keeps stock out of discovery surfaces', () => {
     const markup = renderToStaticMarkup(<StockPage />);
 
-    expect(markup).toContain('Portfolio &amp;');
-    expect(markup).toContain('Valuation');
-    expect(markup).toContain('BBCA');
-    expect(markup).toContain('BMRI');
-    expect(markup).toContain('BBRI');
-    expect(markup).toContain('TLKM');
-    expect(markup).toContain('Kalkulator Average Down');
-    expect(markup).toContain('Valuasi Harga Normal Saham');
-    expect(markup).toContain('0.15%');
-    expect(markup).toContain('0.25%');
+    expect(markup).toContain('Portofolio saham');
+    expect(markup).toContain('Memuat');
+    expect(markup).not.toContain('BBCA');
+    expect(markup).not.toContain('BMRI');
+    expect(sitemap().some((entry) => entry.url.includes('/stock'))).toBe(false);
+    expect(navigationItems.some((item) => String(item.href) === '/stock')).toBe(
+      false,
+    );
   });
 });
