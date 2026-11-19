@@ -23,7 +23,7 @@ describe('unlisted /stock route', () => {
     const markup = renderToStaticMarkup(<StockPage />);
 
     expect(markup).toContain('Portofolio saham');
-    expect(markup).toContain('Memuat');
+    expect(markup).toContain('Hubungkan database');
     expect(markup).not.toContain('BBCA');
     expect(markup).not.toContain('BMRI');
     expect(sitemap().some((entry) => entry.url.includes('/stock'))).toBe(false);
