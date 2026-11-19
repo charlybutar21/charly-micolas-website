@@ -1,273 +1,251 @@
 'use client';
 
+import { useState } from 'react';
 import {
   calculateFairValue,
   formatIdr,
   formatPct,
+  localDate,
 } from '@/app/lib/stock-calculator';
 import type { FundamentalMetrics, StockHolding } from '@/app/types/stock';
 import styles from '@/app/stock/page.module.css';
 
-interface FairValuePanelProps {
-  holding: StockHolding | null;
-  onUpdateFundamentals: (
-    holdingId: string,
-    nextFundamentals: FundamentalMetrics,
-  ) => void;
-}
-
-const DEFAULT_FUNDAMENTALS: FundamentalMetrics = {
-  eps: 450,
-  bvps: 2200,
-  dps: 250,
-  historicalMeanPer: 15,
-  historicalMeanPbv: 2.5,
-  expectedDividendYieldPct: 5,
-};
-
 export default function FairValuePanel({
   holding,
   onUpdateFundamentals,
-}: FairValuePanelProps) {
-  const fundamentals = holding?.fundamentals ?? DEFAULT_FUNDAMENTALS;
-  const currentPrice = holding?.currentPrice ?? 4500;
-  const valuation = calculateFairValue(currentPrice, fundamentals);
-
-  const handleFieldChange = (
-    field: keyof FundamentalMetrics,
-    rawValue: string,
-  ) => {
-    if (!holding) return;
-    const numeric = Number(rawValue);
-    if (!Number.isFinite(numeric) || numeric < 0) return;
-    onUpdateFundamentals(holding.id, {
-      ...fundamentals,
-      [field]: numeric,
-    });
-  };
-
+}: {
+  holding: StockHolding;
+  onUpdateFundamentals: (id: string, fundamentals: FundamentalMetrics) => void;
+}) {
+  const [draft, setDraft] = useState<FundamentalMetrics>(holding.fundamentals);
+  const result = calculateFairValue(holding.currentPrice, draft);
+  const method = draft.method ?? 'per';
+  const money = (v: number | null) =>
+    v === null ? 'Belum tersedia' : formatIdr(v);
+  const field = (
+    key: keyof FundamentalMetrics,
+    label: string,
+    max: number,
+    min = 0,
+  ) => (
+    <label className={styles.fieldGroup}>
+      {label}
+      <input
+        className={styles.numberInput}
+        type="number"
+        step="any"
+        min={min}
+        max={max}
+        value={
+          typeof draft[key] === 'number' && draft[key] !== 0
+            ? String(draft[key])
+            : ''
+        }
+        onChange={(e) =>
+          setDraft({
+            ...draft,
+            [key]: e.target.value === '' ? 0 : e.target.valueAsNumber,
+          })
+        }
+        required
+      />
+    </label>
+  );
   return (
-    <section
-      className={styles.panelCard}
-      aria-labelledby="fair-value-panel-heading"
-    >
+    <section className={styles.panelCard} aria-labelledby="fair-value-title">
       <div className={styles.panelHeader}>
         <div>
-          <p className={styles.panelEyebrow}>
-            Intrinsic Value &amp; Margin of Safety
-          </p>
-          <h2 id="fair-value-panel-heading" className={styles.panelTitle}>
-            Valuasi Harga Normal Saham{' '}
-            {holding ? `— ${holding.ticker}` : '(Mode Contoh)'}
+          <h2 id="fair-value-title" className={styles.panelTitle}>
+            Harga wajar · {holding.ticker}
           </h2>
         </div>
-
-        <span
-          className={`${styles.valuationBadge} ${
-            valuation.status === 'undervalued'
-              ? styles.badgeUndervalued
-              : valuation.status === 'overvalued'
-                ? styles.badgeOvervalued
-                : styles.badgeFair
-          }`}
-        >
-          {valuation.status === 'undervalued'
-            ? 'Undervalued (Zona Akumulasi)'
-            : valuation.status === 'overvalued'
-              ? 'Overvalued (Rawan Koreksi)'
-              : 'Fairly Valued (Harga Wajar)'}
-        </span>
+        <span className={styles.sectorBadge}>Estimasi Anda</span>
       </div>
-
       <p className={styles.panelDescription}>
-        <strong>Bagaimana cara tahu harga normal saham?</strong> Ambil angka{' '}
-        <code>EPS (TTM)</code>, <code>BVPS</code>, <code>DPS</code>, serta
-        rata-rata 5 tahun <code>Mean PE</code> &amp; <code>Mean PBV</code> dari
-        menu <strong>Key Stats di Stockbit</strong>. Sistem akan menghitung
-        rentang harga wajar dari 4 pendekatan fundamental sekaligus.
+        Pilih metode sesuai bisnisnya. Nilai wajar adalah estimasi berbasis
+        asumsi; harga pasar dan jumlah lot saja tidak cukup untuk menghitungnya.
       </p>
-
-      <div className={styles.formGrid}>
-        <div className={styles.fieldGroup}>
-          <label htmlFor="fund-eps">EPS Tahunan / TTM (Rp)</label>
-          <input
-            id="fund-eps"
-            type="number"
-            min="0"
-            step="1"
-            value={fundamentals.eps}
-            disabled={!holding}
-            onChange={(e) => handleFieldChange('eps', e.target.value)}
-            className={styles.numberInput}
-          />
-        </div>
-
-        <div className={styles.fieldGroup}>
-          <label htmlFor="fund-bvps">Book Value per Share / BVPS (Rp)</label>
-          <input
-            id="fund-bvps"
-            type="number"
-            min="0"
-            step="1"
-            value={fundamentals.bvps}
-            disabled={!holding}
-            onChange={(e) => handleFieldChange('bvps', e.target.value)}
-            className={styles.numberInput}
-          />
-        </div>
-
-        <div className={styles.fieldGroup}>
-          <label htmlFor="fund-dps">Dividen per Lembar / DPS (Rp)</label>
-          <input
-            id="fund-dps"
-            type="number"
-            min="0"
-            step="1"
-            value={fundamentals.dps}
-            disabled={!holding}
-            onChange={(e) => handleFieldChange('dps', e.target.value)}
-            className={styles.numberInput}
-          />
-        </div>
-
-        <div className={styles.fieldGroup}>
-          <label htmlFor="fund-mean-pbv">5Y Historical Mean PBV (x)</label>
-          <input
-            id="fund-mean-pbv"
-            type="number"
-            min="0"
-            step="0.1"
-            value={fundamentals.historicalMeanPbv}
-            disabled={!holding}
+      <form
+        className={styles.stockForm}
+        onSubmit={(e) => {
+          e.preventDefault();
+          onUpdateFundamentals(holding.id, {
+            ...draft,
+            reviewedAt: localDate(),
+          });
+        }}
+      >
+        <label className={styles.fieldGroup}>
+          Metode valuasi
+          <select
+            className={styles.textInput}
+            value={method}
             onChange={(e) =>
-              handleFieldChange('historicalMeanPbv', e.target.value)
+              setDraft({
+                ...draft,
+                method: e.target.value as FundamentalMetrics['method'],
+              })
             }
-            className={styles.numberInput}
-          />
-        </div>
-
-        <div className={styles.fieldGroup}>
-          <label htmlFor="fund-mean-per">5Y Historical Mean PER (x)</label>
-          <input
-            id="fund-mean-per"
-            type="number"
-            min="0"
-            step="0.1"
-            value={fundamentals.historicalMeanPer}
-            disabled={!holding}
-            onChange={(e) =>
-              handleFieldChange('historicalMeanPer', e.target.value)
-            }
-            className={styles.numberInput}
-          />
-        </div>
-
-        <div className={styles.fieldGroup}>
-          <label htmlFor="fund-div-yield">
-            Target Dividend Yield Wajar (%)
-          </label>
-          <input
-            id="fund-div-yield"
-            type="number"
-            min="0.1"
-            step="0.25"
-            value={fundamentals.expectedDividendYieldPct}
-            disabled={!holding}
-            onChange={(e) =>
-              handleFieldChange('expectedDividendYieldPct', e.target.value)
-            }
-            className={styles.numberInput}
-          />
-        </div>
-      </div>
-
-      <div className={styles.simulationResults}>
-        <div className={styles.resultBoxPrimary}>
-          <span className={styles.resultLabel}>
-            Harga Normal Konsensus (Composite Fair Value)
-          </span>
-          <strong className={styles.resultPrimaryValue}>
-            {valuation.compositeFairValue > 0
-              ? formatIdr(valuation.compositeFairValue)
-              : '-'}
-          </strong>
-          <span className={styles.resultSub}>
-            Harga Pasar Saat Ini: {formatIdr(currentPrice)} (Upside{' '}
-            {formatPct(valuation.upsidePct)})
-          </span>
-        </div>
-
-        <div className={styles.resultBoxPrimary}>
-          <span className={styles.resultLabel}>Margin of Safety (MoS)</span>
-          <strong
-            className={`${styles.resultPrimaryValue} ${
-              valuation.marginOfSafetyPct >= 0
-                ? styles.positiveText
-                : styles.negativeText
-            }`}
           >
-            {valuation.marginOfSafetyPct.toFixed(1)}%
-          </strong>
-          <span className={styles.resultSub}>
-            Diskon harga pasar terhadap nilai wajarnya
-          </span>
+            <option value="per">PER — laba perusahaan</option>
+            <option value="pbv">PBV — nilai buku ekuitas</option>
+            <option value="dividend">Dividend yield — dividen berulang</option>
+            <option value="manual">Manual — hasil riset sendiri</option>
+          </select>
+        </label>
+        <p className={styles.sectionSubnote}>
+          {method === 'per'
+            ? 'EPS TTM × PER acuan. Gunakan laba normal positif; hindari laba one-off dan membandingkan sektor berbeda.'
+            : method === 'pbv'
+              ? 'BVPS × PBV acuan. Berguna untuk bisnis berbasis aset / bank; tetap periksa ROE dan kualitas aset.'
+              : method === 'dividend'
+                ? 'DPS tahunan ÷ target yield. Gunakan dividen berulang, bukan dividen khusus yang belum tentu terulang.'
+                : 'Masukkan nilai per saham dari riset Anda, misalnya DCF. Cantumkan sumber dan asumsi di bawah.'}
+        </p>
+        <div className={styles.formGrid}>
+          {method === 'per' && (
+            <>
+              {field('eps', 'EPS TTM (Rp/lembar)', 100_000_000, -100_000_000)}
+              {field('historicalMeanPer', 'PER acuan (x)', 500)}
+            </>
+          )}
+          {method === 'pbv' && (
+            <>
+              {field('bvps', 'BVPS (Rp/lembar)', 100_000_000, -100_000_000)}
+              {field('historicalMeanPbv', 'PBV acuan (x)', 200)}
+            </>
+          )}
+          {method === 'dividend' && (
+            <>
+              {field('dps', 'DPS tahunan (Rp/lembar)', 100_000_000)}
+              {field(
+                'expectedDividendYieldPct',
+                'Target dividend yield (%)',
+                100,
+              )}
+            </>
+          )}
+          {method === 'manual' &&
+            field(
+              'manualFairValue',
+              'Estimasi harga wajar (Rp/lembar)',
+              100_000_000,
+            )}
+          <label className={styles.fieldGroup}>
+            Target Margin of Safety (%)
+            <input
+              className={styles.numberInput}
+              type="number"
+              step="any"
+              min="0"
+              max="90"
+              required
+              value={draft.targetMosPct ?? 20}
+              onChange={(e) =>
+                setDraft({
+                  ...draft,
+                  targetMosPct:
+                    e.target.value === '' ? 0 : e.target.valueAsNumber,
+                })
+              }
+            />
+          </label>
+          <label className={styles.fieldGroup}>
+            Periode laporan
+            <input
+              className={styles.textInput}
+              value={draft.reportPeriod ?? ''}
+              maxLength={80}
+              onChange={(e) =>
+                setDraft({ ...draft, reportPeriod: e.target.value })
+              }
+              placeholder="Contoh: TTM s.d. Q3 2026"
+            />
+          </label>
         </div>
-
-        <div className={styles.resultBox}>
-          <span className={styles.resultLabel}>
-            1. Historical PBV Band (BVPS × Mean PBV)
-          </span>
-          <strong className={styles.resultValue}>
-            {valuation.pbvFairValue ? formatIdr(valuation.pbvFairValue) : '-'}
-          </strong>
-          <span className={styles.resultSub}>
-            Cocok untuk Perbankan (BBCA, BMRI, BBRI) &amp; Properti
-          </span>
+        <label className={styles.fieldGroup}>
+          Sumber data & alasan memilih acuan
+          <input
+            className={styles.textInput}
+            value={draft.source ?? ''}
+            maxLength={300}
+            onChange={(e) => setDraft({ ...draft, source: e.target.value })}
+            placeholder="Laporan emiten / tanggal riset / pembanding PER atau PBV"
+          />
+        </label>
+        <div className={styles.simulationResults}>
+          <div className={styles.resultBoxPrimary}>
+            <span className={styles.resultLabel}>Estimasi harga wajar</span>
+            <strong className={styles.resultPrimaryValue}>
+              {money(result.compositeFairValue)}
+            </strong>
+            <small>Metode {method.toUpperCase()} · Rp per lembar</small>
+          </div>
+          <div className={styles.resultBox}>
+            <span className={styles.resultLabel}>Margin of Safety</span>
+            <strong className={styles.resultPrimaryValue}>
+              {result.marginOfSafetyPct === null
+                ? '—'
+                : formatPct(result.marginOfSafetyPct)}
+            </strong>
+            <small>
+              Upside:{' '}
+              {result.upsidePct === null ? '—' : formatPct(result.upsidePct)}
+            </small>
+          </div>
+          <div className={styles.resultBox}>
+            <span className={styles.resultLabel}>
+              Harga batas beli · MOS {result.targetMosPct}%
+            </span>
+            <strong className={styles.resultPrimaryValue}>
+              {money(result.buyBelowPrice)}
+            </strong>
+            <small>Ambang matematis, belum dibulatkan ke fraksi order.</small>
+          </div>
+          <div className={styles.resultBox}>
+            <span className={styles.resultLabel}>Harga terakhir · manual</span>
+            <strong className={styles.resultPrimaryValue}>
+              {formatIdr(holding.currentPrice)}
+            </strong>
+            <small>{holding.priceUpdatedAt ?? 'Tanggal belum diketahui'}</small>
+          </div>
         </div>
-
-        <div className={styles.resultBox}>
-          <span className={styles.resultLabel}>
-            2. Historical PER Band (EPS × Mean PER)
-          </span>
-          <strong className={styles.resultValue}>
-            {valuation.perFairValue ? formatIdr(valuation.perFairValue) : '-'}
-          </strong>
-          <span className={styles.resultSub}>
-            Cocok untuk Consumer, Telco (TLKM), &amp; Healthcare
-          </span>
-        </div>
-
-        <div className={styles.resultBox}>
-          <span className={styles.resultLabel}>
-            3. Benjamin Graham Number (√(22.5 × EPS × BVPS))
-          </span>
-          <strong className={styles.resultValue}>
-            {valuation.grahamNumber ? formatIdr(valuation.grahamNumber) : '-'}
-          </strong>
-          <span className={styles.resultSub}>
-            Batas konservatif value investing klasik
-          </span>
-        </div>
-
-        <div className={styles.resultBox}>
-          <span className={styles.resultLabel}>
-            4. Dividend Yield Model (DPS ÷ Target Yield)
-          </span>
-          <strong className={styles.resultValue}>
-            {valuation.dividendFairValue
-              ? formatIdr(valuation.dividendFairValue)
-              : '-'}
-          </strong>
-          <span className={styles.resultSub}>
-            Cocok untuk saham rutin bagi dividen tinggi
-          </span>
-        </div>
-      </div>
-
-      <div className={styles.recommendationBox}>
-        <strong>Kesimpulan Senior Investment Manager:</strong>{' '}
-        {valuation.recommendation}
-      </div>
+        <p className={styles.recommendationBox}>{result.recommendation}</p>
+        {(!draft.source || !draft.reportPeriod) && (
+          <p className={styles.sectionSubnote}>
+            Sumber/periode belum lengkap. Hasil belum dapat ditelusuri ke
+            laporan keuangan.
+          </p>
+        )}
+        <button className={styles.primaryButton}>Simpan asumsi valuasi</button>
+      </form>
+      <details className={styles.feeDetails}>
+        <summary>Rumus, keterbatasan & pembanding</summary>
+        <p>
+          MOS = (nilai wajar − harga) ÷ nilai wajar × 100%. Upside = (nilai
+          wajar − harga) ÷ harga × 100%. Harga batas beli = nilai wajar × (1 −
+          target MOS).
+        </p>
+        <p>
+          PER: {money(result.perFairValue)} · PBV: {money(result.pbvFairValue)}{' '}
+          · Dividen: {money(result.dividendFairValue)}. Pembanding tidak
+          dirata-ratakan. EPS/BVPS negatif tidak menghasilkan valuasi melalui
+          metode tersebut.
+        </p>
+        <p>
+          Graham number: {money(result.grahamNumber)} — pembanding klasik dengan
+          asumsi tetap; bukan metode utama untuk semua bisnis. Estimasi tidak
+          mencakup perubahan bisnis, dilusi, atau dividen mendatang secara
+          otomatis.
+        </p>
+        <a
+          href="https://pages.stern.nyu.edu/adamodar/New_Home_Page/lectures/approach.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Referensi pendekatan valuasi · Aswath Damodaran ↗
+        </a>
+      </details>
     </section>
   );
 }

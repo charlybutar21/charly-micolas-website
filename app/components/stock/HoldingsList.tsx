@@ -1,220 +1,220 @@
+'use client';
+
+import { useState } from 'react';
 import {
   calculateFairValue,
   calculateHoldingMetrics,
   formatIdr,
   formatPct,
+  isPriceStale,
 } from '@/app/lib/stock-calculator';
 import type { StockHolding, StockbitFeeConfig } from '@/app/types/stock';
 import styles from '@/app/stock/page.module.css';
 
-interface HoldingsListProps {
-  holdings: readonly StockHolding[];
-  selectedHoldingId: string;
-  totalGrossMarketValue: number;
-  feeConfig: StockbitFeeConfig;
-  onSelectHolding: (id: string) => void;
-  onQuickPriceChange: (id: string, nextPrice: number) => void;
-  onEditHolding: (holding: StockHolding) => void;
-  onDeleteHolding: (id: string) => void;
-}
-
-const STATUS_LABELS = {
-  undervalued: 'Undervalued',
-  fair: 'Fair Value',
-  overvalued: 'Overvalued',
-} as const;
-
 export default function HoldingsList({
   holdings,
-  selectedHoldingId,
-  totalGrossMarketValue,
+  totalMarketValue,
   feeConfig,
-  onSelectHolding,
-  onQuickPriceChange,
-  onEditHolding,
-  onDeleteHolding,
-}: HoldingsListProps) {
-  if (holdings.length === 0) {
-    return (
-      <div className={styles.emptyState}>
-        <p>
-          Belum ada data saham di portofolio. Klik tombol{' '}
-          <strong>+ Tambah Saham</strong> untuk mulai menginput kepemilikan
-          saham Anda.
-        </p>
-      </div>
+  selectedId,
+  onSelect,
+  onEdit,
+  onDelete,
+}: {
+  holdings: StockHolding[];
+  totalMarketValue: number;
+  feeConfig: StockbitFeeConfig;
+  selectedId: string;
+  onSelect: (id: string) => void;
+  onEdit: (holding: StockHolding) => void;
+  onDelete: (id: string) => void;
+}) {
+  const [query, setQuery] = useState('');
+  const [sort, setSort] = useState('ticker');
+  const filtered = holdings
+    .filter((h) =>
+      (h.ticker + ' ' + h.companyName)
+        .toLowerCase()
+        .includes(query.toLowerCase()),
+    )
+    .sort((a, b) =>
+      sort === 'weight'
+        ? b.lots * b.currentPrice - a.lots * a.currentPrice
+        : sort === 'pnl'
+          ? calculateHoldingMetrics(a, totalMarketValue, feeConfig)
+              .unrealizedPnLPct -
+            calculateHoldingMetrics(b, totalMarketValue, feeConfig)
+              .unrealizedPnLPct
+          : a.ticker.localeCompare(b.ticker),
     );
-  }
-
   return (
-    <div className={styles.holdingsGrid}>
-      {holdings.map((holding) => {
-        const metrics = calculateHoldingMetrics(
-          holding,
-          totalGrossMarketValue,
-          feeConfig,
-        );
-        const valuation = calculateFairValue(
-          holding.currentPrice,
-          holding.fundamentals,
-        );
-        const isSelected = holding.id === selectedHoldingId;
-        const isProfit = metrics.unrealizedPnL >= 0;
-
-        return (
-          <article
-            key={holding.id}
-            className={`${styles.holdingCard} ${
-              isSelected ? styles.holdingCardActive : ''
-            }`}
+    <section aria-label="Daftar kepemilikan" className={styles.holdingsSection}>
+      <div className={styles.listTools}>
+        <label className={styles.searchLabel}>
+          Cari saham
+          <input
+            className={styles.textInput}
+            type="search"
+            placeholder="Kode atau nama perusahaan"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </label>
+        <label className={styles.fieldGroup}>
+          Urutkan
+          <select
+            className={styles.textInput}
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
           >
-            <div className={styles.holdingHeader}>
-              <div>
-                <div className={styles.tickerRow}>
-                  <h3 className={styles.ticker}>{holding.ticker}</h3>
-                  <span className={styles.sectorBadge}>{holding.sector}</span>
-                  <span
-                    className={`${styles.valuationBadge} ${
-                      valuation.status === 'undervalued'
-                        ? styles.badgeUndervalued
-                        : valuation.status === 'overvalued'
-                          ? styles.badgeOvervalued
-                          : styles.badgeFair
-                    }`}
-                  >
-                    {STATUS_LABELS[valuation.status]} (MoS{' '}
-                    {valuation.marginOfSafetyPct.toFixed(1)}%)
-                  </span>
+            <option value="ticker">Kode A–Z</option>
+            <option value="weight">Bobot terbesar</option>
+            <option value="pnl">P/L terendah</option>
+          </select>
+        </label>
+      </div>
+      <div className={styles.holdingsGrid}>
+        {filtered.map((h) => {
+          const m = calculateHoldingMetrics(h, totalMarketValue, feeConfig);
+          const fv = calculateFairValue(h.currentPrice, h.fundamentals);
+          return (
+            <article
+              key={h.id}
+              className={
+                styles.holdingCard +
+                (selectedId === h.id ? ' ' + styles.holdingCardActive : '')
+              }
+              aria-label={'Posisi ' + h.ticker}
+            >
+              <div className={styles.holdingHeader}>
+                <div>
+                  <div className={styles.tickerRow}>
+                    <h3 className={styles.ticker}>{h.ticker}</h3>
+                    <span className={styles.sectorBadge}>{h.sector}</span>
+                    <span
+                      className={
+                        styles.valuationBadge +
+                        ' ' +
+                        (fv.status === 'undervalued'
+                          ? styles.badgeUndervalued
+                          : fv.status === 'overvalued'
+                            ? styles.badgeOvervalued
+                            : styles.badgeFair)
+                      }
+                    >
+                      {fv.marginOfSafetyPct === null
+                        ? 'Belum ada valuasi'
+                        : 'MOS ' + formatPct(fv.marginOfSafetyPct, 1)}
+                    </span>
+                  </div>
+                  <p className={styles.companyName}>{h.companyName}</p>
                 </div>
-                <p className={styles.companyName}>{holding.companyName}</p>
-              </div>
-
-              <div className={styles.cardActions}>
-                <button
-                  type="button"
-                  onClick={() => onSelectHolding(holding.id)}
-                  className={
-                    isSelected ? styles.activeActionButton : styles.actionButton
-                  }
-                  aria-pressed={isSelected}
-                >
-                  {isSelected
-                    ? 'Sedang Dianalisis'
-                    : 'Simulasi Avg Down & Valuasi'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onEditHolding(holding)}
-                  className={styles.ghostButton}
-                  aria-label={`Edit data saham ${holding.ticker}`}
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onDeleteHolding(holding.id)}
-                  className={styles.dangerGhostButton}
-                  aria-label={`Hapus saham ${holding.ticker}`}
-                >
-                  Hapus
-                </button>
-              </div>
-            </div>
-
-            <div className={styles.metricsRow}>
-              <div className={styles.metricCell}>
-                <span className={styles.metricLabel}>Jumlah Lot & Lembar</span>
-                <strong className={styles.metricValue}>
-                  {holding.lots.toLocaleString('id-ID')} Lot
-                </strong>
-                <span className={styles.metricSub}>
-                  {metrics.shares.toLocaleString('id-ID')} lembar
-                </span>
-              </div>
-
-              <div className={styles.metricCell}>
-                <span className={styles.metricLabel}>Avg Buy / Break-Even</span>
-                <strong className={styles.metricValue}>
-                  {formatIdr(holding.avgBuyPrice)}
-                </strong>
-                <span className={styles.metricSub}>
-                  Impas jual: {formatIdr(metrics.breakEvenSellPrice)}
-                </span>
-              </div>
-
-              <div className={styles.metricCell}>
-                <label
-                  htmlFor={`quick-price-${holding.id}`}
-                  className={styles.metricLabel}
-                >
-                  Harga Pasar Saat Ini (Rp)
-                </label>
-                <input
-                  id={`quick-price-${holding.id}`}
-                  type="number"
-                  min={1}
-                  step={1}
-                  value={holding.currentPrice}
-                  onChange={(event) => {
-                    const next = Number(event.target.value);
-                    if (Number.isFinite(next) && next >= 0) {
-                      onQuickPriceChange(holding.id, next);
+                <div className={styles.cardActions}>
+                  <button
+                    className={
+                      selectedId === h.id
+                        ? styles.activeActionButton
+                        : styles.actionButton
                     }
-                  }}
-                  className={styles.inlinePriceInput}
-                />
-                <span className={styles.metricSub}>
-                  Harga Normal:{' '}
-                  {valuation.compositeFairValue > 0
-                    ? formatIdr(valuation.compositeFairValue)
-                    : '-'}
-                </span>
+                    aria-pressed={selectedId === h.id}
+                    onClick={() => onSelect(h.id)}
+                  >
+                    Analisis {h.ticker}
+                  </button>
+                  <button
+                    className={styles.ghostButton}
+                    aria-label={'Edit ' + h.ticker}
+                    onClick={() => onEdit(h)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className={styles.dangerGhostButton}
+                    aria-label={'Hapus ' + h.ticker}
+                    onClick={() => onDelete(h.id)}
+                  >
+                    Hapus
+                  </button>
+                </div>
               </div>
-
-              <div className={styles.metricCell}>
-                <span className={styles.metricLabel}>
-                  Modal vs Nilai Bersih
-                </span>
-                <strong className={styles.metricValue}>
-                  {formatIdr(metrics.netLiquidatingValue)}
-                </strong>
-                <span className={styles.metricSub}>
-                  Modal: {formatIdr(metrics.investedCapital)}
-                </span>
+              <div className={styles.metricsRow}>
+                <div className={styles.metricCell}>
+                  <span className={styles.metricLabel}>Posisi / average</span>
+                  <strong>{h.lots.toLocaleString('id-ID')} lot</strong>
+                  <small>{formatIdr(h.avgBuyPrice)} / lembar</small>
+                </div>
+                <div className={styles.metricCell}>
+                  <span className={styles.metricLabel}>Harga terakhir</span>
+                  <strong>{formatIdr(h.currentPrice)}</strong>
+                  <small>
+                    {h.priceUpdatedAt ?? 'Tanggal belum diisi'}
+                    {isPriceStale(h.priceUpdatedAt)
+                      ? ' · Perlu update'
+                      : ' · Manual'}
+                  </small>
+                </div>
+                <div className={styles.metricCell}>
+                  <span className={styles.metricLabel}>Nilai bersih</span>
+                  <strong>{formatIdr(m.netLiquidatingValue)}</strong>
+                  <small>Modal {formatIdr(m.investedCapital)}</small>
+                </div>
+                <div className={styles.metricCell}>
+                  <span className={styles.metricLabel}>
+                    P/L belum terealisasi
+                  </span>
+                  <strong
+                    className={
+                      m.unrealizedPnL >= 0
+                        ? styles.positiveText
+                        : styles.negativeText
+                    }
+                  >
+                    {formatIdr(m.unrealizedPnL)}
+                  </strong>
+                  <small>
+                    {formatPct(m.unrealizedPnLPct)} setelah fee jual
+                  </small>
+                </div>
+                <div className={styles.metricCell}>
+                  <span className={styles.metricLabel}>
+                    Bobot / harga wajar
+                  </span>
+                  <strong>
+                    {m.weightPct.toFixed(1)}%
+                    {m.isOverConcentrated ? ' · Di atas batas' : ''}
+                  </strong>
+                  <small>
+                    {fv.compositeFairValue === null
+                      ? 'Lengkapi valuasi'
+                      : formatIdr(fv.compositeFairValue)}
+                  </small>
+                </div>
               </div>
-
-              <div className={styles.metricCell}>
-                <span className={styles.metricLabel}>Unrealized P&amp;L</span>
-                <strong
-                  className={`${styles.metricValue} ${
-                    isProfit ? styles.positiveText : styles.negativeText
-                  }`}
-                >
-                  {isProfit ? '+' : ''}
-                  {formatIdr(metrics.unrealizedPnL)}
-                </strong>
-                <span
-                  className={`${styles.metricSub} ${
-                    isProfit ? styles.positiveText : styles.negativeText
-                  }`}
-                >
-                  {formatPct(metrics.unrealizedPnLPct)} · Bobot{' '}
-                  {metrics.weightPct.toFixed(1)}%
-                </span>
-              </div>
-            </div>
-
-            <div className={styles.holdingFooter}>
-              <p className={styles.thesisNote}>
-                <strong>Thesis &amp; Catatan:</strong> {holding.notes}
-              </p>
-              <span className={styles.updatedDate}>
-                Update: {holding.updatedAt}
-              </span>
-            </div>
-          </article>
-        );
-      })}
-    </div>
+              {(h.notes ||
+                (h.targetPrice && h.currentPrice >= h.targetPrice) ||
+                (h.stopPrice && h.currentPrice <= h.stopPrice)) && (
+                <div className={styles.holdingFooter}>
+                  <p className={styles.thesisNote}>{h.notes}</p>
+                  {h.targetPrice && h.currentPrice >= h.targetPrice ? (
+                    <span className={styles.positiveText}>
+                      Target jual tercapai
+                    </span>
+                  ) : null}
+                  {h.stopPrice && h.currentPrice <= h.stopPrice ? (
+                    <span className={styles.negativeText}>
+                      Batas evaluasi tersentuh
+                    </span>
+                  ) : null}
+                </div>
+              )}
+            </article>
+          );
+        })}
+        {!filtered.length && (
+          <p className={styles.emptyState}>
+            Tidak ada saham yang cocok dengan pencarian.
+          </p>
+        )}
+      </div>
+    </section>
   );
 }

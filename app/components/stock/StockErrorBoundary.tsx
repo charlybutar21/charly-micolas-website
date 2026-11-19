@@ -34,8 +34,9 @@ export default class StockErrorBoundary extends React.Component<
         <section className={styles.errorBanner} role="alert">
           <h2>Terjadi kendala saat memuat kalkulator portofolio</h2>
           <p>
-            Data lokal Anda tetap aman. Silakan muat ulang komponen untuk
-            melanjutkan simulasi.
+            Silakan muat ulang komponen. Jika ada perubahan yang belum
+            tersimpan, periksa kembali portofolio Anda setelah halaman berhasil
+            dimuat.
           </p>
           <button
             type="button"

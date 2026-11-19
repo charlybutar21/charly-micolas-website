@@ -2,326 +2,275 @@
 
 import { useState } from 'react';
 import {
+  calculateBreakEvenSellPrice,
   formatIdr,
   formatPct,
   getIdxTickSize,
+  simulateAvgDownByBudget,
   simulateAvgDownByLots,
   simulateAvgDownByTargetPrice,
 } from '@/app/lib/stock-calculator';
 import type { StockHolding, StockbitFeeConfig } from '@/app/types/stock';
 import styles from '@/app/stock/page.module.css';
 
-interface AvgDownCalculatorPanelProps {
-  holding: StockHolding | null;
-  feeConfig: StockbitFeeConfig;
-  onFeeConfigChange: (nextFee: StockbitFeeConfig) => void;
-  onApplySimulationToHolding: (
-    holdingId: string,
-    newTotalLots: number,
-    newAvgPrice: number,
-    latestPrice: number,
-  ) => void;
-}
-
 export default function AvgDownCalculatorPanel({
   holding,
+  totalMarketValue,
   feeConfig,
-  onFeeConfigChange,
-  onApplySimulationToHolding,
-}: AvgDownCalculatorPanelProps) {
-  const [mode, setMode] = useState<'by-lots' | 'by-target'>('by-lots');
-  const [customBuyPrice, setCustomBuyPrice] = useState<number | null>(null);
-  const [additionalLots, setAdditionalLots] = useState<number>(20);
-  const [targetAvgPrice, setTargetAvgPrice] = useState<number | null>(null);
-
-  const existingLots = holding?.lots ?? 10;
-  const existingAvgPrice = holding?.avgBuyPrice ?? 5000;
-  const activeBuyPrice = customBuyPrice ?? holding?.currentPrice ?? 4500;
-  const defaultTarget = Math.round((existingAvgPrice + activeBuyPrice) / 2);
-  const activeTargetAvg = targetAvgPrice ?? defaultTarget;
-
-  const simulation =
-    mode === 'by-lots'
-      ? simulateAvgDownByLots({
-          existingLots,
-          existingAvgPrice,
-          newBuyPrice: activeBuyPrice,
-          additionalLots,
-          feeConfig,
-        })
-      : simulateAvgDownByTargetPrice({
-          existingLots,
-          existingAvgPrice,
-          newBuyPrice: activeBuyPrice,
-          targetAvgPrice: activeTargetAvg,
-          feeConfig,
-        });
-
-  const tickSize = getIdxTickSize(activeBuyPrice);
-
+  onApplySimulation,
+}: {
+  holding: StockHolding;
+  totalMarketValue: number;
+  feeConfig: StockbitFeeConfig;
+  onApplySimulation: (id: string, lots: number, average: number) => void;
+}) {
+  const [mode, setMode] = useState<'budget' | 'lots' | 'target'>('budget');
+  const [buyPrice, setBuyPrice] = useState(String(holding.currentPrice));
+  const [amount, setAmount] = useState('');
+  const [confirmed, setConfirmed] = useState(false);
+  const input = {
+    existingLots: holding.lots,
+    existingAvgPrice: holding.avgBuyPrice,
+    newBuyPrice: Number(buyPrice),
+    feeConfig,
+  };
+  const result =
+    mode === 'budget'
+      ? simulateAvgDownByBudget({ ...input, budget: Number(amount) })
+      : mode === 'target'
+        ? simulateAvgDownByTargetPrice({
+            ...input,
+            targetAvgPrice: Number(amount),
+          })
+        : simulateAvgDownByLots({ ...input, additionalLots: Number(amount) });
+  const valid = amount !== '' && Number(amount) > 0 && result.isFeasible;
+  const weightBefore =
+    totalMarketValue > 0
+      ? ((holding.lots * 100 * holding.currentPrice) / totalMarketValue) * 100
+      : 0;
+  const projectedValue =
+    totalMarketValue + result.additionalShares * holding.currentPrice;
+  const weightAfter =
+    projectedValue > 0
+      ? ((result.newTotalShares * holding.currentPrice) / projectedValue) * 100
+      : 0;
+  const limit = holding.maxWeightPct ?? 25;
+  const stressPrice = holding.currentPrice * 0.9;
+  const stressBefore =
+    holding.lots *
+    100 *
+    (stressPrice * (1 - feeConfig.sellFeePct / 100) - holding.avgBuyPrice);
+  const stressAfter =
+    result.newTotalShares * stressPrice * (1 - feeConfig.sellFeePct / 100) -
+    result.newTotalInvested;
+  const money = (v: number) =>
+    valid && Number.isFinite(v) ? formatIdr(v) : '—';
   return (
-    <section
-      className={styles.panelCard}
-      aria-labelledby="avg-down-calculator-heading"
-    >
+    <section className={styles.panelCard} aria-labelledby="average-title">
       <div className={styles.panelHeader}>
         <div>
-          <p className={styles.panelEyebrow}>Stockbit Transaction Simulator</p>
-          <h2 id="avg-down-calculator-heading" className={styles.panelTitle}>
-            Kalkulator Average Down{' '}
-            {holding ? `— ${holding.ticker}` : '(Mode Manual)'}
+          <h2 id="average-title" className={styles.panelTitle}>
+            Average down · {holding.ticker}
           </h2>
         </div>
-
-        <div
-          className={styles.modeSwitch}
-          role="group"
-          aria-label="Mode simulasi average down"
-        >
-          <button
-            type="button"
-            onClick={() => setMode('by-lots')}
-            className={
-              mode === 'by-lots' ? styles.modeButtonActive : styles.modeButton
-            }
-          >
-            Simulasi Lot Baru
-          </button>
-          <button
-            type="button"
-            onClick={() => setMode('by-target')}
-            className={
-              mode === 'by-target' ? styles.modeButtonActive : styles.modeButton
-            }
-          >
-            Cari Lot dari Target Avg
-          </button>
-        </div>
+        <span className={styles.sectorBadge}>Simulasi</span>
       </div>
-
       <p className={styles.panelDescription}>
-        Menghitung harga rata-rata baru secara presisi dengan memasukkan{' '}
-        <strong>Fee Beli Stockbit ({feeConfig.buyFeePct}%)</strong>,{' '}
-        <strong>Fee Jual ({feeConfig.sellFeePct}%)</strong>, serta pembulatan{' '}
-        <strong>Fraksi Harga BEI (Rp {tickSize})</strong>.
-      </p>
-
-      <div className={styles.formGrid}>
-        <div className={styles.fieldGroup}>
-          <label htmlFor="sim-existing-lots">Posisi Saat Ini (Lot)</label>
-          <input
-            id="sim-existing-lots"
-            type="text"
-            readOnly
-            value={`${existingLots.toLocaleString('id-ID')} Lot (${(existingLots * 100).toLocaleString('id-ID')} lbr)`}
-            className={styles.readOnlyInput}
-          />
-        </div>
-
-        <div className={styles.fieldGroup}>
-          <label htmlFor="sim-existing-avg">Harga Average Saat Ini</label>
-          <input
-            id="sim-existing-avg"
-            type="text"
-            readOnly
-            value={formatIdr(existingAvgPrice)}
-            className={styles.readOnlyInput}
-          />
-        </div>
-
-        <div className={styles.fieldGroup}>
-          <label htmlFor="sim-buy-price">Harga Beli Baru (Rp / Lembar)</label>
-          <input
-            id="sim-buy-price"
-            type="number"
-            min={1}
-            step={tickSize}
-            value={activeBuyPrice}
-            onChange={(e) => setCustomBuyPrice(Number(e.target.value))}
-            className={styles.numberInput}
-          />
-        </div>
-
-        {mode === 'by-lots' ? (
-          <div className={styles.fieldGroup}>
-            <label htmlFor="sim-additional-lots">
-              Jumlah Lot Beli Tambahan
-            </label>
-            <input
-              id="sim-additional-lots"
-              type="number"
-              min={1}
-              step={1}
-              value={additionalLots}
-              onChange={(e) =>
-                setAdditionalLots(Math.max(0, Number(e.target.value)))
-              }
-              className={styles.numberInput}
-            />
-            <div className={styles.quickLotChips}>
-              {[10, 25, 50, 100].map((preset) => (
-                <button
-                  key={preset}
-                  type="button"
-                  onClick={() => setAdditionalLots(preset)}
-                  className={styles.chipButton}
-                >
-                  +{preset} Lot
-                </button>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className={styles.fieldGroup}>
-            <label htmlFor="sim-target-avg">
-              Target Harga Average Baru (Rp)
-            </label>
-            <input
-              id="sim-target-avg"
-              type="number"
-              min={1}
-              step={tickSize}
-              value={activeTargetAvg}
-              onChange={(e) => setTargetAvgPrice(Number(e.target.value))}
-              className={styles.numberInput}
-            />
-          </div>
+        Posisi sekarang <strong>{holding.lots} lot</strong> pada average{' '}
+        <strong>{formatIdr(holding.avgBuyPrice)}</strong> termasuk biaya beli.
+        Impas jual sekitar{' '}
+        {formatIdr(
+          calculateBreakEvenSellPrice(
+            holding.avgBuyPrice,
+            feeConfig.sellFeePct,
+          ),
         )}
-      </div>
-
-      <details className={styles.feeDetails}>
-        <summary>
-          Pengaturan Biaya Transaksi Stockbit (Beli {feeConfig.buyFeePct}% ·
-          Jual {feeConfig.sellFeePct}%)
-        </summary>
-        <div className={styles.feeConfigGrid}>
-          <div className={styles.fieldGroup}>
-            <label htmlFor="fee-buy-pct">Fee Beli Stockbit (%)</label>
-            <input
-              id="fee-buy-pct"
-              type="number"
-              step="0.01"
-              min="0"
-              max="5"
-              value={feeConfig.buyFeePct}
-              onChange={(e) =>
-                onFeeConfigChange({
-                  ...feeConfig,
-                  buyFeePct: Math.max(0, Number(e.target.value)),
-                })
-              }
-              className={styles.numberInput}
-            />
-          </div>
-          <div className={styles.fieldGroup}>
-            <label htmlFor="fee-sell-pct">
-              Fee Jual Stockbit + PPh Final (%)
-            </label>
-            <input
-              id="fee-sell-pct"
-              type="number"
-              step="0.01"
-              min="0"
-              max="5"
-              value={feeConfig.sellFeePct}
-              onChange={(e) =>
-                onFeeConfigChange({
-                  ...feeConfig,
-                  sellFeePct: Math.max(0, Number(e.target.value)),
-                })
-              }
-              className={styles.numberInput}
-            />
-          </div>
-        </div>
-      </details>
-
-      {!simulation.isFeasible && simulation.validationMessage ? (
-        <div className={styles.warningBox} role="status">
-          {simulation.validationMessage}
-        </div>
-      ) : null}
-
-      <div className={styles.simulationResults}>
-        <div className={styles.resultBoxPrimary}>
-          <span className={styles.resultLabel}>
-            Harga Average Baru (Net Fee)
-          </span>
-          <strong className={styles.resultPrimaryValue}>
-            {formatIdr(simulation.newAvgPrice)}
-          </strong>
-          <span className={styles.resultSub}>
-            Turun dari {formatIdr(existingAvgPrice)} (Lot Baru:{' '}
-            {simulation.newTotalLots.toLocaleString('id-ID')} Lot)
-          </span>
-        </div>
-
-        <div className={styles.resultBoxPrimary}>
-          <span className={styles.resultLabel}>
-            Total Dana Kas yang Harus Disiapkan
-          </span>
-          <strong className={styles.resultPrimaryValue}>
-            {formatIdr(simulation.totalCashNeeded)}
-          </strong>
-          <span className={styles.resultSub}>
-            Beli {simulation.additionalLots.toLocaleString('id-ID')} Lot (Gross{' '}
-            {formatIdr(simulation.grossBuyAmount)} + Fee{' '}
-            {formatIdr(simulation.buyFeeAmount)})
-          </span>
-        </div>
-
-        <div className={styles.resultBox}>
-          <span className={styles.resultLabel}>
-            Harga Jual Impas (Break-Even Sell)
-          </span>
-          <strong className={styles.resultValue}>
-            {formatIdr(simulation.breakEvenSellPrice)}
-          </strong>
-          <span className={styles.resultSub}>
-            Sudah menutup fee jual {feeConfig.sellFeePct}% &amp; fraksi BEI
-          </span>
-        </div>
-
-        <div className={styles.resultBox}>
-          <span className={styles.resultLabel}>
-            Kenaikan untuk Impas (Recovery %)
-          </span>
-          <strong className={styles.resultValue}>
-            {formatPct(simulation.recoveryNeededAfterPct)}
-          </strong>
-          <span className={styles.resultSub}>
-            Sebelum avg down: {formatPct(simulation.recoveryNeededBeforePct)}
-          </span>
-        </div>
-      </div>
-
-      {holding && simulation.isFeasible && simulation.additionalLots > 0 ? (
-        <div className={styles.applySimulationBar}>
-          <p>
-            Sudah mengeksekusi pembelian{' '}
-            <strong>
-              +{simulation.additionalLots} Lot {holding.ticker}
-            </strong>{' '}
-            di harga <strong>{formatIdr(activeBuyPrice)}</strong> pada aplikasi
-            Stockbit?
-          </p>
+        .
+      </p>
+      <div className={styles.modeSwitch} aria-label="Mode simulasi">
+        {(
+          [
+            ['budget', 'Dari anggaran'],
+            ['lots', 'Dari lot'],
+            ['target', 'Target average'],
+          ] as const
+        ).map(([key, label]) => (
           <button
-            type="button"
+            key={key}
+            aria-pressed={mode === key}
+            className={
+              mode === key ? styles.modeButtonActive : styles.modeButton
+            }
             onClick={() => {
-              onApplySimulationToHolding(
-                holding.id,
-                simulation.newTotalLots,
-                Math.round(simulation.newAvgPrice),
-                activeBuyPrice,
-              );
-              setCustomBuyPrice(null);
+              setMode(key);
+              setAmount('');
+              setConfirmed(false);
             }}
-            className={styles.primaryButton}
           >
-            Simpan Posisi Baru ke Portofolio
+            {label}
           </button>
+        ))}
+      </div>
+      <div className={styles.formGrid}>
+        <label className={styles.fieldGroup}>
+          Harga beli rencana (Rp)
+          <input
+            className={styles.numberInput}
+            type="number"
+            min="1"
+            step="any"
+            value={buyPrice}
+            onChange={(e) => {
+              setBuyPrice(e.target.value);
+              setConfirmed(false);
+            }}
+          />
+        </label>
+        <label className={styles.fieldGroup}>
+          {mode === 'budget'
+            ? 'Anggaran maksimum (Rp)'
+            : mode === 'lots'
+              ? 'Lot tambahan'
+              : 'Target average baru (Rp)'}
+          <input
+            className={styles.numberInput}
+            type="number"
+            min="1"
+            step={mode === 'lots' ? '1' : 'any'}
+            value={amount}
+            onChange={(e) => {
+              setAmount(e.target.value);
+              setConfirmed(false);
+            }}
+            placeholder={
+              mode === 'budget'
+                ? 'Contoh: 5000000'
+                : mode === 'lots'
+                  ? 'Contoh: 10'
+                  : 'Di bawah average sekarang'
+            }
+          />
+        </label>
+      </div>
+      {amount && !valid && (
+        <p className={styles.warningBox} role="alert">
+          {result.validationMessage ?? 'Masukkan angka positif yang valid.'}
+        </p>
+      )}
+      <div className={styles.simulationResults} aria-live="polite">
+        <div className={styles.resultBoxPrimary}>
+          <span className={styles.resultLabel}>
+            Average baru · termasuk fee
+          </span>
+          <strong className={styles.resultPrimaryValue}>
+            {money(result.newAvgPrice)}
+          </strong>
+          <small>
+            {valid
+              ? result.newTotalLots +
+                ' lot total (' +
+                result.additionalLots +
+                ' lot tambahan)'
+              : 'Isi rencana pembelian'}
+          </small>
         </div>
-      ) : null}
+        <div className={styles.resultBox}>
+          <span className={styles.resultLabel}>Total dana dibutuhkan</span>
+          <strong className={styles.resultPrimaryValue}>
+            {money(result.totalCashNeeded)}
+          </strong>
+          <small>
+            Fee beli {money(result.buyFeeAmount)}
+            {mode === 'budget' && valid
+              ? ' · Sisa ' + formatIdr(Number(amount) - result.totalCashNeeded)
+              : ''}
+          </small>
+        </div>
+        <div className={styles.resultBox}>
+          <span className={styles.resultLabel}>Estimasi harga jual impas</span>
+          <strong className={styles.resultPrimaryValue}>
+            {money(result.breakEvenSellPrice)}
+          </strong>
+          <small>
+            Termasuk fee jual {feeConfig.sellFeePct}%; perkiraan fraksi harga
+            reguler.
+          </small>
+        </div>
+        <div className={styles.resultBox}>
+          <span className={styles.resultLabel}>Bobot posisi sesudah beli</span>
+          <strong className={styles.resultPrimaryValue}>
+            {valid ? weightAfter.toFixed(1) + '%' : '—'}
+          </strong>
+          <small>
+            Dari {weightBefore.toFixed(1)}% · batas pilihan Anda {limit}%
+          </small>
+        </div>
+      </div>
+      {valid && (
+        <>
+          {result.newAvgPrice >= holding.avgBuyPrice && (
+            <p className={styles.warningBox}>
+              Rencana ini menaikkan average setelah fee, bukan average down.
+            </p>
+          )}
+          {weightAfter > limit && (
+            <p className={styles.warningBox}>
+              Bobot menjadi {weightAfter.toFixed(1)}%, melampaui batas {limit}%.
+              Menurunkan average tidak mengurangi konsentrasi risiko.
+            </p>
+          )}
+          {Number(buyPrice) % getIdxTickSize(Number(buyPrice)) !== 0 && (
+            <p className={styles.sectionSubnote}>
+              Harga rencana mungkin tidak sesuai fraksi reguler. Verifikasi
+              fraksi, papan perdagangan, dan harga previous di sekuritas sebelum
+              memasang order.
+            </p>
+          )}
+          <div className={styles.recommendationBox}>
+            <strong>Jika harga turun lagi 10% dari harga terakhir</strong>
+            <p>
+              Estimasi P/L bersih sebelum tambah: {formatIdr(stressBefore)}.
+              Setelah tambah: {formatIdr(stressAfter)}.
+            </p>
+            <p>
+              Untuk impas dari harga beli rencana:{' '}
+              {formatPct(result.recoveryNeededAfterPct)}. Skenario ini bukan
+              prediksi; bobot memakai harga terakhir dan dana tambahan dari luar
+              portofolio saham.
+            </p>
+          </div>
+          <div className={styles.applySimulationBar}>
+            <label className={styles.checkLabel}>
+              <input
+                type="checkbox"
+                checked={confirmed}
+                onChange={(e) => setConfirmed(e.target.checked)}
+              />{' '}
+              Pembelian ini sudah benar-benar saya lakukan di sekuritas.
+            </label>
+            <button
+              className={styles.primaryButton}
+              disabled={!confirmed}
+              onClick={() => {
+                onApplySimulation(
+                  holding.id,
+                  result.newTotalLots,
+                  result.newAvgPrice,
+                );
+                setConfirmed(false);
+                setAmount('');
+              }}
+            >
+              Catat pembelian ke portofolio
+            </button>
+          </div>
+        </>
+      )}
+      <p className={styles.sectionSubnote}>
+        Simulasi tidak mengirim order. Catat hanya jumlah dan harga yang
+        benar-benar tereksekusi. Biaya lainnya di luar persentase fee belum
+        dihitung.
+      </p>
     </section>
   );
 }
