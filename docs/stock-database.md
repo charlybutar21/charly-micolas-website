@@ -1,8 +1,8 @@
 # Penyimpanan portofolio di Cloudflare D1
 
-Buka /stock, masukkan kunci pemilik, lalu pilih **Hubungkan database**. Kunci diperlukan kembali setelah halaman dimuat ulang. Simpan kunci di password manager. Setelah status **Tersimpan di database** muncul, posisi dan asumsi valuasi bisa dibuka dari perangkat lain menggunakan kunci yang sama. Jika perangkat lain sudah menyimpan perubahan lebih dulu, unduh backup lalu muat ulang sebelum menggabungkan perubahan.
+Buka /stock, masukkan kunci pemilik sebagai password, lalu pilih **Masuk**. Portofolio terbuka otomatis dan sesi berlaku delapan jam. Klik **Keluar** untuk mengunci halaman di browser tersebut. Simpan password di password manager. Setelah status **Tersimpan di database** muncul, posisi dan asumsi valuasi bisa dibuka dari perangkat lain menggunakan kunci yang sama. Jika perangkat lain sudah menyimpan perubahan lebih dulu, unduh backup lalu muat ulang sebelum menggabungkan perubahan.
 
-Untuk migrasi pertama di perangkat yang berisi portofolio, pilih **Salin posisi browser hanya jika database kosong**. Data browser asal tetap tersedia. Backup JSON dan akses lokal juga tersedia.
+Untuk memindahkan posisi dari backup JSON, pilih **Impor / tempel tabel** dan periksa pratinjau sebelum menerapkan perubahan. Backup JSON dan akses lokal juga tersedia.
 
 ## Konfigurasi pemilik situs
 
@@ -13,3 +13,4 @@ Untuk migrasi pertama di perangkat yang berisi portofolio, pilih **Salin posisi 
 5. Deploy ulang setelah binding dan secret disimpan. Buka /stock, hubungkan database, simpan posisi, lalu verifikasi dari browser lain dengan kunci yang sama.
 
 Secret ini memberikan akses baca dan tulis seluruh portofolio pada satu environment. Rotasi kunci melalui Cloudflare bila perlu. [Dokumentasi binding D1 di Pages](https://developers.cloudflare.com/pages/functions/bindings/#d1-databases)
+

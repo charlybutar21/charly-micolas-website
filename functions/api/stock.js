@@ -1,3 +1,4 @@
+import { hasSession, matchesOwner } from '../../app/lib/stock-auth';
 import { parseStockBackupJson } from '../../app/lib/stock-storage';
 
 const headers = {
@@ -6,12 +7,6 @@ const headers = {
 };
 const reply = (data, status = 200) => Response.json(data, { status, headers });
 
-async function digest(value) {
-  return new Uint8Array(
-    await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value)),
-  );
-}
-
 export async function onRequest({ request, env }) {
   if (!env.STOCK_DB || !env.STOCK_OWNER_KEY || env.STOCK_OWNER_KEY.length < 32)
     return reply(
@@ -19,16 +14,11 @@ export async function onRequest({ request, env }) {
       503,
     );
   const token = request.headers.get('Authorization') ?? '';
-  if (!token.startsWith('Bearer ') || token.length > 300)
-    return reply({ error: 'Kunci akses diperlukan.' }, 401);
-  const [actual, expected] = await Promise.all([
-    digest(token.slice(7)),
-    digest(env.STOCK_OWNER_KEY),
-  ]);
-  let difference = 0;
-  for (let i = 0; i < expected.length; i++)
-    difference |= actual[i] ^ expected[i];
-  if (difference) return reply({ error: 'Kunci akses salah.' }, 401);
+  const allowed = token
+    ? token.startsWith('Bearer ') &&
+      (await matchesOwner(token.slice(7), env.STOCK_OWNER_KEY))
+    : await hasSession(request, env.STOCK_OWNER_KEY);
+  if (!allowed) return reply({ error: 'Kunci akses salah.' }, 401);
   try {
     if (request.method === 'GET') {
       const row = await env.STOCK_DB.prepare(
