@@ -67,6 +67,12 @@ export async function onRequest({ request, env, next }) {
   if (!(await hasSession(request, owner))) return login();
   const upstream = await next();
   const response = new Response(upstream.body, upstream);
+  const policy = response.headers.get('Content-Security-Policy');
+  if (policy)
+    response.headers.set(
+      'Content-Security-Policy',
+      policy.replace("form-action 'none'", "form-action 'self'"),
+    );
   for (const [key, value] of Object.entries(privateHeaders))
     response.headers.set(key, value);
   if (response.headers.get('Content-Type')?.includes('text/html'))
