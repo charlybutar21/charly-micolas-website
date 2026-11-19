@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useSyncExternalStore } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { StockServer } from '@/app/lib/stock-server';
 import { initialStockbitFees } from '@/app/data/stocks';
 import {
@@ -24,9 +24,39 @@ export default function StockDatabase() {
     server: StockServer;
     data: StoredPortfolioState;
   } | null>(null);
+  const [error, setError] = useState('');
+  const [cookieMode, setCookieMode] = useState(false);
+  useEffect(() => {
+    if (!document.querySelector('meta[name="stock-session"]')) return;
+    let active = true;
+    const server = new StockServer();
+    server
+      .load()
+      .then((data) => {
+        if (!active) return;
+        setCookieMode(true);
+        setSession({
+          server,
+          data: data ?? {
+            version: 2,
+            exportedAt: new Date().toISOString(),
+            feeConfig: initialStockbitFees,
+            holdings: [],
+          },
+        });
+      })
+      .catch(() => {
+        if (active)
+          setError(
+            'Gagal memuat database. Muat ulang halaman untuk mencoba lagi.',
+          );
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
   const [key, setKey] = useState('');
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState('');
   const [selectedLocal, setLocal] = useState(false);
   const rememberedLocal = useSyncExternalStore(
     subscribe,
@@ -122,6 +152,11 @@ export default function StockDatabase() {
             </button>
           )}
         </section>
+      )}
+      {cookieMode && (
+        <form method="post" action="/stock?keluar">
+          <button className={styles.secondaryButton}>Keluar</button>
+        </form>
       )}
       {session ? (
         <StockWorkspace

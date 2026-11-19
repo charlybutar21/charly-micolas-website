@@ -6,12 +6,15 @@ import type { StockHolding, StockbitFeeConfig } from '../types/stock';
 
 export class StockServer {
   private revision = 0;
-  constructor(private readonly key: string) {}
+  constructor(private readonly key = '') {}
   private async request(options: RequestInit = {}) {
     const response = await fetch('/api/stock', {
       ...options,
       cache: 'no-store',
-      headers: { ...options.headers, Authorization: 'Bearer ' + this.key },
+      headers: {
+        ...options.headers,
+        ...(this.key ? { Authorization: 'Bearer ' + this.key } : {}),
+      },
     });
     if (!response.headers.get('Content-Type')?.includes('application/json'))
       throw new Error('API database belum aktif di situs ini.');
