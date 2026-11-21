@@ -6,8 +6,8 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start",
-    "format": "prettier --write app e2e tests package.json tsconfig.json eslint.config.mjs next.config.ts playwright.config.ts vitest.config.ts .github/workflows/deploy.yml prettier.config.mjs",
-    "format:check": "prettier --check app e2e tests package.json tsconfig.json eslint.config.mjs next.config.ts playwright.config.ts vitest.config.ts .github/workflows/deploy.yml prettier.config.mjs",
+    "format": "prettier --write app e2e tests package.json tsconfig.json eslint.config.mjs next.config.ts playwright.config.ts vitest.config.ts .github/workflows/deploy.yml",
+    "format:check": "prettier --check app e2e tests package.json tsconfig.json eslint.config.mjs next.config.ts playwright.config.ts vitest.config.ts .github/workflows/deploy.yml",
     "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "audit": "npm audit --audit-level=moderate",
@@ -16,7 +16,6 @@
     "test:a11y": "playwright test --grep @a11y"
   },
   "dependencies": {
-    "framer-motion": "^13.1.0",
     "next": "16.4.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",

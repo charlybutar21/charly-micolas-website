@@ -7,7 +7,7 @@ for (const route of ['/', '/about', '/experiences', '/writing', '/contact']) {
   }) => {
     await page.goto(route);
 
-    await page.waitForTimeout(1000); // wait for framer-motion animations to finish
+    await page.waitForTimeout(1000); // wait for CSS reveal animations to finish
     const results = await new AxeBuilder({ page }).analyze();
 
     expect(results.violations).toEqual([]);

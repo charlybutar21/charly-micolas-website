@@ -1,4 +1,5 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { SITE_URL } from '@/app/lib/site';
 
 export const dynamic = 'force-static';
 
@@ -7,8 +8,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/stock', '/stock/'],
     },
-    sitemap: 'https://www.charlymicolas.com/sitemap.xml',
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

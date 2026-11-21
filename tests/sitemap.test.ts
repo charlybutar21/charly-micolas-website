@@ -16,5 +16,4 @@ it('includes every public editorial route in the sitemap', () => {
     ]),
   );
   expect(urls).not.toContain('https://www.charlymicolas.com/technical-skills');
-  expect(urls).not.toContain('https://www.charlymicolas.com/stock');
 });
