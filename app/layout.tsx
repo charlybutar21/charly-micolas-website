@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Fira_Code } from 'next/font/google';
 import SiteShell from '@/app/components/layout/SiteShell';
+import { SITE_NAME, SITE_URL } from '@/app/lib/site';
 import './globals.css';
 
 const jakarta = Plus_Jakarta_Sans({
@@ -14,13 +15,13 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.charlymicolas.com'),
-  title: 'Charly Micolas Butarbutar | Senior Software Engineer',
+  metadataBase: new URL(SITE_URL),
+  title: `${SITE_NAME} | Senior Software Engineer`,
   description:
     'Personal portfolio of Charly Micolas Butarbutar, also known as Charly Butarbutar or Charly Micolas. Senior Software Engineer focused on backend systems and technical leadership.',
   keywords: [
     'Charly Micolas',
-    'Charly Micolas Butarbutar',
+    SITE_NAME,
     'Backend Engineer',
     'Software Engineer',
     'Tech Lead',
@@ -31,21 +32,19 @@ export const metadata: Metadata = {
     'Microservices',
     'PostgreSQL',
   ],
-  authors: [
-    { name: 'Charly Micolas Butarbutar', url: 'https://www.charlymicolas.com' },
-  ],
-  creator: 'Charly Micolas Butarbutar',
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.charlymicolas.com',
-    title: 'Charly Micolas Butarbutar | Senior Software Engineer',
+    url: SITE_URL,
+    title: `${SITE_NAME} | Senior Software Engineer`,
     description:
       'Editorial portfolio of Charly Micolas Butarbutar, a backend-focused Senior Software Engineer specialising in technical leadership, service integration, and reliable delivery.',
-    siteName: 'Charly Micolas Butarbutar',
+    siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary',

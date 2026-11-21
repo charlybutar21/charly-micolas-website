@@ -1,8 +1,7 @@
 import Link from 'next/link';
-
 import { portfolioData } from '@/app/data';
+import { formatWritingStatus } from '@/app/lib/site';
 import FadeIn from '@/app/components/shared/FadeIn';
-
 import styles from './WritingList.module.css';
 
 export default function WritingList() {
@@ -18,9 +17,7 @@ export default function WritingList() {
           <p className={styles.number}>{String(index + 1).padStart(2, '0')}</p>
           <div className={styles.content}>
             <div className={styles.meta}>
-              <span>
-                {post.status === 'Draft' ? 'Draft note' : post.status}
-              </span>
+              <span>{formatWritingStatus(post.status)}</span>
               <span>{post.publishedOn}</span>
               <span>{post.readingTime}</span>
             </div>

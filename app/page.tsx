@@ -1,10 +1,37 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import FadeIn from '@/app/components/shared/FadeIn';
-import { portfolioData } from './data';
+import { portfolioData } from '@/app/data';
+import { SITE_ALTERNATE_NAMES, SITE_NAME, SITE_URL } from '@/app/lib/site';
 import styles from './page.module.css';
 
+const structuredData = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: SITE_NAME,
+      alternateName: SITE_ALTERNATE_NAMES,
+      publisher: { '@id': `${SITE_URL}/#person` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#person`,
+      name: SITE_NAME,
+      alternateName: SITE_ALTERNATE_NAMES,
+      url: `${SITE_URL}/`,
+      image: `${SITE_URL}/images/charly.png`,
+      jobTitle: portfolioData.hero.role,
+      sameAs: [portfolioData.contact.linkedin, portfolioData.contact.github],
+    },
+  ],
+}).replace(/</g, '\\u003c');
+
 export default function Home() {
+  const latestRole = portfolioData.experience[0];
+
   return (
     <section className={styles.home}>
       <div className={styles.meta}>
@@ -18,34 +45,7 @@ export default function Home() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@graph': [
-              {
-                '@type': 'WebSite',
-                '@id': 'https://www.charlymicolas.com/#website',
-                url: 'https://www.charlymicolas.com/',
-                name: 'Charly Micolas Butarbutar',
-                alternateName: ['Charly Butarbutar', 'Charly Micolas'],
-                publisher: { '@id': 'https://www.charlymicolas.com/#person' },
-              },
-              {
-                '@type': 'Person',
-                '@id': 'https://www.charlymicolas.com/#person',
-                name: 'Charly Micolas Butarbutar',
-                alternateName: ['Charly Butarbutar', 'Charly Micolas'],
-                url: 'https://www.charlymicolas.com/',
-                image: 'https://www.charlymicolas.com/images/charly.png',
-                jobTitle: 'Senior Software Engineer',
-                sameAs: [
-                  'https://linkedin.com/in/charly-micolas',
-                  'https://github.com/charlybutar21',
-                ],
-              },
-            ],
-          }).replace(/</g, '\\u003c'),
-        }}
+        dangerouslySetInnerHTML={{ __html: structuredData }}
       />
 
       <div className={styles.hero}>
@@ -110,10 +110,9 @@ export default function Home() {
 
         <FadeIn delay={0.16} className={styles.overviewSection}>
           <h2>Latest Role</h2>
-          <h3>{portfolioData.experience[0].role}</h3>
+          <h3>{latestRole.role}</h3>
           <p>
-            {portfolioData.experience[0].company} ·{' '}
-            {portfolioData.experience[0].period}
+            {latestRole.company} · {latestRole.period}
           </p>
           <Link href="/experiences" className={styles.textLink}>
             View all experiences <span aria-hidden="true">→</span>
