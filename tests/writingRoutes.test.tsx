@@ -26,9 +26,9 @@ it('renders beginner analogies, practical examples, tables, and source repositor
   expect(markup).toContain('Personal notes');
   expect(markup).not.toContain('05 / Writing');
   expect(markup).toContain('In this guide');
-  expect(markup).toContain('Beginner Analogy: The Restaurant Kitchen');
+  expect(markup).toContain('Analogi Pemula: Dapur Restoran');
   expect(markup).toContain(
-    'Step-by-Step Practical Pattern: Cache-Aside (Lazy Loading)',
+    'Pola Praktis Langkah demi Langkah: Cache-Aside (Lazy Loading)',
   );
   expect(markup).toContain('https://github.com/charlybutar21/system-design');
   expect(markup).toContain('Open github.com/charlybutar21/system-design');
