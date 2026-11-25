@@ -53,7 +53,8 @@ export const writingPosts: WritingPost[] = [
           'Terakhir, request sampai di Load Balancer (atau Reverse Proxy seperti NGINX dan Cloudflare) yang berjaga di depan kumpulan server backend. Layaknya petugas pengatur lalu lintas, Load Balancer meneruskan request tersebut ke salah satu server yang sedang sehat.',
         ],
         analogy: {
-          title: 'Analogi Pemula: Kurir Dokumen Resmi vs. Telepon Video Langsung',
+          title:
+            'Analogi Pemula: Kurir Dokumen Resmi vs. Telepon Video Langsung',
           text: 'TCP itu mirip mengirim dokumen kontrak lewat kurir tercatat: setiap halaman diberi nomor urut, dan kalau halaman 3 terselip, penerima akan meminta halaman 3 dikirim ulang sebelum lanjut membaca. UDP itu mirip ngobrol lewat video call: kalau gambarnya sempat patah selama 0,1 detik, kamu tentu tidak mau videonya berhenti lalu memutar ulang kalimat 2 detik yang lalu. Kamu ingin obrolannya tetap jalan secara real-time.',
         },
         table: {
@@ -98,7 +99,8 @@ export const writingPosts: WritingPost[] = [
       {
         id: 'caching-and-cdn-in-practice',
         eyebrow: '03 · Speed & Low Latency',
-        title: 'Caching (Redis) & CDN: Membuat Sistem Lambat Jadi 1.000x Lebih Cepat',
+        title:
+          'Caching (Redis) & CDN: Membuat Sistem Lambat Jadi 1.000x Lebih Cepat',
         paragraphs: [
           'Bagian paling lambat dari hampir setiap request web adalah proses membaca data dari disk database. Membaca data dari RAM (penyimpanan in-memory seperti Redis atau Memcached) hanya butuh sekitar 100 nanodetik, sedangkan membaca dari SSD database butuh sekitar 100 mikrodetik. Artinya, membaca dari RAM kurang lebih 1.000 kali lebih cepat dibanding membaca dari disk.',
           'Cache menyimpan hasil query database yang berat atau perhitungan yang sering diminta di dalam RAM, jadi aplikasi tidak perlu bolak-balik membebani database untuk mengambil data yang sama. Sementara itu, CDN (Content Delivery Network seperti Cloudflare atau AWS CloudFront) menyimpan file statis (gambar, CSS, JS, video) di server-server edge yang tersebar di berbagai kota agar lokasinya dekat dengan pengguna.',
@@ -108,7 +110,8 @@ export const writingPosts: WritingPost[] = [
           text: 'Database utama itu ibarat perpustakaan besar di ujung kota: koleksinya lengkap, tapi butuh 30 menit perjalanan ke sana. Redis Cache ibarat laci kecil di meja kerjamu tempat menyimpan 5 buku catatan yang kamu buka setiap jam. Sedangkan CDN ibarat menaruh salinan buku terlaris di kios-kios dekat perumahan warga supaya pembaca tidak perlu jauh-jauh datang ke perpustakaan pusat.',
         },
         example: {
-          title: 'Pola Praktis Langkah demi Langkah: Cache-Aside (Lazy Loading)',
+          title:
+            'Pola Praktis Langkah demi Langkah: Cache-Aside (Lazy Loading)',
           description:
             'Cache-Aside adalah pola caching yang paling sering dipakai di sistem backend. Berikut alur kerja API saat menangani request seperti GET /products/101:',
           steps: [
@@ -205,8 +208,7 @@ LIMIT 50;`,
           'Pada Database Sharding (Horizontal Partitioning), kamu memecah satu tabel raksasa berisi 500 juta baris menjadi beberapa bagian lebih kecil (disebut shard) yang disimpan di server database terpisah. Misalnya, Shard 1 menyimpan pengguna dengan ID 1 sampai 10 juta, Shard 2 menyimpan ID 10 juta sampai 20 juta, atau datanya disebar merata menggunakan algoritma Consistent Hashing.',
         ],
         analogy: {
-          title:
-            'Analogi Pemula: Teorema CAP (Consistency vs. Availability)',
+          title: 'Analogi Pemula: Teorema CAP (Consistency vs. Availability)',
           text: 'Bayangkan kamu dan pasanganmu punya rekening bank bersama dengan saldo Rp1.000.000, lalu ada dua mesin ATM di dua kota berbeda. Tiba-tiba, kabel jaringan antar-kota tersebut putus (terjadi Network Partition). Saat kamu menarik Rp1.000.000 di ATM 1 dan di saat bersamaan pasanganmu menarik Rp1.000.000 di ATM 2, pihak bank hanya punya dua pilihan: 1) Consistency (CP): Membekukan transaksi sementara dan menolak penarikan sampai kabel jaringan tersambung lagi, supaya saldo Rp1.000.000 tidak bisa ditarik menjadi Rp2.000.000. 2) Availability (AP): Tetap mengeluarkan uang agar nasabah tidak kecewa, lalu membereskan selisih saldonya belakangan setelah jaringan kembali normal.',
         },
         highlights: [
@@ -239,7 +241,8 @@ LIMIT 50;`,
           text: 'Di sistem synchronous, kasir menerima uangmu, lalu berjalan sendiri ke mesin espresso, memanaskan susu, dan meracik kopi selama 4 menit sementara 20 pelanggan lain mengantre dengan kesal di belakangmu. Di sistem Message Queue yang asynchronous, kasir cukup memproses pembayaranmu dalam 10 detik, menyerahkan struk, lalu menaruh gelas pesananmu di meja antrean barista. Para barista di belakang (Workers) mengambil gelas dari antrean satu per satu, sementara kasir bisa langsung melayani pelanggan berikutnya.',
         },
         example: {
-          title: 'Arsitektur Checkout Praktis: Kombinasi Queue & Pub/Sub Fanout',
+          title:
+            'Arsitektur Checkout Praktis: Kombinasi Queue & Pub/Sub Fanout',
           description:
             'Berikut cara backend e-commerce menangani event OrderPaid secara rapi tanpa membuat antar-service saling bergantung:',
           steps: [
@@ -366,7 +369,8 @@ Content-Type: application/json
           ],
         },
         table: {
-          caption: 'Cheat Sheet Arsitek: Masalah → Pilihan Teknologi yang Tepat',
+          caption:
+            'Cheat Sheet Arsitek: Masalah → Pilihan Teknologi yang Tepat',
           headers: [
             'Kebutuhan / Masalah Sistem',
             'Solusi & Teknologi yang Direkomendasikan',
