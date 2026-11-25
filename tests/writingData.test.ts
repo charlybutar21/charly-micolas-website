@@ -13,7 +13,7 @@ describe('writing data', () => {
 
     const guide = portfolioData.writing[0];
     expect(guide.sections).toHaveLength(9);
-    expect(guide.sections?.[0].analogy?.title).toContain('Beginner Analogy');
+    expect(guide.sections?.[0].analogy?.title).toContain('Analogi Pemula');
     expect(guide.sections?.[2].example?.code).toContain('getProduct');
     expect(guide.externalResource?.url).toBe(
       'https://github.com/charlybutar21/system-design',
